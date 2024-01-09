@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "674820714654",
+    "project_id": "empowering-questions",
+    "storage_bucket": "empowering-questions.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:674820714654:android:360cc61da3631d7b81cb8f",
+        "android_client_info": {
+          "package_name": "com.example.empowering_questions_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "674820714654-kdo6k1ve6904tj6sjf5psktdq3tc7dcl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTbIENDHl6gM2fLvwhmGUxoFD_O5-wAqU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "674820714654-5q5gj2n319qodl6i4mlku04g33erh91g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
