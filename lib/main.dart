@@ -2,6 +2,7 @@
 import 'package:empowering_questions_mobile/firebase_options.dart';
 import 'package:empowering_questions_mobile/home_page.dart';
 import 'package:empowering_questions_mobile/login_page.dart';
+import 'package:empowering_questions_mobile/register_page/register_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +30,8 @@ final GoRouter router = GoRouter(
         return LoginPage();
       },
     ),
+    GoRoute(path: '/register', builder: (context, state) => RegisterPage(),),
+    
   ],
 );
 

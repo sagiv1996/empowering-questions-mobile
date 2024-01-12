@@ -30,7 +30,12 @@ class _HomePageState extends State<HomePage> {
                 onPressed: () async {
                   context.go('/login-page');
                 },
-                child: Text('login page'))
+                child: Text('login page')),
+            ElevatedButton(
+                onPressed: () async {
+                  context.go('/register');
+                },
+                child: Text('register')),
           ],
         ),
       ),
