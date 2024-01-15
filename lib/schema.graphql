@@ -1,0 +1,58 @@
+type QuestionType {
+  id: String!
+  string: String!
+  category: Categories!
+  gender: Genders!
+}
+
+enum Categories {
+  selfConfidence
+  relationship
+  positiveFeelings
+  communication
+  spiritualQuestions
+  career
+  familyLife
+  universityStudies
+}
+
+enum Genders {
+  male
+  female
+}
+
+type UserType {
+  firebaseId: String!
+  frequency: Frequency!
+  gender: Genders!
+  categories: [Categories!]!
+}
+
+enum Frequency {
+  little
+  normal
+  extra
+}
+
+type Query {
+  findRandom(category: [Categories!]!, gender: Genders!): [QuestionType!]!
+}
+
+type Mutation {
+  createQuestion(
+    string: String!
+    category: Categories!
+    gender: Genders!
+  ): QuestionType!
+  rankQuestion(
+    questionId: String!
+    userId: String!
+    rank: Float!
+  ): QuestionType!
+  createUser(
+    firebaseId: String!
+    frequency: Frequency!
+    gender: Genders!
+    categories: [Categories!]!
+  ): UserType!
+}

@@ -1,6 +1,9 @@
+import 'package:change_case/change_case.dart';
 import 'package:chat_bubbles/chat_bubbles.dart';
 import 'package:empowering_questions_mobile/controller/user_controller.dart';
 import 'package:empowering_questions_mobile/register_page/mangment_categories.dart';
+import 'package:empowering_questions_mobile/schema.graphql.dart';
+import 'package:empowering_questions_mobile/user.graphql.dart';
 import 'package:flutter/material.dart';
 import 'package:group_button/group_button.dart';
 
@@ -17,9 +20,10 @@ class _RegisterPageState extends State<RegisterPage> {
   final ScrollController _scrollController = ScrollController();
   String _state = '';
 
-  late String _gender;
-  List<String> _categories = List<String>.empty(growable: true);
-  late String _frequency;
+  late Enum$Genders _gender;
+  late List<Enum$Categories> _categories =
+      List<Enum$Categories>.empty(growable: true);
+  late Enum$Frequency _frequency;
 
   @override
   void initState() {
@@ -100,12 +104,17 @@ class _RegisterPageState extends State<RegisterPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             GroupButton(
-              buttons: ['male', 'famle'],
-              options: GroupButtonOptions(),
+              buttons: Enum$Genders.values
+                  .where((gender) => gender != Enum$Genders.$unknown)
+                  .toList(),
+              buttonTextBuilder: (selected, value, context) {
+                return value.name;
+              },
               onSelected: (value, index, isSelected) {
                 _gender = value;
+
                 _changeState(state: '');
-                _addNewMessage(isSender: true, text: value);
+                _addNewMessage(isSender: true, text: value.name);
                 _addNewMessage(
                     isSender: false,
                     text: 'Great, I wrote it down',
@@ -126,11 +135,13 @@ class _RegisterPageState extends State<RegisterPage> {
         response = Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            MangmentCategories(onUpdateCategories: (List<String> categories) {
+            MangmentCategories(
+                onUpdateCategories: (List<Enum$Categories> categories) {
               _changeState(state: '');
               categories.forEach((element) => {
-                    _categories.add(element),
-                    _addNewMessage(isSender: true, text: element)
+                    _categories.add(element as Enum$Categories),
+                    _addNewMessage(
+                        isSender: true, text: element.name.toNoCase())
                   });
               _addNewMessage(
                   isSender: false,
@@ -163,14 +174,19 @@ class _RegisterPageState extends State<RegisterPage> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             GroupButton(
-              buttons: ['little', 'normal', 'extra'],
+              buttons: Enum$Frequency.values
+                  .where((frequency) => frequency != Enum$Frequency.$unknown)
+                  .toList(),
+              buttonTextBuilder: (selected, value, context) {
+                return value.name;
+              },
               onSelected: (value, index, isSelected) {
                 _changeState(state: '');
                 _frequency = value;
-                _addNewMessage(isSender: true, text: value);
+                _addNewMessage(isSender: true, text: value.name);
                 _addNewMessage(
                     isSender: false,
-                    text: "$value it's great",
+                    text: "${value.name} it's great",
                     durationInMilliSeconds: 500);
                 _addNewMessage(
                     isSender: false,
@@ -189,19 +205,28 @@ class _RegisterPageState extends State<RegisterPage> {
         );
         break;
       case 'done':
-        response = ElevatedButton(
-            onPressed: () {
-              print(
-                  "firebaseId: ${UserController.user!.uid} gender $_gender, categories $_categories, frequency $_frequency");
-            },
-            child: Text("Next Screen"));
+        response = Mutation$createUser$Widget(builder: (runMutation, result) {
+          if (result!.isLoading) return Card(child: Text("Loading..."));
+          return ElevatedButton(
+              onPressed: () {
+                runMutation(Variables$Mutation$createUser(
+                  firebaseId: UserController.user!.uid,
+                  frequency: _frequency,
+                  gender: _gender,
+                  categories: _categories,
+                ));
+              },
+              child: Text("Next Screen"));
+        }, options: WidgetOptions$Mutation$createUser(
+          onCompleted: (p0, p1) {
+            print("Move to next screen");
+          },
+        ));
+
         break;
     }
-    return
-        // GraphQLProvider(child: Text("TEST TEST TEST "), );
-        Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(child: response));
+    return Align(
+        alignment: Alignment.bottomCenter, child: Container(child: response));
   }
 
   @override

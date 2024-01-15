@@ -1,0 +1,18 @@
+mutation createUser(
+  $firebaseId: String!
+  $frequency: Frequency!
+  $gender: Genders!
+  $categories: [Categories!]!
+) {
+  createUser(
+    firebaseId: $firebaseId
+    frequency: $frequency
+    gender: $gender
+    categories: $categories
+  ) {
+    firebaseId
+    gender
+    frequency
+    categories
+  }
+}

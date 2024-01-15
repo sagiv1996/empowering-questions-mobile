@@ -1,0 +1,5 @@
+query findRandom($categories: [Categories!]!, $gender: Genders!) {
+  findRandom(category: $categories, gender: $gender) {
+    string
+  }
+}
