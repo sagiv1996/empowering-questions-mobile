@@ -1,4 +1,3 @@
-
 import 'package:empowering_questions_mobile/firebase_options.dart';
 import 'package:empowering_questions_mobile/home_page.dart';
 import 'package:empowering_questions_mobile/login_page.dart';
@@ -11,6 +10,7 @@ import 'package:go_router/go_router.dart';
 late final FirebaseApp app;
 late final FirebaseAuth auth;
 Future<void> main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
@@ -30,8 +30,10 @@ final GoRouter router = GoRouter(
         return LoginPage();
       },
     ),
-    GoRoute(path: '/register', builder: (context, state) => RegisterPage(),),
-    
+    GoRoute(
+      path: '/register',
+      builder: (context, state) => RegisterPage(),
+    ),
   ],
 );
 
