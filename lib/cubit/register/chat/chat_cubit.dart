@@ -18,12 +18,11 @@ class ChatCubit extends Cubit<ChatState> {
 
     Future.delayed(
         Duration(milliseconds: delayInMilliSeconds),
-        () => emit(ChatState(
-              messages: state.messages..add(newMessage),
-              showGenderSelection: showGenderSelection,
-              showCategoriesSelection: showCategoriesSelection,
-              showFrequencySelection: showFrequencySelection,
-              showNotificationSelection: showNotificationSelection,
-            )));
+        () => emit(state.copyWith(
+            messages: state.messages..add(newMessage),
+            showCategoriesSelection: showCategoriesSelection,
+            showFrequencySelection: showFrequencySelection,
+            showGenderSelection: showGenderSelection,
+            showNotificationSelection: showNotificationSelection)));
   }
 }
