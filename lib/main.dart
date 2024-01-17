@@ -1,3 +1,4 @@
+import 'package:empowering_questions_mobile/controller/firebase_messaging_controller.dart';
 import 'package:empowering_questions_mobile/env/env.dart';
 import 'package:empowering_questions_mobile/firebase_options.dart';
 import 'package:empowering_questions_mobile/home_page.dart';
@@ -13,7 +14,9 @@ late final FirebaseApp app;
 late final FirebaseAuth auth;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await FireBaseMessagingController.initNotifications();
   runApp(const MyApp());
 }
 

@@ -1,11 +1,13 @@
 import 'package:change_case/change_case.dart';
 import 'package:chat_bubbles/chat_bubbles.dart';
+import 'package:empowering_questions_mobile/controller/firebase_messaging_controller.dart';
 import 'package:empowering_questions_mobile/controller/user_controller.dart';
 import 'package:empowering_questions_mobile/cubit/register/chat/chat_cubit.dart';
 import 'package:empowering_questions_mobile/cubit/register/frequency/frequency_cubit.dart';
 import 'package:empowering_questions_mobile/register_page/mangment_categories.dart';
 import 'package:empowering_questions_mobile/schema.graphql.dart';
 import 'package:empowering_questions_mobile/user.graphql.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:group_button/group_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -190,31 +192,39 @@ class _RegisterPageState extends State<RegisterPage> {
                               return const Card(child: Text("Loading..."));
                             }
 
-                            return ElevatedButton(
-                                onPressed: () {
-                                  Enum$Genders gender = context
-                                      .read<GenderCubit>()
-                                      .state
-                                      .selectedGender!;
+                            return Column(
+                              children: [
+                                TextButton(
+                                    onPressed: () => FireBaseMessagingController
+                                        .handlerPermission(),
+                                    child: Text("NOTI")),
+                                ElevatedButton(
+                                    onPressed: () {
+                                      Enum$Genders gender = context
+                                          .read<GenderCubit>()
+                                          .state
+                                          .selectedGender!;
 
-                                  List<Enum$Categories> categories = context
-                                      .read<CategoryCubit>()
-                                      .state
-                                      .selectedCategories!;
+                                      List<Enum$Categories> categories = context
+                                          .read<CategoryCubit>()
+                                          .state
+                                          .selectedCategories!;
 
-                                  Enum$Frequency frequency = context
-                                      .read<FrequencyCubit>()
-                                      .state
-                                      .selectedFrequency!;
+                                      Enum$Frequency frequency = context
+                                          .read<FrequencyCubit>()
+                                          .state
+                                          .selectedFrequency!;
 
-                                  runMutation(Variables$Mutation$createUser(
-                                    firebaseId: UserController.user!.uid,
-                                    frequency: frequency,
-                                    gender: gender,
-                                    categories: categories,
-                                  ));
-                                },
-                                child: Text("Register to app"));
+                                      runMutation(Variables$Mutation$createUser(
+                                        firebaseId: UserController.user!.uid,
+                                        frequency: frequency,
+                                        gender: gender,
+                                        categories: categories,
+                                      ));
+                                    },
+                                    child: Text("Register to app")),
+                              ],
+                            );
                           }, options: WidgetOptions$Mutation$createUser(
                             onCompleted: (p0, p1) {
                               print("Move to next screen");
