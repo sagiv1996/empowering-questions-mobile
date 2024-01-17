@@ -179,7 +179,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                           const Message(
                                               text:
                                                   "All we have to do is confirm the notifications"),
-                                        ], showFrequencySelection: true);
+                                        ], showNotificationSelection: true);
                                       }))
                             ],
                           )
