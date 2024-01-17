@@ -3,6 +3,11 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 class FireBaseMessagingController {
   static final _firebaseMessaging = FirebaseMessaging.instance;
 
+  static Future<bool> get permissionIsOK => _firebaseMessaging.isSupported();
+
+
+  
+
   static Future<void> handlerPermission() =>
       _firebaseMessaging.requestPermission();
 

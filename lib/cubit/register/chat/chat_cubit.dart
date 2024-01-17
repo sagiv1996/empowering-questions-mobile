@@ -11,7 +11,7 @@ class ChatCubit extends Cubit<ChatState> {
       {bool showCategoriesSelection = false,
       bool showFrequencySelection = false,
       bool showGenderSelection = false,
-      bool showNotificationSelection = false}) async {
+      bool showRegisterSelection = false}) async {
     resetSelections();
     for (Message message in messages) {
       if (!message.isSender) {
@@ -22,12 +22,12 @@ class ChatCubit extends Cubit<ChatState> {
     if (showCategoriesSelection ||
         showFrequencySelection ||
         showGenderSelection ||
-        showNotificationSelection) {
+        showRegisterSelection) {
       emit(state.copyWith(
           showCategoriesSelection: showCategoriesSelection,
           showFrequencySelection: showFrequencySelection,
           showGenderSelection: showGenderSelection,
-          showNotificationSelection: showNotificationSelection));
+          showRegisterSelection: showRegisterSelection));
     }
   }
 
@@ -36,6 +36,6 @@ class ChatCubit extends Cubit<ChatState> {
         showCategoriesSelection: false,
         showFrequencySelection: false,
         showGenderSelection: false,
-        showNotificationSelection: false));
+        showRegisterSelection: false));
   }
 }

@@ -181,50 +181,42 @@ class _RegisterPageState extends State<RegisterPage> {
                                           const Message(
                                               text:
                                                   "All we have to do is confirm the notifications"),
-                                        ], showNotificationSelection: true);
+                                        ], showRegisterSelection: true);
                                       }))
                             ],
                           )
-                        else if (state.showNotificationSelection)
+                        else if (state.showRegisterSelection)
                           Mutation$createUser$Widget(
                               builder: (runMutation, result) {
                             if (result!.isLoading) {
                               return const Card(child: Text("Loading..."));
                             }
 
-                            return Column(
-                              children: [
-                                TextButton(
-                                    onPressed: () => FireBaseMessagingController
-                                        .handlerPermission(),
-                                    child: Text("NOTI")),
-                                ElevatedButton(
-                                    onPressed: () {
-                                      Enum$Genders gender = context
-                                          .read<GenderCubit>()
-                                          .state
-                                          .selectedGender!;
+                            return ElevatedButton(
+                                onPressed: () {
+                                  Enum$Genders gender = context
+                                      .read<GenderCubit>()
+                                      .state
+                                      .selectedGender!;
 
-                                      List<Enum$Categories> categories = context
-                                          .read<CategoryCubit>()
-                                          .state
-                                          .selectedCategories!;
+                                  List<Enum$Categories> categories = context
+                                      .read<CategoryCubit>()
+                                      .state
+                                      .selectedCategories!;
 
-                                      Enum$Frequency frequency = context
-                                          .read<FrequencyCubit>()
-                                          .state
-                                          .selectedFrequency!;
+                                  Enum$Frequency frequency = context
+                                      .read<FrequencyCubit>()
+                                      .state
+                                      .selectedFrequency!;
 
-                                      runMutation(Variables$Mutation$createUser(
-                                        firebaseId: UserController.user!.uid,
-                                        frequency: frequency,
-                                        gender: gender,
-                                        categories: categories,
-                                      ));
-                                    },
-                                    child: Text("Register to app")),
-                              ],
-                            );
+                                  runMutation(Variables$Mutation$createUser(
+                                    firebaseId: UserController.user!.uid,
+                                    frequency: frequency,
+                                    gender: gender,
+                                    categories: categories,
+                                  ));
+                                },
+                                child: Text("Register to app"));
                           }, options: WidgetOptions$Mutation$createUser(
                             onCompleted: (p0, p1) {
                               print("Move to next screen");

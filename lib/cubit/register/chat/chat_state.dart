@@ -6,19 +6,20 @@ class ChatState {
   final bool showGenderSelection;
   final bool showCategoriesSelection;
   final bool showFrequencySelection;
-  final bool showNotificationSelection;
-  const ChatState(
-      {required this.messages,
-      this.showGenderSelection = false,
-      this.showCategoriesSelection = false,
-      this.showFrequencySelection = false,
-      this.showNotificationSelection = false,});
+  final bool showRegisterSelection;
+  const ChatState({
+    required this.messages,
+    this.showGenderSelection = false,
+    this.showCategoriesSelection = false,
+    this.showFrequencySelection = false,
+    this.showRegisterSelection = false,
+  });
   ChatState copyWith({
     List<Message>? messages,
     bool? showGenderSelection,
     bool? showCategoriesSelection,
     bool? showFrequencySelection,
-    bool? showNotificationSelection,
+    bool? showRegisterSelection,
   }) {
     return ChatState(
       messages: messages ?? this.messages,
@@ -27,8 +28,8 @@ class ChatState {
           showCategoriesSelection ?? this.showCategoriesSelection,
       showFrequencySelection:
           showFrequencySelection ?? this.showFrequencySelection,
-      showNotificationSelection:
-          showNotificationSelection ?? this.showNotificationSelection,
+      showRegisterSelection:
+          showRegisterSelection ?? this.showRegisterSelection,
     );
   }
 }
