@@ -7,22 +7,33 @@ part 'chat_state.dart';
 class ChatCubit extends Cubit<ChatState> {
   ChatCubit() : super(ChatState(messages: []));
 
-  void addMessage(String text,
-      {bool isSender = false,
-      bool showGenderSelection = false,
-      bool showCategoriesSelection = false,
+  Future<void> addMessages(List<Message> messages,
+      {bool showCategoriesSelection = false,
       bool showFrequencySelection = false,
-      bool showNotificationSelection = false,
-      int delayInMilliSeconds = 0}) {
-    final newMessage = Message(text: text, isSender: isSender);
+      bool showGenderSelection = false,
+      bool showNotificationSelection = false}) async {
+    resetSelections();
+    for (Message message in messages) {
+      await Future.delayed(const Duration(milliseconds: 300));
+      emit(state.copyWith(messages: state.messages..add(message)));
+    }
+    if (showCategoriesSelection ||
+        showFrequencySelection ||
+        showGenderSelection ||
+        showNotificationSelection) {
+      emit(state.copyWith(
+          showCategoriesSelection: showCategoriesSelection,
+          showFrequencySelection: showFrequencySelection,
+          showGenderSelection: showGenderSelection,
+          showNotificationSelection: showNotificationSelection));
+    }
+  }
 
-    Future.delayed(
-        Duration(milliseconds: delayInMilliSeconds),
-        () => emit(state.copyWith(
-            messages: state.messages..add(newMessage),
-            showCategoriesSelection: showCategoriesSelection,
-            showFrequencySelection: showFrequencySelection,
-            showGenderSelection: showGenderSelection,
-            showNotificationSelection: showNotificationSelection)));
+  void resetSelections() {
+    emit(state.copyWith(
+        showCategoriesSelection: false,
+        showFrequencySelection: false,
+        showGenderSelection: false,
+        showNotificationSelection: false));
   }
 }

@@ -1,3 +1,4 @@
+import 'package:change_case/change_case.dart';
 import 'package:chat_bubbles/chat_bubbles.dart';
 import 'package:empowering_questions_mobile/controller/user_controller.dart';
 import 'package:empowering_questions_mobile/cubit/register/chat/chat_cubit.dart';
@@ -13,7 +14,7 @@ import "package:empowering_questions_mobile/cubit/register/gennder/gender_cubit.
 import "package:empowering_questions_mobile/cubit/register/category/category_cubit.dart";
 
 class RegisterPage extends StatefulWidget {
-  RegisterPage({super.key});
+  const RegisterPage({super.key});
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -31,14 +32,17 @@ class _RegisterPageState extends State<RegisterPage> {
           providers: [
             BlocProvider<ChatCubit>(
                 create: (context) => ChatCubit()
-                  ..addMessage(
-                      'Hi ${UserController.user?.displayName} and welcome!',
-                      delayInMilliSeconds: 100)
-                  ..addMessage(
-                      "We have created a smart chat that will allow you to easily and quickly register for the application",
-                      delayInMilliSeconds: 300)
-                  ..addMessage("The first step be choose your gender",
-                      delayInMilliSeconds: 500, showGenderSelection: true)),
+                  ..addMessages([
+                    Message(
+                        text:
+                            'Hi ${UserController.user?.displayName} and welcome!'),
+                    const Message(
+                        text:
+                            "We have created a smart chat that will allow you to easily and quickly register for the application"),
+                    const Message(
+                      text: "The first step be choose your gender",
+                    )
+                  ], showGenderSelection: true)),
             BlocProvider<GenderCubit>(create: (context) => GenderCubit()),
             BlocProvider<CategoryCubit>(
               create: (context) => CategoryCubit(),
@@ -51,7 +55,7 @@ class _RegisterPageState extends State<RegisterPage> {
             children: [
               BlocListener<ChatCubit, ChatState>(
                 listener: (context, state) => Future.delayed(
-                  const Duration(milliseconds: 800),
+                  const Duration(milliseconds: 10),
                   () => _scrollController.animateTo(
                     _scrollController.position.maxScrollExtent,
                     duration: const Duration(milliseconds: 300),
@@ -95,18 +99,19 @@ class _RegisterPageState extends State<RegisterPage> {
                                           context
                                               .read<GenderCubit>()
                                               .selectGender(value);
-                                          context.read<ChatCubit>().addMessage(
-                                                value.name,
-                                                isSender: true,
-                                              );
-                                          context.read<ChatCubit>().addMessage(
-                                              "Great, I wrote it down",
-                                              delayInMilliSeconds: 150);
 
-                                          context.read<ChatCubit>().addMessage(
-                                              "The next step will be to choose areas that you would like to improve in your life,",
-                                              delayInMilliSeconds: 300,
-                                              showCategoriesSelection: true);
+                                          context
+                                              .read<ChatCubit>()
+                                              .addMessages([
+                                            Message(
+                                                text: value.name,
+                                                isSender: true),
+                                            const Message(
+                                                text: "Great, I wrote it down"),
+                                            const Message(
+                                                text:
+                                                    "The next step will be to choose areas that you would like to improve in your life")
+                                          ], showCategoriesSelection: true);
                                         });
                                   },
                                 ),
@@ -124,27 +129,27 @@ class _RegisterPageState extends State<RegisterPage> {
                                       .read<CategoryCubit>()
                                       .selectCategories(categories);
 
-                                  for (var category in categories) {
-                                    context.read<ChatCubit>().addMessage(
-                                        category.name,
-                                        isSender: true);
-                                  }
-
-                                  context.read<ChatCubit>().addMessage(
-                                      'you are great',
-                                      delayInMilliSeconds: 150);
-
-                                  context.read<ChatCubit>().addMessage(
-                                      'If you want to add more fields beyond the ${categories.length} fields you selected, you can always come back here and add more',
-                                      delayInMilliSeconds: 300);
-
-                                  context.read<ChatCubit>().addMessage(
-                                      'Just before we go to the main screen',
-                                      delayInMilliSeconds: 450);
-
-                                  context.read<ChatCubit>().addMessage(
-                                      'How often would you like to receive empowering questions?',
-                                      delayInMilliSeconds: 600,
+                                  context.read<ChatCubit>().addMessages(
+                                      categories
+                                          .map<Message>((category) => Message(
+                                              text: category.name.toNoCase(),
+                                              isSender: true))
+                                          .toList()
+                                        ..addAll(
+                                          [
+                                            const Message(
+                                                text: "you are great"),
+                                            Message(
+                                                text:
+                                                    "If you want to add more fields beyond the ${categories.length} fields you selected, you can always come back here and add more"),
+                                            const Message(
+                                                text:
+                                                    "Just before we go to the main screen"),
+                                            const Message(
+                                                text:
+                                                    "How often would you like to receive empowering questions?")
+                                          ],
+                                        ),
                                       showFrequencySelection: true);
                                 }),
                               )
@@ -166,19 +171,15 @@ class _RegisterPageState extends State<RegisterPage> {
                                             .read<FrequencyCubit>()
                                             .selectFrequency(value);
 
-                                        context.read<ChatCubit>().addMessage(
-                                              value.name,
-                                              isSender: true,
-                                            );
-
-                                        context.read<ChatCubit>().addMessage(
-                                            "${value.name} it's great",
-                                            delayInMilliSeconds: 150);
-
-                                        context.read<ChatCubit>().addMessage(
-                                            "All we have to do is confirm the notifications",
-                                            delayInMilliSeconds: 300,
-                                            showNotificationSelection: true);
+                                        context.read<ChatCubit>().addMessages([
+                                          Message(
+                                              text: value.name, isSender: true),
+                                          Message(
+                                              text: "${value.name} it's great"),
+                                          const Message(
+                                              text:
+                                                  "All we have to do is confirm the notifications"),
+                                        ], showFrequencySelection: true);
                                       }))
                             ],
                           )
