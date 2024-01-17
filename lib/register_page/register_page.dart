@@ -33,12 +33,12 @@ class _RegisterPageState extends State<RegisterPage> {
                 create: (context) => ChatCubit()
                   ..addMessage(
                       'Hi ${UserController.user?.displayName} and welcome!',
-                      delayInMilliSeconds: 500)
+                      delayInMilliSeconds: 100)
                   ..addMessage(
                       "We have created a smart chat that will allow you to easily and quickly register for the application",
-                      delayInMilliSeconds: 800)
+                      delayInMilliSeconds: 300)
                   ..addMessage("The first step be choose your gender",
-                      delayInMilliSeconds: 1100, showGenderSelection: true)),
+                      delayInMilliSeconds: 500, showGenderSelection: true)),
             BlocProvider<GenderCubit>(create: (context) => GenderCubit()),
             BlocProvider<CategoryCubit>(
               create: (context) => CategoryCubit(),
@@ -49,182 +49,183 @@ class _RegisterPageState extends State<RegisterPage> {
           ],
           child: Column(
             children: [
-              Expanded(
-                child: BlocBuilder<ChatCubit, ChatState>(
-                  builder: (context, state) => Column(
-                    children: [
-                      Expanded(
-                        child: ListView.builder(
-                          controller: _scrollController,
-                          itemCount: state.messages.length,
-                          itemBuilder: (context, index) => BubbleSpecialOne(
-                              text: state.messages[index].text,
-                              isSender: state.messages[index].isSender,
-                              color: state.messages[index].isSender
-                                  ? const Color(0xFF1B97F3)
-                                  : const Color(0xFFE8E8EE),
-                              textStyle: TextStyle(
-                                  color: state.messages[index].isSender
-                                      ? Colors.white
-                                      : Colors.black,
-                                  fontSize: 16)),
+              BlocListener<ChatCubit, ChatState>(
+                listener: (context, state) => Future.delayed(
+                  const Duration(milliseconds: 800),
+                  () => _scrollController.animateTo(
+                    _scrollController.position.maxScrollExtent,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeOut,
+                  ),
+                ),
+                child: Expanded(
+                  child: BlocBuilder<ChatCubit, ChatState>(
+                    builder: (context, state) => Column(
+                      children: [
+                        Expanded(
+                          child: ListView.builder(
+                            controller: _scrollController,
+                            itemCount: state.messages.length,
+                            itemBuilder: (context, index) => BubbleSpecialOne(
+                                text: state.messages[index].text,
+                                isSender: state.messages[index].isSender,
+                                color: state.messages[index].isSender
+                                    ? const Color(0xFF1B97F3)
+                                    : const Color(0xFFE8E8EE),
+                                textStyle: TextStyle(
+                                    color: state.messages[index].isSender
+                                        ? Colors.white
+                                        : Colors.black,
+                                    fontSize: 16)),
+                          ),
                         ),
-                      ),
-                      if (state.showGenderSelection)
-                        Column(
+                        if (state.showGenderSelection)
+                          Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                BlocBuilder<GenderCubit, GenderState>(
+                                  bloc: GenderCubit(),
+                                  builder: (context, state) {
+                                    return GroupButton(
+                                        buttons: GenderState.genderOptions,
+                                        buttonTextBuilder:
+                                            (selected, value, context) =>
+                                                value.name,
+                                        onSelected: (value, index, isSelected) {
+                                          context
+                                              .read<GenderCubit>()
+                                              .selectGender(value);
+                                          context.read<ChatCubit>().addMessage(
+                                                value.name,
+                                                isSender: true,
+                                              );
+                                          context.read<ChatCubit>().addMessage(
+                                              "Great, I wrote it down",
+                                              delayInMilliSeconds: 150);
+
+                                          context.read<ChatCubit>().addMessage(
+                                              "The next step will be to choose areas that you would like to improve in your life,",
+                                              delayInMilliSeconds: 300,
+                                              showCategoriesSelection: true);
+                                        });
+                                  },
+                                ),
+                              ])
+                        else if (state.showCategoriesSelection)
+                          Column(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              BlocBuilder<GenderCubit, GenderState>(
-                                bloc: GenderCubit(),
-                                builder: (context, state) {
-                                  return GroupButton(
-                                      buttons: GenderState.genderOptions,
+                              BlocBuilder<CategoryCubit, CategoryState>(
+                                bloc: CategoryCubit(),
+                                builder: (context, state) => MangmentCategories(
+                                    onUpdateCategories:
+                                        (List<Enum$Categories> categories) {
+                                  context
+                                      .read<CategoryCubit>()
+                                      .selectCategories(categories);
+
+                                  for (var category in categories) {
+                                    context.read<ChatCubit>().addMessage(
+                                        category.name,
+                                        isSender: true);
+                                  }
+
+                                  context.read<ChatCubit>().addMessage(
+                                      'you are great',
+                                      delayInMilliSeconds: 150);
+
+                                  context.read<ChatCubit>().addMessage(
+                                      'If you want to add more fields beyond the ${categories.length} fields you selected, you can always come back here and add more',
+                                      delayInMilliSeconds: 300);
+
+                                  context.read<ChatCubit>().addMessage(
+                                      'Just before we go to the main screen',
+                                      delayInMilliSeconds: 450);
+
+                                  context.read<ChatCubit>().addMessage(
+                                      'How often would you like to receive empowering questions?',
+                                      delayInMilliSeconds: 600,
+                                      showFrequencySelection: true);
+                                }),
+                              )
+                            ],
+                          )
+                        else if (state.showFrequencySelection)
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              BlocBuilder<FrequencyCubit, FrequencyState>(
+                                  bloc: FrequencyCubit(),
+                                  builder: (context, state) => GroupButton(
+                                      buttons: FrequencyState.frequencyOptions,
                                       buttonTextBuilder:
                                           (selected, value, context) =>
                                               value.name,
                                       onSelected: (value, index, isSelected) {
                                         context
-                                            .read<GenderCubit>()
-                                            .selectGender(value);
+                                            .read<FrequencyCubit>()
+                                            .selectFrequency(value);
+
                                         context.read<ChatCubit>().addMessage(
                                               value.name,
                                               isSender: true,
                                             );
-                                        context.read<ChatCubit>().addMessage(
-                                            "Great, I wrote it down",
-                                            delayInMilliSeconds: 500);
 
                                         context.read<ChatCubit>().addMessage(
-                                            "The next step will be to choose areas that you would like to improve in your life,",
-                                            delayInMilliSeconds: 800,
-                                            showCategoriesSelection: true);
-                                      });
+                                            "${value.name} it's great",
+                                            delayInMilliSeconds: 150);
+
+                                        context.read<ChatCubit>().addMessage(
+                                            "All we have to do is confirm the notifications",
+                                            delayInMilliSeconds: 300,
+                                            showNotificationSelection: true);
+                                      }))
+                            ],
+                          )
+                        else if (state.showNotificationSelection)
+                          Mutation$createUser$Widget(
+                              builder: (runMutation, result) {
+                            if (result!.isLoading) {
+                              return const Card(child: Text("Loading..."));
+                            }
+
+                            return ElevatedButton(
+                                onPressed: () {
+                                  Enum$Genders gender = context
+                                      .read<GenderCubit>()
+                                      .state
+                                      .selectedGender!;
+
+                                  List<Enum$Categories> categories = context
+                                      .read<CategoryCubit>()
+                                      .state
+                                      .selectedCategories!;
+
+                                  Enum$Frequency frequency = context
+                                      .read<FrequencyCubit>()
+                                      .state
+                                      .selectedFrequency!;
+
+                                  runMutation(Variables$Mutation$createUser(
+                                    firebaseId: UserController.user!.uid,
+                                    frequency: frequency,
+                                    gender: gender,
+                                    categories: categories,
+                                  ));
                                 },
-                              ),
-                            ])
-                      else if (state.showCategoriesSelection)
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            BlocBuilder<CategoryCubit, CategoryState>(
-                              bloc: CategoryCubit(),
-                              builder: (context, state) => MangmentCategories(
-                                  onUpdateCategories:
-                                      (List<Enum$Categories> categories) {
-                                context
-                                    .read<CategoryCubit>()
-                                    .selectCategories(categories);
-
-                                for (var category in categories) {
-                                  context.read<ChatCubit>().addMessage(
-                                      category.name,
-                                      isSender: true);
-                                }
-
-                                context.read<ChatCubit>().addMessage(
-                                    'you are great',
-                                    delayInMilliSeconds: 500);
-
-                                context.read<ChatCubit>().addMessage(
-                                    'If you want to add more fields beyond the ${categories.length} fields you selected, you can always come back here and add more',
-                                    delayInMilliSeconds: 800);
-
-                                context.read<ChatCubit>().addMessage(
-                                    'Just before we go to the main screen',
-                                    delayInMilliSeconds: 1100);
-
-                                context.read<ChatCubit>().addMessage(
-                                    'How often would you like to receive empowering questions?',
-                                    delayInMilliSeconds: 1400,
-                                    showFrequencySelection: true);
-                              }),
-                            )
-                          ],
-                        )
-                      else if (state.showFrequencySelection)
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            BlocBuilder<FrequencyCubit, FrequencyState>(
-                                bloc: FrequencyCubit(),
-                                builder: (context, state) => GroupButton(
-                                    buttons: FrequencyState.frequencyOptions,
-                                    buttonTextBuilder:
-                                        (selected, value, context) =>
-                                            value.name,
-                                    onSelected: (value, index, isSelected) {
-                                      context
-                                          .read<FrequencyCubit>()
-                                          .selectFrequency(value);
-
-                                      context.read<ChatCubit>().addMessage(
-                                            value.name,
-                                            isSender: true,
-                                          );
-
-                                      context.read<ChatCubit>().addMessage(
-                                          "${value.name} it's great",
-                                          delayInMilliSeconds: 500);
-
-                                      context.read<ChatCubit>().addMessage(
-                                          "All we have to do is confirm the notifications",
-                                          delayInMilliSeconds: 800,
-                                          showNotificationSelection: true);
-                                    }))
-                          ],
-                        )
-                      else if (state.showNotificationSelection)
-                        Mutation$createUser$Widget(
-                            builder: (runMutation, result) {
-                          if (result!.isLoading)
-                            return Card(child: Text("Loading..."));
-                          return ElevatedButton(
-                              onPressed: () {
-                                Enum$Genders gender = context
-                                    .read<GenderCubit>()
-                                    .state
-                                    .selectedGender!;
-
-                                List<Enum$Categories> categories = context
-                                    .read<CategoryCubit>()
-                                    .state
-                                    .selectedCategories!;
-
-                                Enum$Frequency frequency = context
-                                    .read<FrequencyCubit>()
-                                    .state
-                                    .selectedFrequency!;
-
-                                runMutation(Variables$Mutation$createUser(
-                                  firebaseId: UserController.user!.uid,
-                                  frequency: frequency,
-                                  gender: gender,
-                                  categories: categories,
-                                ));
-                              },
-                              child: Text("Register to app"));
-                        }, options: WidgetOptions$Mutation$createUser(
-                          onCompleted: (p0, p1) {
-                            print("Move to next screen");
-                          },
-                        ))
-                    ],
+                                child: Text("Register to app"));
+                          }, options: WidgetOptions$Mutation$createUser(
+                            onCompleted: (p0, p1) {
+                              print("Move to next screen");
+                            },
+                          ))
+                      ],
+                    ),
                   ),
                 ),
               ),
             ],
-          )
-
-          //  Column(
-          //   children: [
-          //     BlocListener<ChatCubit, ChatState>(
-          //         listener: (context, state) => _scrollController
-          //             .jumpTo(_scrollController.position.maxScrollExtent),
-          //         bloc: ChatCubit(),
-          //         child: ),
-          //   ],
-          // ),
-          ),
+          )),
     );
   }
 }
