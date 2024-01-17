@@ -1,3 +1,4 @@
+import 'package:empowering_questions_mobile/env/env.dart';
 import 'package:empowering_questions_mobile/firebase_options.dart';
 import 'package:empowering_questions_mobile/home_page.dart';
 import 'package:empowering_questions_mobile/login_page.dart';
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final HttpLink httpLink = HttpLink(
-      'http://3.144.48.201:3000/graphql',
+      Env.graphqlUrl,
     );
     final ValueNotifier<GraphQLClient> client = ValueNotifier<GraphQLClient>(
       GraphQLClient(
