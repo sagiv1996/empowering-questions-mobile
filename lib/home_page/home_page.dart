@@ -3,6 +3,7 @@ import 'package:empowering_questions_mobile/question.graphql.dart';
 import 'package:empowering_questions_mobile/schema.graphql.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -10,34 +11,62 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+
+  ScrollController _scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Query$findRandom$Widget(
       options: Options$Query$findRandom(
-          fetchPolicy: FetchPolicy.networkOnly,
-          variables: Variables$Query$findRandom(
-              categories: [Enum$Categories.familyLife],
-              gender: Enum$Genders.male)),
+          fetchPolicy: FetchPolicy.noCache,
+          variables: Variables$Query$findRandom(categories: [
+            Enum$Categories.spiritualQuestions,
+            Enum$Categories.career,
+            Enum$Categories.communication,
+            Enum$Categories.positiveFeelings,
+            Enum$Categories.relationship,
+            Enum$Categories.selfConfidence,
+            Enum$Categories.spiritualQuestions,
+            Enum$Categories.universityStudies
+          ], gender: Enum$Genders.male)),
       builder: (result, {fetchMore, refetch}) {
         if (result.isLoading) const Text("Loading...");
-        return Center(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-                child: ListView.builder(
-              itemCount: result.parsedData?.findRandom.length ?? 0,
-              itemBuilder: (context, index) => QuestionWidget(
-                  question: result.parsedData!.findRandom[index].string),
-            )),
-            TextButton(
-                onPressed: () {
-                  refetch!();
-                },
-                child: Text('Refresh'))
-          ],
-        ));
+        return SmartRefresher(
+          semanticChildCount: 500,
+          enablePullDown: true,
+          enablePullUp: true,
+          scrollController: _scrollController,
+          onLoading: () async {
+            try {
+              await fetchMore!(FetchMoreOptions(
+                  updateQuery: (previousResultData, fetchMoreResultData) {
+                print(previousResultData?['findRandom']
+                    .addAll(fetchMoreResultData?['findRandom']));
+                return previousResultData;
+              }));
+              _refreshController.loadComplete();
+            } catch (e) {
+              _refreshController.loadFailed();
+            }
+          },
+          controller: _refreshController,
+          onRefresh: () async {
+            try {
+              await refetch!();
+              _refreshController.refreshCompleted();
+            } catch (e) {
+              _refreshController.refreshFailed();
+            }
+          },
+          child: ListView.builder(
+            itemCount: result.parsedData?.findRandom.length ?? 0,
+            itemBuilder: (context, index) => QuestionWidget(
+                question: result.parsedData!.findRandom[index].string),
+          ),
+        );
       },
     )
         // Center(
