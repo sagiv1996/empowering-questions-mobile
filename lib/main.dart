@@ -1,7 +1,7 @@
 import 'package:empowering_questions_mobile/controller/firebase_messaging_controller.dart';
 import 'package:empowering_questions_mobile/env/env.dart';
 import 'package:empowering_questions_mobile/firebase_options.dart';
-import 'package:empowering_questions_mobile/home_page.dart';
+import 'package:empowering_questions_mobile/home_page/home_page.dart';
 import 'package:empowering_questions_mobile/login_page.dart';
 import 'package:empowering_questions_mobile/register_page/register_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';

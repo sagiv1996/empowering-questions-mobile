@@ -1,8 +1,7 @@
-import 'package:empowering_questions_mobile/controller/user_controller.dart';
+import 'package:empowering_questions_mobile/home_page/question_widget.dart';
 import 'package:empowering_questions_mobile/question.graphql.dart';
 import 'package:empowering_questions_mobile/schema.graphql.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 class HomePage extends StatefulWidget {
@@ -21,12 +20,17 @@ class _HomePageState extends State<HomePage> {
               categories: [Enum$Categories.familyLife],
               gender: Enum$Genders.male)),
       builder: (result, {fetchMore, refetch}) {
-        if (result.isLoading) Text("Loading...");
+        if (result.isLoading) const Text("Loading...");
         return Center(
             child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Card(child: Text(result.parsedData?.findRandom?[0].string ?? "TT")),
+            Expanded(
+                child: ListView.builder(
+              itemCount: result.parsedData?.findRandom.length ?? 0,
+              itemBuilder: (context, index) => QuestionWidget(
+                  question: result.parsedData!.findRandom[index].string),
+            )),
             TextButton(
                 onPressed: () {
                   refetch!();
