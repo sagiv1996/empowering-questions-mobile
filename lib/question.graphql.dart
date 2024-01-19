@@ -3,50 +3,38 @@ import 'package:flutter/widgets.dart' as widgets;
 import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
 import 'package:graphql_flutter/graphql_flutter.dart' as graphql_flutter;
-import 'schema.graphql.dart';
 
-class Variables$Query$findRandom {
-  factory Variables$Query$findRandom({
-    required List<Enum$Categories> categories,
-    required Enum$Genders gender,
-  }) =>
-      Variables$Query$findRandom._({
-        r'categories': categories,
-        r'gender': gender,
+class Variables$Query$findRandomQuestionsByUserId {
+  factory Variables$Query$findRandomQuestionsByUserId(
+          {required String userId}) =>
+      Variables$Query$findRandomQuestionsByUserId._({
+        r'userId': userId,
       });
 
-  Variables$Query$findRandom._(this._$data);
+  Variables$Query$findRandomQuestionsByUserId._(this._$data);
 
-  factory Variables$Query$findRandom.fromJson(Map<String, dynamic> data) {
+  factory Variables$Query$findRandomQuestionsByUserId.fromJson(
+      Map<String, dynamic> data) {
     final result$data = <String, dynamic>{};
-    final l$categories = data['categories'];
-    result$data['categories'] = (l$categories as List<dynamic>)
-        .map((e) => fromJson$Enum$Categories((e as String)))
-        .toList();
-    final l$gender = data['gender'];
-    result$data['gender'] = fromJson$Enum$Genders((l$gender as String));
-    return Variables$Query$findRandom._(result$data);
+    final l$userId = data['userId'];
+    result$data['userId'] = (l$userId as String);
+    return Variables$Query$findRandomQuestionsByUserId._(result$data);
   }
 
   Map<String, dynamic> _$data;
 
-  List<Enum$Categories> get categories =>
-      (_$data['categories'] as List<Enum$Categories>);
-
-  Enum$Genders get gender => (_$data['gender'] as Enum$Genders);
+  String get userId => (_$data['userId'] as String);
 
   Map<String, dynamic> toJson() {
     final result$data = <String, dynamic>{};
-    final l$categories = categories;
-    result$data['categories'] =
-        l$categories.map((e) => toJson$Enum$Categories(e)).toList();
-    final l$gender = gender;
-    result$data['gender'] = toJson$Enum$Genders(l$gender);
+    final l$userId = userId;
+    result$data['userId'] = l$userId;
     return result$data;
   }
 
-  CopyWith$Variables$Query$findRandom<Variables$Query$findRandom>
-      get copyWith => CopyWith$Variables$Query$findRandom(
+  CopyWith$Variables$Query$findRandomQuestionsByUserId<
+          Variables$Query$findRandomQuestionsByUserId>
+      get copyWith => CopyWith$Variables$Query$findRandomQuestionsByUserId(
             this,
             (i) => i,
           );
@@ -56,25 +44,13 @@ class Variables$Query$findRandom {
     if (identical(this, other)) {
       return true;
     }
-    if (!(other is Variables$Query$findRandom) ||
+    if (!(other is Variables$Query$findRandomQuestionsByUserId) ||
         runtimeType != other.runtimeType) {
       return false;
     }
-    final l$categories = categories;
-    final lOther$categories = other.categories;
-    if (l$categories.length != lOther$categories.length) {
-      return false;
-    }
-    for (int i = 0; i < l$categories.length; i++) {
-      final l$categories$entry = l$categories[i];
-      final lOther$categories$entry = lOther$categories[i];
-      if (l$categories$entry != lOther$categories$entry) {
-        return false;
-      }
-    }
-    final l$gender = gender;
-    final lOther$gender = other.gender;
-    if (l$gender != lOther$gender) {
+    final l$userId = userId;
+    final lOther$userId = other.userId;
+    if (l$userId != lOther$userId) {
       return false;
     }
     return true;
@@ -82,95 +58,84 @@ class Variables$Query$findRandom {
 
   @override
   int get hashCode {
-    final l$categories = categories;
-    final l$gender = gender;
-    return Object.hashAll([
-      Object.hashAll(l$categories.map((v) => v)),
-      l$gender,
-    ]);
+    final l$userId = userId;
+    return Object.hashAll([l$userId]);
   }
 }
 
-abstract class CopyWith$Variables$Query$findRandom<TRes> {
-  factory CopyWith$Variables$Query$findRandom(
-    Variables$Query$findRandom instance,
-    TRes Function(Variables$Query$findRandom) then,
-  ) = _CopyWithImpl$Variables$Query$findRandom;
+abstract class CopyWith$Variables$Query$findRandomQuestionsByUserId<TRes> {
+  factory CopyWith$Variables$Query$findRandomQuestionsByUserId(
+    Variables$Query$findRandomQuestionsByUserId instance,
+    TRes Function(Variables$Query$findRandomQuestionsByUserId) then,
+  ) = _CopyWithImpl$Variables$Query$findRandomQuestionsByUserId;
 
-  factory CopyWith$Variables$Query$findRandom.stub(TRes res) =
-      _CopyWithStubImpl$Variables$Query$findRandom;
+  factory CopyWith$Variables$Query$findRandomQuestionsByUserId.stub(TRes res) =
+      _CopyWithStubImpl$Variables$Query$findRandomQuestionsByUserId;
 
-  TRes call({
-    List<Enum$Categories>? categories,
-    Enum$Genders? gender,
-  });
+  TRes call({String? userId});
 }
 
-class _CopyWithImpl$Variables$Query$findRandom<TRes>
-    implements CopyWith$Variables$Query$findRandom<TRes> {
-  _CopyWithImpl$Variables$Query$findRandom(
+class _CopyWithImpl$Variables$Query$findRandomQuestionsByUserId<TRes>
+    implements CopyWith$Variables$Query$findRandomQuestionsByUserId<TRes> {
+  _CopyWithImpl$Variables$Query$findRandomQuestionsByUserId(
     this._instance,
     this._then,
   );
 
-  final Variables$Query$findRandom _instance;
+  final Variables$Query$findRandomQuestionsByUserId _instance;
 
-  final TRes Function(Variables$Query$findRandom) _then;
+  final TRes Function(Variables$Query$findRandomQuestionsByUserId) _then;
 
   static const _undefined = <dynamic, dynamic>{};
 
-  TRes call({
-    Object? categories = _undefined,
-    Object? gender = _undefined,
-  }) =>
-      _then(Variables$Query$findRandom._({
+  TRes call({Object? userId = _undefined}) =>
+      _then(Variables$Query$findRandomQuestionsByUserId._({
         ..._instance._$data,
-        if (categories != _undefined && categories != null)
-          'categories': (categories as List<Enum$Categories>),
-        if (gender != _undefined && gender != null)
-          'gender': (gender as Enum$Genders),
+        if (userId != _undefined && userId != null)
+          'userId': (userId as String),
       }));
 }
 
-class _CopyWithStubImpl$Variables$Query$findRandom<TRes>
-    implements CopyWith$Variables$Query$findRandom<TRes> {
-  _CopyWithStubImpl$Variables$Query$findRandom(this._res);
+class _CopyWithStubImpl$Variables$Query$findRandomQuestionsByUserId<TRes>
+    implements CopyWith$Variables$Query$findRandomQuestionsByUserId<TRes> {
+  _CopyWithStubImpl$Variables$Query$findRandomQuestionsByUserId(this._res);
 
   TRes _res;
 
-  call({
-    List<Enum$Categories>? categories,
-    Enum$Genders? gender,
-  }) =>
-      _res;
+  call({String? userId}) => _res;
 }
 
-class Query$findRandom {
-  Query$findRandom({
-    required this.findRandom,
+class Query$findRandomQuestionsByUserId {
+  Query$findRandomQuestionsByUserId({
+    required this.findRandomQuestionsByUserId,
     this.$__typename = 'Query',
   });
 
-  factory Query$findRandom.fromJson(Map<String, dynamic> json) {
-    final l$findRandom = json['findRandom'];
+  factory Query$findRandomQuestionsByUserId.fromJson(
+      Map<String, dynamic> json) {
+    final l$findRandomQuestionsByUserId = json['findRandomQuestionsByUserId'];
     final l$$__typename = json['__typename'];
-    return Query$findRandom(
-      findRandom: (l$findRandom as List<dynamic>)
-          .map((e) =>
-              Query$findRandom$findRandom.fromJson((e as Map<String, dynamic>)))
-          .toList(),
+    return Query$findRandomQuestionsByUserId(
+      findRandomQuestionsByUserId:
+          (l$findRandomQuestionsByUserId as List<dynamic>)
+              .map((e) =>
+                  Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId
+                      .fromJson((e as Map<String, dynamic>)))
+              .toList(),
       $__typename: (l$$__typename as String),
     );
   }
 
-  final List<Query$findRandom$findRandom> findRandom;
+  final List<Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId>
+      findRandomQuestionsByUserId;
 
   final String $__typename;
 
   Map<String, dynamic> toJson() {
     final _resultData = <String, dynamic>{};
-    final l$findRandom = findRandom;
-    _resultData['findRandom'] = l$findRandom.map((e) => e.toJson()).toList();
+    final l$findRandomQuestionsByUserId = findRandomQuestionsByUserId;
+    _resultData['findRandomQuestionsByUserId'] =
+        l$findRandomQuestionsByUserId.map((e) => e.toJson()).toList();
     final l$$__typename = $__typename;
     _resultData['__typename'] = l$$__typename;
     return _resultData;
@@ -178,10 +143,10 @@ class Query$findRandom {
 
   @override
   int get hashCode {
-    final l$findRandom = findRandom;
+    final l$findRandomQuestionsByUserId = findRandomQuestionsByUserId;
     final l$$__typename = $__typename;
     return Object.hashAll([
-      Object.hashAll(l$findRandom.map((v) => v)),
+      Object.hashAll(l$findRandomQuestionsByUserId.map((v) => v)),
       l$$__typename,
     ]);
   }
@@ -191,18 +156,24 @@ class Query$findRandom {
     if (identical(this, other)) {
       return true;
     }
-    if (!(other is Query$findRandom) || runtimeType != other.runtimeType) {
+    if (!(other is Query$findRandomQuestionsByUserId) ||
+        runtimeType != other.runtimeType) {
       return false;
     }
-    final l$findRandom = findRandom;
-    final lOther$findRandom = other.findRandom;
-    if (l$findRandom.length != lOther$findRandom.length) {
+    final l$findRandomQuestionsByUserId = findRandomQuestionsByUserId;
+    final lOther$findRandomQuestionsByUserId =
+        other.findRandomQuestionsByUserId;
+    if (l$findRandomQuestionsByUserId.length !=
+        lOther$findRandomQuestionsByUserId.length) {
       return false;
     }
-    for (int i = 0; i < l$findRandom.length; i++) {
-      final l$findRandom$entry = l$findRandom[i];
-      final lOther$findRandom$entry = lOther$findRandom[i];
-      if (l$findRandom$entry != lOther$findRandom$entry) {
+    for (int i = 0; i < l$findRandomQuestionsByUserId.length; i++) {
+      final l$findRandomQuestionsByUserId$entry =
+          l$findRandomQuestionsByUserId[i];
+      final lOther$findRandomQuestionsByUserId$entry =
+          lOther$findRandomQuestionsByUserId[i];
+      if (l$findRandomQuestionsByUserId$entry !=
+          lOther$findRandomQuestionsByUserId$entry) {
         return false;
       }
     }
@@ -215,134 +186,132 @@ class Query$findRandom {
   }
 }
 
-extension UtilityExtension$Query$findRandom on Query$findRandom {
-  CopyWith$Query$findRandom<Query$findRandom> get copyWith =>
-      CopyWith$Query$findRandom(
-        this,
-        (i) => i,
-      );
+extension UtilityExtension$Query$findRandomQuestionsByUserId
+    on Query$findRandomQuestionsByUserId {
+  CopyWith$Query$findRandomQuestionsByUserId<Query$findRandomQuestionsByUserId>
+      get copyWith => CopyWith$Query$findRandomQuestionsByUserId(
+            this,
+            (i) => i,
+          );
 }
 
-abstract class CopyWith$Query$findRandom<TRes> {
-  factory CopyWith$Query$findRandom(
-    Query$findRandom instance,
-    TRes Function(Query$findRandom) then,
-  ) = _CopyWithImpl$Query$findRandom;
+abstract class CopyWith$Query$findRandomQuestionsByUserId<TRes> {
+  factory CopyWith$Query$findRandomQuestionsByUserId(
+    Query$findRandomQuestionsByUserId instance,
+    TRes Function(Query$findRandomQuestionsByUserId) then,
+  ) = _CopyWithImpl$Query$findRandomQuestionsByUserId;
 
-  factory CopyWith$Query$findRandom.stub(TRes res) =
-      _CopyWithStubImpl$Query$findRandom;
+  factory CopyWith$Query$findRandomQuestionsByUserId.stub(TRes res) =
+      _CopyWithStubImpl$Query$findRandomQuestionsByUserId;
 
   TRes call({
-    List<Query$findRandom$findRandom>? findRandom,
+    List<Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId>?
+        findRandomQuestionsByUserId,
     String? $__typename,
   });
-  TRes findRandom(
-      Iterable<Query$findRandom$findRandom> Function(
+  TRes findRandomQuestionsByUserId(
+      Iterable<Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId> Function(
               Iterable<
-                  CopyWith$Query$findRandom$findRandom<
-                      Query$findRandom$findRandom>>)
+                  CopyWith$Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId<
+                      Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId>>)
           _fn);
 }
 
-class _CopyWithImpl$Query$findRandom<TRes>
-    implements CopyWith$Query$findRandom<TRes> {
-  _CopyWithImpl$Query$findRandom(
+class _CopyWithImpl$Query$findRandomQuestionsByUserId<TRes>
+    implements CopyWith$Query$findRandomQuestionsByUserId<TRes> {
+  _CopyWithImpl$Query$findRandomQuestionsByUserId(
     this._instance,
     this._then,
   );
 
-  final Query$findRandom _instance;
+  final Query$findRandomQuestionsByUserId _instance;
 
-  final TRes Function(Query$findRandom) _then;
+  final TRes Function(Query$findRandomQuestionsByUserId) _then;
 
   static const _undefined = <dynamic, dynamic>{};
 
   TRes call({
-    Object? findRandom = _undefined,
+    Object? findRandomQuestionsByUserId = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(Query$findRandom(
-        findRandom: findRandom == _undefined || findRandom == null
-            ? _instance.findRandom
-            : (findRandom as List<Query$findRandom$findRandom>),
+      _then(Query$findRandomQuestionsByUserId(
+        findRandomQuestionsByUserId: findRandomQuestionsByUserId ==
+                    _undefined ||
+                findRandomQuestionsByUserId == null
+            ? _instance.findRandomQuestionsByUserId
+            : (findRandomQuestionsByUserId as List<
+                Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId>),
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),
       ));
 
-  TRes findRandom(
-          Iterable<Query$findRandom$findRandom> Function(
+  TRes findRandomQuestionsByUserId(
+          Iterable<Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId> Function(
                   Iterable<
-                      CopyWith$Query$findRandom$findRandom<
-                          Query$findRandom$findRandom>>)
+                      CopyWith$Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId<
+                          Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId>>)
               _fn) =>
       call(
-          findRandom: _fn(_instance.findRandom
-              .map((e) => CopyWith$Query$findRandom$findRandom(
+          findRandomQuestionsByUserId: _fn(_instance.findRandomQuestionsByUserId
+              .map((e) =>
+                  CopyWith$Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId(
                     e,
                     (i) => i,
                   ))).toList());
 }
 
-class _CopyWithStubImpl$Query$findRandom<TRes>
-    implements CopyWith$Query$findRandom<TRes> {
-  _CopyWithStubImpl$Query$findRandom(this._res);
+class _CopyWithStubImpl$Query$findRandomQuestionsByUserId<TRes>
+    implements CopyWith$Query$findRandomQuestionsByUserId<TRes> {
+  _CopyWithStubImpl$Query$findRandomQuestionsByUserId(this._res);
 
   TRes _res;
 
   call({
-    List<Query$findRandom$findRandom>? findRandom,
+    List<Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId>?
+        findRandomQuestionsByUserId,
     String? $__typename,
   }) =>
       _res;
 
-  findRandom(_fn) => _res;
+  findRandomQuestionsByUserId(_fn) => _res;
 }
 
-const documentNodeQueryfindRandom = DocumentNode(definitions: [
+const documentNodeQueryfindRandomQuestionsByUserId = DocumentNode(definitions: [
   OperationDefinitionNode(
     type: OperationType.query,
-    name: NameNode(value: 'findRandom'),
+    name: NameNode(value: 'findRandomQuestionsByUserId'),
     variableDefinitions: [
       VariableDefinitionNode(
-        variable: VariableNode(name: NameNode(value: 'categories')),
-        type: ListTypeNode(
-          type: NamedTypeNode(
-            name: NameNode(value: 'Categories'),
-            isNonNull: true,
-          ),
-          isNonNull: true,
-        ),
-        defaultValue: DefaultValueNode(value: null),
-        directives: [],
-      ),
-      VariableDefinitionNode(
-        variable: VariableNode(name: NameNode(value: 'gender')),
+        variable: VariableNode(name: NameNode(value: 'userId')),
         type: NamedTypeNode(
-          name: NameNode(value: 'Genders'),
+          name: NameNode(value: 'ID'),
           isNonNull: true,
         ),
         defaultValue: DefaultValueNode(value: null),
         directives: [],
-      ),
+      )
     ],
     directives: [],
     selectionSet: SelectionSetNode(selections: [
       FieldNode(
-        name: NameNode(value: 'findRandom'),
+        name: NameNode(value: 'findRandomQuestionsByUserId'),
         alias: null,
         arguments: [
           ArgumentNode(
-            name: NameNode(value: 'category'),
-            value: VariableNode(name: NameNode(value: 'categories')),
-          ),
-          ArgumentNode(
-            name: NameNode(value: 'gender'),
-            value: VariableNode(name: NameNode(value: 'gender')),
-          ),
+            name: NameNode(value: 'userId'),
+            value: VariableNode(name: NameNode(value: 'userId')),
+          )
         ],
         directives: [],
         selectionSet: SelectionSetNode(selections: [
+          FieldNode(
+            name: NameNode(value: '_id'),
+            alias: null,
+            arguments: [],
+            directives: [],
+            selectionSet: null,
+          ),
           FieldNode(
             name: NameNode(value: 'string'),
             alias: null,
@@ -369,25 +338,28 @@ const documentNodeQueryfindRandom = DocumentNode(definitions: [
     ]),
   ),
 ]);
-Query$findRandom _parserFn$Query$findRandom(Map<String, dynamic> data) =>
-    Query$findRandom.fromJson(data);
-typedef OnQueryComplete$Query$findRandom = FutureOr<void> Function(
+Query$findRandomQuestionsByUserId _parserFn$Query$findRandomQuestionsByUserId(
+        Map<String, dynamic> data) =>
+    Query$findRandomQuestionsByUserId.fromJson(data);
+typedef OnQueryComplete$Query$findRandomQuestionsByUserId = FutureOr<void>
+    Function(
   Map<String, dynamic>?,
-  Query$findRandom?,
+  Query$findRandomQuestionsByUserId?,
 );
 
-class Options$Query$findRandom extends graphql.QueryOptions<Query$findRandom> {
-  Options$Query$findRandom({
+class Options$Query$findRandomQuestionsByUserId
+    extends graphql.QueryOptions<Query$findRandomQuestionsByUserId> {
+  Options$Query$findRandomQuestionsByUserId({
     String? operationName,
-    required Variables$Query$findRandom variables,
+    required Variables$Query$findRandomQuestionsByUserId variables,
     graphql.FetchPolicy? fetchPolicy,
     graphql.ErrorPolicy? errorPolicy,
     graphql.CacheRereadPolicy? cacheRereadPolicy,
     Object? optimisticResult,
-    Query$findRandom? typedOptimisticResult,
+    Query$findRandomQuestionsByUserId? typedOptimisticResult,
     Duration? pollInterval,
     graphql.Context? context,
-    OnQueryComplete$Query$findRandom? onComplete,
+    OnQueryComplete$Query$findRandomQuestionsByUserId? onComplete,
     graphql.OnQueryError? onError,
   })  : onCompleteWithParsed = onComplete,
         super(
@@ -403,14 +375,16 @@ class Options$Query$findRandom extends graphql.QueryOptions<Query$findRandom> {
               ? null
               : (data) => onComplete(
                     data,
-                    data == null ? null : _parserFn$Query$findRandom(data),
+                    data == null
+                        ? null
+                        : _parserFn$Query$findRandomQuestionsByUserId(data),
                   ),
           onError: onError,
-          document: documentNodeQueryfindRandom,
-          parserFn: _parserFn$Query$findRandom,
+          document: documentNodeQueryfindRandomQuestionsByUserId,
+          parserFn: _parserFn$Query$findRandomQuestionsByUserId,
         );
 
-  final OnQueryComplete$Query$findRandom? onCompleteWithParsed;
+  final OnQueryComplete$Query$findRandomQuestionsByUserId? onCompleteWithParsed;
 
   @override
   List<Object?> get properties => [
@@ -421,16 +395,16 @@ class Options$Query$findRandom extends graphql.QueryOptions<Query$findRandom> {
       ];
 }
 
-class WatchOptions$Query$findRandom
-    extends graphql.WatchQueryOptions<Query$findRandom> {
-  WatchOptions$Query$findRandom({
+class WatchOptions$Query$findRandomQuestionsByUserId
+    extends graphql.WatchQueryOptions<Query$findRandomQuestionsByUserId> {
+  WatchOptions$Query$findRandomQuestionsByUserId({
     String? operationName,
-    required Variables$Query$findRandom variables,
+    required Variables$Query$findRandomQuestionsByUserId variables,
     graphql.FetchPolicy? fetchPolicy,
     graphql.ErrorPolicy? errorPolicy,
     graphql.CacheRereadPolicy? cacheRereadPolicy,
     Object? optimisticResult,
-    Query$findRandom? typedOptimisticResult,
+    Query$findRandomQuestionsByUserId? typedOptimisticResult,
     graphql.Context? context,
     Duration? pollInterval,
     bool? eagerlyFetchResults,
@@ -444,73 +418,85 @@ class WatchOptions$Query$findRandom
           cacheRereadPolicy: cacheRereadPolicy,
           optimisticResult: optimisticResult ?? typedOptimisticResult?.toJson(),
           context: context,
-          document: documentNodeQueryfindRandom,
+          document: documentNodeQueryfindRandomQuestionsByUserId,
           pollInterval: pollInterval,
           eagerlyFetchResults: eagerlyFetchResults,
           carryForwardDataOnException: carryForwardDataOnException,
           fetchResults: fetchResults,
-          parserFn: _parserFn$Query$findRandom,
+          parserFn: _parserFn$Query$findRandomQuestionsByUserId,
         );
 }
 
-class FetchMoreOptions$Query$findRandom extends graphql.FetchMoreOptions {
-  FetchMoreOptions$Query$findRandom({
+class FetchMoreOptions$Query$findRandomQuestionsByUserId
+    extends graphql.FetchMoreOptions {
+  FetchMoreOptions$Query$findRandomQuestionsByUserId({
     required graphql.UpdateQuery updateQuery,
-    required Variables$Query$findRandom variables,
+    required Variables$Query$findRandomQuestionsByUserId variables,
   }) : super(
           updateQuery: updateQuery,
           variables: variables.toJson(),
-          document: documentNodeQueryfindRandom,
+          document: documentNodeQueryfindRandomQuestionsByUserId,
         );
 }
 
-extension ClientExtension$Query$findRandom on graphql.GraphQLClient {
-  Future<graphql.QueryResult<Query$findRandom>> query$findRandom(
-          Options$Query$findRandom options) async =>
-      await this.query(options);
-  graphql.ObservableQuery<Query$findRandom> watchQuery$findRandom(
-          WatchOptions$Query$findRandom options) =>
-      this.watchQuery(options);
-  void writeQuery$findRandom({
-    required Query$findRandom data,
-    required Variables$Query$findRandom variables,
+extension ClientExtension$Query$findRandomQuestionsByUserId
+    on graphql.GraphQLClient {
+  Future<graphql.QueryResult<Query$findRandomQuestionsByUserId>>
+      query$findRandomQuestionsByUserId(
+              Options$Query$findRandomQuestionsByUserId options) async =>
+          await this.query(options);
+  graphql.ObservableQuery<Query$findRandomQuestionsByUserId>
+      watchQuery$findRandomQuestionsByUserId(
+              WatchOptions$Query$findRandomQuestionsByUserId options) =>
+          this.watchQuery(options);
+  void writeQuery$findRandomQuestionsByUserId({
+    required Query$findRandomQuestionsByUserId data,
+    required Variables$Query$findRandomQuestionsByUserId variables,
     bool broadcast = true,
   }) =>
       this.writeQuery(
         graphql.Request(
-          operation: graphql.Operation(document: documentNodeQueryfindRandom),
+          operation: graphql.Operation(
+              document: documentNodeQueryfindRandomQuestionsByUserId),
           variables: variables.toJson(),
         ),
         data: data.toJson(),
         broadcast: broadcast,
       );
-  Query$findRandom? readQuery$findRandom({
-    required Variables$Query$findRandom variables,
+  Query$findRandomQuestionsByUserId? readQuery$findRandomQuestionsByUserId({
+    required Variables$Query$findRandomQuestionsByUserId variables,
     bool optimistic = true,
   }) {
     final result = this.readQuery(
       graphql.Request(
-        operation: graphql.Operation(document: documentNodeQueryfindRandom),
+        operation: graphql.Operation(
+            document: documentNodeQueryfindRandomQuestionsByUserId),
         variables: variables.toJson(),
       ),
       optimistic: optimistic,
     );
-    return result == null ? null : Query$findRandom.fromJson(result);
+    return result == null
+        ? null
+        : Query$findRandomQuestionsByUserId.fromJson(result);
   }
 }
 
-graphql_flutter.QueryHookResult<Query$findRandom> useQuery$findRandom(
-        Options$Query$findRandom options) =>
-    graphql_flutter.useQuery(options);
-graphql.ObservableQuery<Query$findRandom> useWatchQuery$findRandom(
-        WatchOptions$Query$findRandom options) =>
-    graphql_flutter.useWatchQuery(options);
+graphql_flutter.QueryHookResult<Query$findRandomQuestionsByUserId>
+    useQuery$findRandomQuestionsByUserId(
+            Options$Query$findRandomQuestionsByUserId options) =>
+        graphql_flutter.useQuery(options);
+graphql.ObservableQuery<Query$findRandomQuestionsByUserId>
+    useWatchQuery$findRandomQuestionsByUserId(
+            WatchOptions$Query$findRandomQuestionsByUserId options) =>
+        graphql_flutter.useWatchQuery(options);
 
-class Query$findRandom$Widget extends graphql_flutter.Query<Query$findRandom> {
-  Query$findRandom$Widget({
+class Query$findRandomQuestionsByUserId$Widget
+    extends graphql_flutter.Query<Query$findRandomQuestionsByUserId> {
+  Query$findRandomQuestionsByUserId$Widget({
     widgets.Key? key,
-    required Options$Query$findRandom options,
-    required graphql_flutter.QueryBuilder<Query$findRandom> builder,
+    required Options$Query$findRandomQuestionsByUserId options,
+    required graphql_flutter.QueryBuilder<Query$findRandomQuestionsByUserId>
+        builder,
   }) : super(
           key: key,
           options: options,
@@ -518,20 +504,26 @@ class Query$findRandom$Widget extends graphql_flutter.Query<Query$findRandom> {
         );
 }
 
-class Query$findRandom$findRandom {
-  Query$findRandom$findRandom({
+class Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId {
+  Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId({
+    required this.$_id,
     required this.string,
     this.$__typename = 'QuestionType',
   });
 
-  factory Query$findRandom$findRandom.fromJson(Map<String, dynamic> json) {
+  factory Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId.fromJson(
+      Map<String, dynamic> json) {
+    final l$$_id = json['_id'];
     final l$string = json['string'];
     final l$$__typename = json['__typename'];
-    return Query$findRandom$findRandom(
+    return Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId(
+      $_id: (l$$_id as String),
       string: (l$string as String),
       $__typename: (l$$__typename as String),
     );
   }
+
+  final String $_id;
 
   final String string;
 
@@ -539,6 +531,8 @@ class Query$findRandom$findRandom {
 
   Map<String, dynamic> toJson() {
     final _resultData = <String, dynamic>{};
+    final l$$_id = $_id;
+    _resultData['_id'] = l$$_id;
     final l$string = string;
     _resultData['string'] = l$string;
     final l$$__typename = $__typename;
@@ -548,9 +542,11 @@ class Query$findRandom$findRandom {
 
   @override
   int get hashCode {
+    final l$$_id = $_id;
     final l$string = string;
     final l$$__typename = $__typename;
     return Object.hashAll([
+      l$$_id,
       l$string,
       l$$__typename,
     ]);
@@ -561,8 +557,14 @@ class Query$findRandom$findRandom {
     if (identical(this, other)) {
       return true;
     }
-    if (!(other is Query$findRandom$findRandom) ||
+    if (!(other
+            is Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId) ||
         runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$$_id = $_id;
+    final lOther$$_id = other.$_id;
+    if (l$$_id != lOther$$_id) {
       return false;
     }
     final l$string = string;
@@ -579,48 +581,62 @@ class Query$findRandom$findRandom {
   }
 }
 
-extension UtilityExtension$Query$findRandom$findRandom
-    on Query$findRandom$findRandom {
-  CopyWith$Query$findRandom$findRandom<Query$findRandom$findRandom>
-      get copyWith => CopyWith$Query$findRandom$findRandom(
+extension UtilityExtension$Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId
+    on Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId {
+  CopyWith$Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId<
+          Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId>
+      get copyWith =>
+          CopyWith$Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId(
             this,
             (i) => i,
           );
 }
 
-abstract class CopyWith$Query$findRandom$findRandom<TRes> {
-  factory CopyWith$Query$findRandom$findRandom(
-    Query$findRandom$findRandom instance,
-    TRes Function(Query$findRandom$findRandom) then,
-  ) = _CopyWithImpl$Query$findRandom$findRandom;
+abstract class CopyWith$Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId<
+    TRes> {
+  factory CopyWith$Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId(
+    Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId instance,
+    TRes Function(Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId)
+        then,
+  ) = _CopyWithImpl$Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId;
 
-  factory CopyWith$Query$findRandom$findRandom.stub(TRes res) =
-      _CopyWithStubImpl$Query$findRandom$findRandom;
+  factory CopyWith$Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId.stub(
+          TRes res) =
+      _CopyWithStubImpl$Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId;
 
   TRes call({
+    String? $_id,
     String? string,
     String? $__typename,
   });
 }
 
-class _CopyWithImpl$Query$findRandom$findRandom<TRes>
-    implements CopyWith$Query$findRandom$findRandom<TRes> {
-  _CopyWithImpl$Query$findRandom$findRandom(
+class _CopyWithImpl$Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId<
+        TRes>
+    implements
+        CopyWith$Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId<
+            TRes> {
+  _CopyWithImpl$Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId(
     this._instance,
     this._then,
   );
 
-  final Query$findRandom$findRandom _instance;
+  final Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId _instance;
 
-  final TRes Function(Query$findRandom$findRandom) _then;
+  final TRes Function(
+      Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId) _then;
 
   static const _undefined = <dynamic, dynamic>{};
 
   TRes call({
+    Object? $_id = _undefined,
     Object? string = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(Query$findRandom$findRandom(
+      _then(Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId(
+        $_id: $_id == _undefined || $_id == null
+            ? _instance.$_id
+            : ($_id as String),
         string: string == _undefined || string == null
             ? _instance.string
             : (string as String),
@@ -630,13 +646,18 @@ class _CopyWithImpl$Query$findRandom$findRandom<TRes>
       ));
 }
 
-class _CopyWithStubImpl$Query$findRandom$findRandom<TRes>
-    implements CopyWith$Query$findRandom$findRandom<TRes> {
-  _CopyWithStubImpl$Query$findRandom$findRandom(this._res);
+class _CopyWithStubImpl$Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId<
+        TRes>
+    implements
+        CopyWith$Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId<
+            TRes> {
+  _CopyWithStubImpl$Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId(
+      this._res);
 
   TRes _res;
 
   call({
+    String? $_id,
     String? string,
     String? $__typename,
   }) =>

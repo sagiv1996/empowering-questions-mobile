@@ -1,5 +1,5 @@
 type QuestionType {
-  id: String!
+  _id: String!
   string: String!
   category: Categories!
   gender: Genders!
@@ -35,7 +35,7 @@ enum Frequency {
 }
 
 type Query {
-  findRandom(category: [Categories!]!, gender: Genders!): [QuestionType!]!
+  findRandomQuestionsByUserId(userId: String!): [QuestionType!]!
 }
 
 type Mutation {

@@ -1,5 +1,6 @@
-query findRandom($categories: [Categories!]!, $gender: Genders!) {
-  findRandom(category: $categories, gender: $gender) {
+query findRandomQuestionsByUserId($userId: ID!) {
+  findRandomQuestionsByUserId(userId: $userId) {
+    _id
     string
   }
 }

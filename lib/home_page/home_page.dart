@@ -19,19 +19,11 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Query$findRandom$Widget(
-      options: Options$Query$findRandom(
+        body: Query$findRandomQuestionsByUserId$Widget(
+      options: Options$Query$findRandomQuestionsByUserId(
           fetchPolicy: FetchPolicy.noCache,
-          variables: Variables$Query$findRandom(categories: [
-            Enum$Categories.spiritualQuestions,
-            Enum$Categories.career,
-            Enum$Categories.communication,
-            Enum$Categories.positiveFeelings,
-            Enum$Categories.relationship,
-            Enum$Categories.selfConfidence,
-            Enum$Categories.spiritualQuestions,
-            Enum$Categories.universityStudies
-          ], gender: Enum$Genders.male)),
+          variables: Variables$Query$findRandomQuestionsByUserId(
+              userId: "userId")),
       builder: (result, {fetchMore, refetch}) {
         if (result.isLoading) const Text("Loading...");
         return SmartRefresher(
@@ -43,8 +35,8 @@ class _HomePageState extends State<HomePage> {
             try {
               await fetchMore!(FetchMoreOptions(
                   updateQuery: (previousResultData, fetchMoreResultData) {
-                print(previousResultData?['findRandom']
-                    .addAll(fetchMoreResultData?['findRandom']));
+                print(previousResultData?['findRandomQuestionsByUserId'].addAll(
+                    fetchMoreResultData?['findRandomQuestionsByUserId']));
                 return previousResultData;
               }));
               _refreshController.loadComplete();
@@ -62,9 +54,11 @@ class _HomePageState extends State<HomePage> {
             }
           },
           child: ListView.builder(
-            itemCount: result.parsedData?.findRandom.length ?? 0,
+            itemCount:
+                result.parsedData?.findRandomQuestionsByUserId.length ?? 0,
             itemBuilder: (context, index) => QuestionWidget(
-                question: result.parsedData!.findRandom[index].string),
+                question: result
+                    .parsedData!.findRandomQuestionsByUserId[index].string),
           ),
         );
       },
