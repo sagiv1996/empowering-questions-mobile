@@ -22,8 +22,8 @@ class _HomePageState extends State<HomePage> {
         body: Query$findRandomQuestionsByUserId$Widget(
       options: Options$Query$findRandomQuestionsByUserId(
           fetchPolicy: FetchPolicy.noCache,
-          variables: Variables$Query$findRandomQuestionsByUserId(
-              userId: "userId")),
+          variables:
+              Variables$Query$findRandomQuestionsByUserId(userId: "userId")),
       builder: (result, {fetchMore, refetch}) {
         if (result.isLoading) const Text("Loading...");
         return SmartRefresher(
@@ -35,8 +35,8 @@ class _HomePageState extends State<HomePage> {
             try {
               await fetchMore!(FetchMoreOptions(
                   updateQuery: (previousResultData, fetchMoreResultData) {
-                print(previousResultData?['findRandomQuestionsByUserId'].addAll(
-                    fetchMoreResultData?['findRandomQuestionsByUserId']));
+                previousResultData?['findRandomQuestionsByUserId'].addAll(
+                    fetchMoreResultData?['findRandomQuestionsByUserId']);
                 return previousResultData;
               }));
               _refreshController.loadComplete();
