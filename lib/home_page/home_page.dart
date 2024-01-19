@@ -32,68 +32,73 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(actions: [
+          IconButton(
+              onPressed: () => context.go('/register'),
+              icon: const Icon(Icons.settings))
+        ]),
         body: FutureBuilder(
-      future: _userId,
-      builder: (context, snapshot) {
-        switch (snapshot.connectionState) {
-          case ConnectionState.none:
-          case ConnectionState.waiting:
-            return const CircularProgressIndicator();
-          case ConnectionState.active:
-          case ConnectionState.done:
-            if (snapshot.hasError) {
-              return Text('Error: ${snapshot.error}');
-            } else {
-              return Query$findRandomQuestionsByUserId$Widget(
-                options: Options$Query$findRandomQuestionsByUserId(
-                    fetchPolicy: FetchPolicy.noCache,
-                    variables: Variables$Query$findRandomQuestionsByUserId(
-                        userId: snapshot.data!)),
-                builder: (result, {fetchMore, refetch}) {
-                  if (result.isLoading) const Text("Loading...");
-                  return SmartRefresher(
-                    semanticChildCount: 500,
-                    enablePullDown: true,
-                    enablePullUp: true,
-                    scrollController: _scrollController,
-                    onLoading: () async {
-                      try {
-                        await fetchMore!(FetchMoreOptions(updateQuery:
-                            (previousResultData, fetchMoreResultData) {
-                          previousResultData?['findRandomQuestionsByUserId']
-                              .addAll(fetchMoreResultData?[
-                                  'findRandomQuestionsByUserId']);
-                          return previousResultData;
-                        }));
-                        _refreshController.loadComplete();
-                      } catch (e) {
-                        _refreshController.loadFailed();
-                      }
+          future: _userId,
+          builder: (context, snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.none:
+              case ConnectionState.waiting:
+                return const CircularProgressIndicator();
+              case ConnectionState.active:
+              case ConnectionState.done:
+                if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else {
+                  return Query$findRandomQuestionsByUserId$Widget(
+                    options: Options$Query$findRandomQuestionsByUserId(
+                        fetchPolicy: FetchPolicy.noCache,
+                        variables: Variables$Query$findRandomQuestionsByUserId(
+                            userId: snapshot.data!)),
+                    builder: (result, {fetchMore, refetch}) {
+                      if (result.isLoading) const Text("Loading...");
+                      return SmartRefresher(
+                        semanticChildCount: 500,
+                        enablePullDown: true,
+                        enablePullUp: true,
+                        scrollController: _scrollController,
+                        onLoading: () async {
+                          try {
+                            await fetchMore!(FetchMoreOptions(updateQuery:
+                                (previousResultData, fetchMoreResultData) {
+                              previousResultData?['findRandomQuestionsByUserId']
+                                  .addAll(fetchMoreResultData?[
+                                      'findRandomQuestionsByUserId']);
+                              return previousResultData;
+                            }));
+                            _refreshController.loadComplete();
+                          } catch (e) {
+                            _refreshController.loadFailed();
+                          }
+                        },
+                        controller: _refreshController,
+                        onRefresh: () async {
+                          try {
+                            await refetch!();
+                            _refreshController.refreshCompleted();
+                          } catch (e) {
+                            _refreshController.refreshFailed();
+                          }
+                        },
+                        child: ListView.builder(
+                          itemCount: result.parsedData
+                                  ?.findRandomQuestionsByUserId.length ??
+                              0,
+                          itemBuilder: (context, index) => QuestionWidget(
+                              question: result.parsedData!
+                                  .findRandomQuestionsByUserId[index].string),
+                        ),
+                      );
                     },
-                    controller: _refreshController,
-                    onRefresh: () async {
-                      try {
-                        await refetch!();
-                        _refreshController.refreshCompleted();
-                      } catch (e) {
-                        _refreshController.refreshFailed();
-                      }
-                    },
-                    child: ListView.builder(
-                      itemCount: result
-                              .parsedData?.findRandomQuestionsByUserId.length ??
-                          0,
-                      itemBuilder: (context, index) => QuestionWidget(
-                          question: result.parsedData!
-                              .findRandomQuestionsByUserId[index].string),
-                    ),
                   );
-                },
-              );
+                }
             }
-        }
-      },
-    )
+          },
+        )
         // Center(
         //   child: Column(
         //     mainAxisAlignment: MainAxisAlignment.center,
