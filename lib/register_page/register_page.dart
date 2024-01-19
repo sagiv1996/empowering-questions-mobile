@@ -1,13 +1,11 @@
 import 'package:change_case/change_case.dart';
 import 'package:chat_bubbles/chat_bubbles.dart';
-import 'package:empowering_questions_mobile/controller/firebase_messaging_controller.dart';
 import 'package:empowering_questions_mobile/controller/user_controller.dart';
 import 'package:empowering_questions_mobile/cubit/register/chat/chat_cubit.dart';
 import 'package:empowering_questions_mobile/cubit/register/frequency/frequency_cubit.dart';
 import 'package:empowering_questions_mobile/register_page/mangment_categories.dart';
 import 'package:empowering_questions_mobile/schema.graphql.dart';
 import 'package:empowering_questions_mobile/user.graphql.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:group_button/group_button.dart';
@@ -15,6 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import "package:empowering_questions_mobile/cubit/register/gennder/gender_cubit.dart";
 import "package:empowering_questions_mobile/cubit/register/category/category_cubit.dart";
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -24,7 +23,8 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   @override
   Widget build(BuildContext context) {
@@ -219,8 +219,23 @@ class _RegisterPageState extends State<RegisterPage> {
                                 },
                                 child: const Text("Register to app"));
                           }, options: WidgetOptions$Mutation$upsertUser(
-                            onCompleted: (p0, p1) {
-                              context.go('/');
+                            onCompleted: (p0, p1) async {
+                              try {
+                                String userId = p0!['upsertUser']!['_id'];
+                                final SharedPreferences prefs = await _prefs;
+                                await prefs.setString("userId", userId);
+                                if (context.mounted) {
+                                  context.go(
+                                    '/',
+                                  );
+                                }
+                              } catch (error) {
+                                if (context.mounted) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text(error.toString())));
+                                }
+                              }
                             },
                           ))
                       ],
