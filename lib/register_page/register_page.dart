@@ -9,6 +9,7 @@ import 'package:empowering_questions_mobile/schema.graphql.dart';
 import 'package:empowering_questions_mobile/user.graphql.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:group_button/group_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -216,10 +217,10 @@ class _RegisterPageState extends State<RegisterPage> {
                                     categories: categories,
                                   ));
                                 },
-                                child: Text("Register to app"));
+                                child: const Text("Register to app"));
                           }, options: WidgetOptions$Mutation$createUser(
                             onCompleted: (p0, p1) {
-                              print("Move to next screen");
+                              context.go('/');
                             },
                           ))
                       ],

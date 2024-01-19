@@ -2,8 +2,8 @@ import 'package:empowering_questions_mobile/controller/firebase_messaging_contro
 import 'package:empowering_questions_mobile/env/env.dart';
 import 'package:empowering_questions_mobile/firebase_options.dart';
 import 'package:empowering_questions_mobile/home_page/home_page.dart';
-import 'package:empowering_questions_mobile/login_page.dart';
 import 'package:empowering_questions_mobile/register_page/register_page.dart';
+import 'package:empowering_questions_mobile/welcome_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -27,16 +27,22 @@ final GoRouter router = GoRouter(
       builder: (BuildContext context, GoRouterState state) {
         return HomePage();
       },
+      redirect: (context, state) {
+        User? user = FirebaseAuth.instance.currentUser;
+        if (user == null) {
+          return '/welcome-page';
+        }
+      },
     ),
     GoRoute(
-      path: '/login-page',
+      path: '/welcome-page',
       builder: (BuildContext context, GoRouterState state) {
-        return LoginPage();
+        return const WelcomePage();
       },
     ),
     GoRoute(
       path: '/register',
-      builder: (context, state) => RegisterPage(),
+      builder: (context, state) => const RegisterPage(),
     ),
   ],
 );
