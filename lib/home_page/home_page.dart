@@ -99,34 +99,7 @@ class _HomePageState extends State<HomePage> {
             }
           },
         )
-        // Center(
-        //   child: Column(
-        //     mainAxisAlignment: MainAxisAlignment.center,
-        //     children: [
-        //       CircleAvatar(
-        //         foregroundImage:
-        //             NetworkImage(UserController.user?.photoURL ?? ''),
-        //       ),
-        //       Text(UserController.user?.displayName ?? ''),
-        //       ElevatedButton(
-        //           onPressed: () async {
-        //             await UserController.signOut();
-        //             context.go('/');
-        //           },
-        //           child: Text('Logout')),
-        //       ElevatedButton(
-        //           onPressed: () async {
-        //             context.go('/login-page');
-        //           },
-        //           child: Text('login page')),
-        //       ElevatedButton(
-        //           onPressed: () async {
-        //             context.go('/register');
-        //           },
-        //           child: Text('register')),
-        //     ],
-        //   ),
-        // ),
+       
         );
   }
 }
