@@ -508,7 +508,7 @@ class Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId {
   Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId({
     required this.$_id,
     required this.string,
-    this.$__typename = 'QuestionType',
+    this.$__typename = 'Question',
   });
 
   factory Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId.fromJson(

@@ -17,3 +17,12 @@ mutation upsertUser(
     categories
   }
 }
+
+
+query getUserById($userId: ID!) {
+  getUserById(userId: $userId) {
+    frequency
+    gender
+    categories
+  }
+}

@@ -1,27 +1,4 @@
-type QuestionType {
-  _id: String!
-  string: String!
-  category: Categories!
-  gender: Genders!
-}
-
-enum Categories {
-  selfConfidence
-  relationship
-  positiveFeelings
-  communication
-  spiritualQuestions
-  career
-  familyLife
-  universityStudies
-}
-
-enum Genders {
-  male
-  female
-}
-
-type UserType {
+type User {
   _id: ID!
   firebaseId: String!
   frequency: Frequency!
@@ -35,25 +12,41 @@ enum Frequency {
   extra
 }
 
+enum Genders {
+  male
+  female
+}
+
+enum Categories {
+  selfConfidence
+  relationship
+  positiveFeelings
+  communication
+  spiritualQuestions
+  career
+  familyLife
+  universityStudies
+}
+
+type Question {
+  _id: ID!
+  string: String!
+  category: Categories!
+  gender: Genders!
+  avgRanking: Float
+}
+
 type Query {
-  findRandomQuestionsByUserId(userId: ID!): [QuestionType!]!
+  findRandomQuestionsByUserId(userId: ID!): [Question!]!
+  getUserById(userId: ID!): User!
 }
 
 type Mutation {
-  createQuestion(
-    string: String!
-    category: Categories!
-    gender: Genders!
-  ): QuestionType!
-  rankQuestion(
-    questionId: String!
-    userId: String!
-    rank: Float!
-  ): QuestionType!
+  rankQuestion(questionId: String!, userId: String!, rank: Float!): Question!
   upsertUser(
     firebaseId: String!
     frequency: Frequency!
     gender: Genders!
     categories: [Categories!]!
-  ): UserType!
+  ): User!
 }

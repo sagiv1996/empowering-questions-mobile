@@ -1,3 +1,55 @@
+enum Enum$Frequency { little, normal, extra, $unknown }
+
+String toJson$Enum$Frequency(Enum$Frequency e) {
+  switch (e) {
+    case Enum$Frequency.little:
+      return r'little';
+    case Enum$Frequency.normal:
+      return r'normal';
+    case Enum$Frequency.extra:
+      return r'extra';
+    case Enum$Frequency.$unknown:
+      return r'$unknown';
+  }
+}
+
+Enum$Frequency fromJson$Enum$Frequency(String value) {
+  switch (value) {
+    case r'little':
+      return Enum$Frequency.little;
+    case r'normal':
+      return Enum$Frequency.normal;
+    case r'extra':
+      return Enum$Frequency.extra;
+    default:
+      return Enum$Frequency.$unknown;
+  }
+}
+
+enum Enum$Genders { male, female, $unknown }
+
+String toJson$Enum$Genders(Enum$Genders e) {
+  switch (e) {
+    case Enum$Genders.male:
+      return r'male';
+    case Enum$Genders.female:
+      return r'female';
+    case Enum$Genders.$unknown:
+      return r'$unknown';
+  }
+}
+
+Enum$Genders fromJson$Enum$Genders(String value) {
+  switch (value) {
+    case r'male':
+      return Enum$Genders.male;
+    case r'female':
+      return Enum$Genders.female;
+    default:
+      return Enum$Genders.$unknown;
+  }
+}
+
 enum Enum$Categories {
   selfConfidence,
   relationship,
@@ -53,58 +105,6 @@ Enum$Categories fromJson$Enum$Categories(String value) {
       return Enum$Categories.universityStudies;
     default:
       return Enum$Categories.$unknown;
-  }
-}
-
-enum Enum$Genders { male, female, $unknown }
-
-String toJson$Enum$Genders(Enum$Genders e) {
-  switch (e) {
-    case Enum$Genders.male:
-      return r'male';
-    case Enum$Genders.female:
-      return r'female';
-    case Enum$Genders.$unknown:
-      return r'$unknown';
-  }
-}
-
-Enum$Genders fromJson$Enum$Genders(String value) {
-  switch (value) {
-    case r'male':
-      return Enum$Genders.male;
-    case r'female':
-      return Enum$Genders.female;
-    default:
-      return Enum$Genders.$unknown;
-  }
-}
-
-enum Enum$Frequency { little, normal, extra, $unknown }
-
-String toJson$Enum$Frequency(Enum$Frequency e) {
-  switch (e) {
-    case Enum$Frequency.little:
-      return r'little';
-    case Enum$Frequency.normal:
-      return r'normal';
-    case Enum$Frequency.extra:
-      return r'extra';
-    case Enum$Frequency.$unknown:
-      return r'$unknown';
-  }
-}
-
-Enum$Frequency fromJson$Enum$Frequency(String value) {
-  switch (value) {
-    case r'little':
-      return Enum$Frequency.little;
-    case r'normal':
-      return Enum$Frequency.normal;
-    case r'extra':
-      return Enum$Frequency.extra;
-    default:
-      return Enum$Frequency.$unknown;
   }
 }
 

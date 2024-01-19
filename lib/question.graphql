@@ -4,3 +4,10 @@ query findRandomQuestionsByUserId($userId: ID!) {
     string
   }
 }
+
+mutation ($rank: Float!, $userId: ID!, $questionId: ID!) {
+  rankQuestion(rank: $rank, userId: $userId, questionId: $questionId) {
+    _id
+    string
+  }
+}
