@@ -187,7 +187,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             ],
                           )
                         else if (state.showRegisterSelection)
-                          Mutation$createUser$Widget(
+                          Mutation$upsertUser$Widget(
                               builder: (runMutation, result) {
                             if (result!.isLoading) {
                               return const Card(child: Text("Loading..."));
@@ -210,7 +210,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                       .state
                                       .selectedFrequency!;
 
-                                  runMutation(Variables$Mutation$createUser(
+                                  runMutation(Variables$Mutation$upsertUser(
                                     firebaseId: UserController.user!.uid,
                                     frequency: frequency,
                                     gender: gender,
@@ -218,7 +218,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   ));
                                 },
                                 child: const Text("Register to app"));
-                          }, options: WidgetOptions$Mutation$createUser(
+                          }, options: WidgetOptions$Mutation$upsertUser(
                             onCompleted: (p0, p1) {
                               context.go('/');
                             },
