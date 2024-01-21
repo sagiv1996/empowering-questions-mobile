@@ -44,3 +44,7 @@ app.*.map.json
 
 *.env
 env.g.dart
+
+question.graphql.dart
+schema.graphql.dart
+user.graphql.dart
