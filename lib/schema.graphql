@@ -42,9 +42,10 @@ type Query {
 }
 
 type Mutation {
-  rankQuestion(questionId: String!, userId: String!, rank: Float!): Question!
+  rankQuestion(questionId: ID!, userId: ID!, rank: Float!): Question!
   upsertUser(
     firebaseId: String!
+    fcm: String!
     frequency: Frequency!
     gender: Genders!
     categories: [Categories!]!

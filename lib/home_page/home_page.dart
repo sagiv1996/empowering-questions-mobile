@@ -1,6 +1,6 @@
 import 'package:empowering_questions_mobile/home_page/question_widget.dart';
 import 'package:empowering_questions_mobile/question.graphql.dart';
-import 'package:empowering_questions_mobile/schema.graphql.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -8,15 +8,14 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
-
-  ScrollController _scrollController = ScrollController();
+  late RefreshController _refreshController;
 
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   late Future<String> _userId;
@@ -24,7 +23,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-
+    _refreshController = RefreshController(initialRefresh: false);
     _userId =
         _prefs.then((SharedPreferences prefs) => prefs.getString("userId")!);
   }
@@ -51,6 +50,9 @@ class _HomePageState extends State<HomePage> {
                 } else {
                   return Query$findRandomQuestionsByUserId$Widget(
                     options: Options$Query$findRandomQuestionsByUserId(
+                        onComplete: (p0, p1) {
+                          FirebaseMessaging.instance.requestPermission();
+                        },
                         fetchPolicy: FetchPolicy.noCache,
                         variables: Variables$Query$findRandomQuestionsByUserId(
                             userId: snapshot.data!)),
@@ -60,7 +62,6 @@ class _HomePageState extends State<HomePage> {
                         semanticChildCount: 500,
                         enablePullDown: true,
                         enablePullUp: true,
-                        scrollController: _scrollController,
                         onLoading: () async {
                           try {
                             await fetchMore!(FetchMoreOptions(updateQuery:
@@ -98,8 +99,6 @@ class _HomePageState extends State<HomePage> {
                 }
             }
           },
-        )
-       
-        );
+        ));
   }
 }

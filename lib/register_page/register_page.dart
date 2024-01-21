@@ -6,6 +6,7 @@ import 'package:empowering_questions_mobile/cubit/register/frequency/frequency_c
 import 'package:empowering_questions_mobile/register_page/mangment_categories.dart';
 import 'package:empowering_questions_mobile/schema.graphql.dart';
 import 'package:empowering_questions_mobile/user.graphql.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:group_button/group_button.dart';
@@ -194,7 +195,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             }
 
                             return ElevatedButton(
-                                onPressed: () {
+                                onPressed: () async {
                                   Enum$Genders gender = context
                                       .read<GenderCubit>()
                                       .state
@@ -210,8 +211,11 @@ class _RegisterPageState extends State<RegisterPage> {
                                       .state
                                       .selectedFrequency!;
 
+                                  String? fcm = await FirebaseMessaging.instance
+                                      .getToken();
                                   runMutation(Variables$Mutation$upsertUser(
                                     firebaseId: UserController.user!.uid,
+                                    fcm: fcm!,
                                     frequency: frequency,
                                     gender: gender,
                                     categories: categories,

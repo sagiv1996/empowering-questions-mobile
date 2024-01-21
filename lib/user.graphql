@@ -1,11 +1,13 @@
 mutation upsertUser(
   $firebaseId: String!
+  $fcm: String!
   $frequency: Frequency!
   $gender: Genders!
   $categories: [Categories!]!
 ) {
   upsertUser(
     firebaseId: $firebaseId
+    fcm: $fcm
     frequency: $frequency
     gender: $gender
     categories: $categories
@@ -17,7 +19,6 @@ mutation upsertUser(
     categories
   }
 }
-
 
 query getUserById($userId: ID!) {
   getUserById(userId: $userId) {
