@@ -90,8 +90,9 @@ class _HomePageState extends State<HomePage> {
                                   ?.findRandomQuestionsByUserId.length ??
                               0,
                           itemBuilder: (context, index) => QuestionWidget(
+                              userId: snapshot.data!,
                               question: result.parsedData!
-                                  .findRandomQuestionsByUserId[index].string),
+                                  .findRandomQuestionsByUserId[index]),
                         ),
                       );
                     },

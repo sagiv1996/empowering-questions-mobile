@@ -2,12 +2,14 @@ query findRandomQuestionsByUserId($userId: ID!) {
   findRandomQuestionsByUserId(userId: $userId) {
     _id
     string
+    avgRanking
   }
 }
 
-mutation ($rank: Float!, $userId: ID!, $questionId: ID!) {
-  rankQuestion(rank: $rank, userId: $userId, questionId: $questionId) {
-    _id
+mutation rankQuestion($questionId: ID!, $userId: ID!, $rank: Float!) {
+  rankQuestion(questionId: $questionId, userId: $userId, rank: $rank) {
     string
+    category
+    gender
   }
 }
