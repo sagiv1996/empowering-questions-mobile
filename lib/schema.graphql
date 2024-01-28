@@ -37,7 +37,7 @@ type Question {
 }
 
 type Query {
-  findRandomQuestionsByUserId(userId: ID!): [Question!]!
+  findRandomQuestionsByUserId(userId: ID!, excludeIds: [ID!] = []): [Question!]!
   getUserById(userId: ID!): User!
 }
 

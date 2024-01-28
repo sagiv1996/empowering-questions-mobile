@@ -19,6 +19,7 @@ class _HomePageState extends State<HomePage> {
 
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   late Future<String> _userId;
+  final List<String> _excludeIds = List<String>.empty(growable: true);
 
   @override
   void initState() {
@@ -52,6 +53,12 @@ class _HomePageState extends State<HomePage> {
                     options: Options$Query$findRandomQuestionsByUserId(
                         onComplete: (p0, p1) {
                           FirebaseMessaging.instance.requestPermission();
+                          List<dynamic> ids = p0?['findRandomQuestionsByUserId']
+                              .map((e) => e['_id'])
+                              .toList();
+                          setState(() {
+                            _excludeIds.addAll(ids.cast<String>());
+                          });
                         },
                         fetchPolicy: FetchPolicy.noCache,
                         variables: Variables$Query$findRandomQuestionsByUserId(
@@ -64,22 +71,49 @@ class _HomePageState extends State<HomePage> {
                         enablePullUp: true,
                         onLoading: () async {
                           try {
-                            await fetchMore!(FetchMoreOptions(updateQuery:
-                                (previousResultData, fetchMoreResultData) {
-                              previousResultData?['findRandomQuestionsByUserId']
-                                  .addAll(fetchMoreResultData?[
-                                      'findRandomQuestionsByUserId']);
-                              return previousResultData;
-                            }));
-                            _refreshController.loadComplete();
+                            await fetchMore!(
+                              FetchMoreOptions(
+                                  updateQuery: (previousResultData,
+                                      fetchMoreResultData) {
+                                    previousResultData?[
+                                            'findRandomQuestionsByUserId']
+                                        .addAll(fetchMoreResultData?[
+                                            'findRandomQuestionsByUserId']);
+
+                                    List<dynamic> ids = fetchMoreResultData?[
+                                            'findRandomQuestionsByUserId']
+                                        .map((e) => e['_id'])
+                                        .toList();
+
+                                    if (ids.isNotEmpty) {
+                                      setState(() {
+                                        _excludeIds.addAll(ids.cast<String>());
+                                      });
+                                      _refreshController.loadComplete();
+                                    } else if (ids.isEmpty) {
+                                      _refreshController.loadNoData();
+                                    }
+                                    return previousResultData;
+                                  },
+                                  variables:
+                                      Variables$Query$findRandomQuestionsByUserId(
+                                              userId: snapshot.data!,
+                                              excludeIds: _excludeIds)
+                                          .toJson()),
+                            );
                           } catch (e) {
+                            print("error $e");
                             _refreshController.loadFailed();
                           }
                         },
                         controller: _refreshController,
                         onRefresh: () async {
                           try {
+                            setState(() {
+                              _excludeIds.clear();
+                            });
                             await refetch!();
+                            _refreshController.loadComplete();
                             _refreshController.refreshCompleted();
                           } catch (e) {
                             _refreshController.refreshFailed();
