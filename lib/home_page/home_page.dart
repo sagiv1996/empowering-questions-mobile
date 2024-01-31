@@ -53,11 +53,14 @@ class _HomePageState extends State<HomePage> {
                     options: Options$Query$findRandomQuestionsByUserId(
                         onComplete: (p0, p1) {
                           FirebaseMessaging.instance.requestPermission();
-                          List<dynamic> ids = p0?['findRandomQuestionsByUserId']
-                              .map((e) => e['_id'])
-                              .toList();
+
+                          List<String> ids =
+                              Query$findRandomQuestionsByUserId.fromJson(p0!)
+                                  .findRandomQuestionsByUserId
+                                  .map((question) => question.$_id)
+                                  .toList();
                           setState(() {
-                            _excludeIds.addAll(ids.cast<String>());
+                            _excludeIds.addAll(ids);
                           });
                         },
                         fetchPolicy: FetchPolicy.noCache,
@@ -80,10 +83,12 @@ class _HomePageState extends State<HomePage> {
                                         .addAll(fetchMoreResultData?[
                                             'findRandomQuestionsByUserId']);
 
-                                    List<dynamic> ids = fetchMoreResultData?[
-                                            'findRandomQuestionsByUserId']
-                                        .map((e) => e['_id'])
-                                        .toList();
+                                    List<String> ids =
+                                        Query$findRandomQuestionsByUserId
+                                                .fromJson(fetchMoreResultData!)
+                                            .findRandomQuestionsByUserId
+                                            .map((question) => question.$_id)
+                                            .toList();
 
                                     if (ids.isNotEmpty) {
                                       setState(() {

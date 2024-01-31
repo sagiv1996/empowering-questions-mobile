@@ -225,7 +225,10 @@ class _RegisterPageState extends State<RegisterPage> {
                           }, options: WidgetOptions$Mutation$upsertUser(
                             onCompleted: (p0, p1) async {
                               try {
-                                String userId = p0!['upsertUser']!['_id'];
+                                String userId =
+                                    Mutation$upsertUser.fromJson(p0!)
+                                        .upsertUser
+                                        .$_id;
                                 final SharedPreferences prefs = await _prefs;
                                 await prefs.setString("userId", userId);
                                 if (context.mounted) {
