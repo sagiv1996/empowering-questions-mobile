@@ -1,6 +1,7 @@
 import 'package:empowering_questions_mobile/question.graphql.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:share_plus/share_plus.dart';
 
 class QuestionWidget extends StatelessWidget {
   final Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId question;
@@ -59,7 +60,11 @@ class QuestionWidget extends StatelessWidget {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       content: Text("Thank you for rating ${question.$_id}")));
                 }),
-              )
+              ),
+              TextButton(
+                  onPressed: () => Share.share(question.string,
+                      subject: "I'd to share this with you!"),
+                  child: const Text("Share"))
             ],
           ),
         ),
