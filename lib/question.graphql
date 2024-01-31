@@ -9,5 +9,7 @@ query findRandomQuestionsByUserId($userId: ID!, $excludeIds: [ID!]) {
 mutation rankQuestion($questionId: ID!, $userId: ID!, $rank: Float!) {
   rankQuestion(questionId: $questionId, userId: $userId, rank: $rank) {
     _id
+    string
+    avgRanking
   }
 }

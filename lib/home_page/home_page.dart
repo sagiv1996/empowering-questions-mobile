@@ -124,9 +124,19 @@ class _HomePageState extends State<HomePage> {
                                   ?.findRandomQuestionsByUserId.length ??
                               0,
                           itemBuilder: (context, index) => QuestionWidget(
-                              userId: snapshot.data!,
-                              question: result.parsedData!
-                                  .findRandomQuestionsByUserId[index]),
+                            userId: snapshot.data!,
+                            question: result
+                                .parsedData!.findRandomQuestionsByUserId[index],
+                            onAvgRankingUpdate: (p0) {
+                              setState(() {
+                                result.parsedData!
+                                        .findRandomQuestionsByUserId[index] =
+                                    result.parsedData!
+                                        .findRandomQuestionsByUserId[index]
+                                        .copyWith(avgRanking: p0);
+                              });
+                            },
+                          ),
                         ),
                       );
                     },

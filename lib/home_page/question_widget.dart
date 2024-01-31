@@ -4,10 +4,15 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class QuestionWidget extends StatelessWidget {
   final Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId question;
+  final void Function(double) onAvgRankingUpdate;
+
   final String userId;
 
   const QuestionWidget(
-      {super.key, required this.question, required this.userId});
+      {super.key,
+      required this.question,
+      required this.userId,
+      required this.onAvgRankingUpdate});
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +52,10 @@ class QuestionWidget extends StatelessWidget {
                 ),
                 options:
                     WidgetOptions$Mutation$rankQuestion(onCompleted: (p0, p1) {
+                  Mutation$rankQuestion result =
+                      Mutation$rankQuestion.fromJson(p0!);
+
+                  onAvgRankingUpdate(result.rankQuestion.avgRanking!);
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       content: Text("Thank you for rating ${question.$_id}")));
                 }),
