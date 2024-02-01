@@ -55,7 +55,15 @@ class WelcomePage extends StatelessWidget {
                     }
                   }
                 },
-              )
+              ),
+              TextButton(
+                  onPressed: () async {
+                    final user = await UserController.loginByAnonymously();
+                    if (user != null) {
+                      if (context.mounted) context.go('/register');
+                    }
+                  },
+                  child: const Text("Login Anonymously"))
             ],
           ),
         ),

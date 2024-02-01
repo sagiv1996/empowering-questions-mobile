@@ -14,6 +14,30 @@
       },
       "oauth_client": [
         {
+          "client_id": "674820714654-1vcteuug9jn6mtt96f6dedr6safo9br2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.empowering_questions_mobile",
+            "certificate_hash": "0d9271ba4a221ed1a773dbe4b4b70de2f3af651e"
+          }
+        },
+        {
+          "client_id": "674820714654-qbaank2vf01hek66l5592k1g36nalt38.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.empowering_questions_mobile",
+            "certificate_hash": "f7d8fa350db7446092521bbf388eaa3616ab6b55"
+          }
+        },
+        {
+          "client_id": "674820714654-t7j3q54kg5gptg4hqrbfr6uf69m49qe2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.empowering_questions_mobile",
+            "certificate_hash": "037393b0d239ae80c8e5989049dce92206bea33e"
+          }
+        },
+        {
           "client_id": "674820714654-kdo6k1ve6904tj6sjf5psktdq3tc7dcl.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,6 +53,13 @@
             {
               "client_id": "674820714654-5q5gj2n319qodl6i4mlku04g33erh91g.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "674820714654-8c4vhdoqbu7d9nd47kkc6jbfhjknuod6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.empoweringQuestionsMobile"
+              }
             }
           ]
         }

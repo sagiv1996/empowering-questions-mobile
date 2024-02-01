@@ -39,7 +39,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ..addMessages([
                     Message(
                         text:
-                            'Hi ${UserController.user?.displayName} and welcome!'),
+                            'Hi ${UserController.user?.displayName ?? ''} and welcome!'),
                     const Message(
                         text:
                             "We have created a smart chat that will allow you to easily and quickly register for the application"),
