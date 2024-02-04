@@ -17,6 +17,18 @@ class QuestionWidget extends StatelessWidget {
       required this.userId,
       required this.onAvgRankingUpdate});
 
+  _handlerShareScreen() async {
+    Uint8List? image = await _screenshotController.capture();
+    await Share.shareXFiles([
+      XFile.fromData(image!.buffer.asUint8List(),
+          name: "screenShot.jpg", mimeType: "image/jpeg"),
+    ], text: "I'd to share with you a empowering question!");
+  }
+
+  _handlerClickFavorite() async {
+    print("click!");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -66,15 +78,15 @@ class QuestionWidget extends StatelessWidget {
                             Text("Thank you for rating ${question.$_id}")));
                   }),
                 ),
-                TextButton(
-                    onPressed: () async {
-                      Uint8List? image = await _screenshotController.capture();
-                      await Share.shareXFiles([
-                        XFile.fromData(image!.buffer.asUint8List(),
-                            name: "screenShot.jpg", mimeType: "image/jpeg"),
-                      ], text: "I'd to share with you a empowering question!");
-                    },
-                    child: const Text("Share")),
+                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  IconButton(
+                    onPressed: () => _handlerShareScreen(),
+                    icon: const Icon(Icons.share),
+                  ),
+                  IconButton(
+                      onPressed: () => _handlerClickFavorite(),
+                      icon: const Icon(Icons.favorite))
+                ]),
               ],
             ),
           ),
