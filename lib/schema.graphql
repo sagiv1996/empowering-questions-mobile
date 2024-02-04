@@ -36,8 +36,13 @@ type Question {
   avgRanking: Float
 }
 
+type Notification {
+  isSuccess: Boolean!
+}
+
 type Query {
   findRandomQuestionsByUserId(userId: ID!, excludeIds: [ID!] = []): [Question!]!
+  findQuestionById(questionId: ID!): Question!
   getUserById(userId: ID!): User!
 }
 
@@ -50,4 +55,5 @@ type Mutation {
     gender: Genders!
     categories: [Categories!]!
   ): User!
+  triggerNotifications(usersIds: [ID!]!): Notification!
 }
