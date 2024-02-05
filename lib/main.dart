@@ -30,6 +30,7 @@ final GoRouter router = GoRouter(
         if (user == null) {
           return '/welcome-page';
         }
+        return '/';
       },
     ),
     GoRoute(
