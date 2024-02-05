@@ -7,15 +7,22 @@ import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
 
 class QuestionWidget extends StatelessWidget {
-  final Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId question;
+  final String questionId;
+  final String questionString;
+  final double questionAvgRanking;
   final void Function(double) onAvgRankingUpdate;
   final String userId;
   final ScreenshotController _screenshotController = ScreenshotController();
-  QuestionWidget(
-      {super.key,
-      required this.question,
-      required this.userId,
-      required this.onAvgRankingUpdate});
+  final double heightPercentOfTheScreen;
+  QuestionWidget({
+    super.key,
+    required this.userId,
+    required this.onAvgRankingUpdate,
+    required this.questionId,
+    required this.questionString,
+    required this.questionAvgRanking,
+    this.heightPercentOfTheScreen = 0.8,
+  });
 
   _handlerShareScreen() async {
     Uint8List? image = await _screenshotController.capture();
@@ -32,7 +39,7 @@ class QuestionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height,
+      height: MediaQuery.of(context).size.height * heightPercentOfTheScreen,
       width: MediaQuery.of(context).size.width,
       padding: const EdgeInsets.all(3),
       child: Screenshot(
@@ -45,7 +52,7 @@ class QuestionWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  question.string,
+                  questionString,
                   style: const TextStyle(
                       fontSize: 18, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
@@ -53,7 +60,7 @@ class QuestionWidget extends StatelessWidget {
                 const SizedBox(height: 20),
                 Mutation$rankQuestion$Widget(
                   builder: (RunMutation, result) => RatingBar.builder(
-                    initialRating: question.avgRanking ?? 0.0,
+                    initialRating: questionAvgRanking,
                     allowHalfRating: true,
                     itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
                     itemBuilder: (context, _) => const Icon(
@@ -64,7 +71,7 @@ class QuestionWidget extends StatelessWidget {
                       RunMutation(Variables$Mutation$rankQuestion(
                           rank: rating,
                           userId: userId,
-                          questionId: question.$_id));
+                          questionId: questionId));
                     },
                   ),
                   options: WidgetOptions$Mutation$rankQuestion(
@@ -74,8 +81,7 @@ class QuestionWidget extends StatelessWidget {
 
                     onAvgRankingUpdate(result.rankQuestion.avgRanking!);
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content:
-                            Text("Thank you for rating ${question.$_id}")));
+                        content: Text("Thank you for rating $questionId")));
                   }),
                 ),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
