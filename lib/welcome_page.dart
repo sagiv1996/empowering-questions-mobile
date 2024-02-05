@@ -1,8 +1,5 @@
 import 'package:empowering_questions_mobile/controller/user_controller.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_signin_button/button_list.dart';
-import 'package:flutter_signin_button/button_view.dart';
 import 'package:go_router/go_router.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -34,28 +31,6 @@ class WelcomePage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 20),
-              SignInButton(
-                Buttons.Google,
-                onPressed: () async {
-                  try {
-                    final user = await UserController.loginWithGoogle();
-                    if (user != null) {
-                      if (context.mounted) context.go('/register');
-                    }
-                  } on FirebaseAuthException catch (error) {
-                    if (context.mounted) {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content:
-                              Text(error.message ?? "Somethink went wrong")));
-                    }
-                  } catch (error) {
-                    if (context.mounted) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text(error.toString())));
-                    }
-                  }
-                },
-              ),
               TextButton(
                   onPressed: () async {
                     final user = await UserController.loginByAnonymously();
