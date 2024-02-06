@@ -8,6 +8,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:upgrader/upgrader.dart';
 
 late final FirebaseApp app;
 late final FirebaseAuth auth;
@@ -60,15 +61,18 @@ class MyApp extends StatelessWidget {
       ),
     );
 
-    return GraphQLProvider(
-        client: client,
-        child: MaterialApp.router(
-          routerConfig: router,
-          title: 'Flutter Demo',
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-            useMaterial3: true,
-          ),
-        ));
+    return UpgradeAlert(
+      
+      child: GraphQLProvider(
+          client: client,
+          child: MaterialApp.router(
+            routerConfig: router,
+            title: 'Flutter Demo',
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+              useMaterial3: true,
+            ),
+          )),
+    );
   }
 }
