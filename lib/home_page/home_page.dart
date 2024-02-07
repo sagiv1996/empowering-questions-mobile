@@ -114,7 +114,6 @@ class _HomePageState extends State<HomePage> {
                                         .toJson()),
                           );
                         } catch (e) {
-                          print("error $e");
                           _refreshController.loadFailed();
                         }
                       },
@@ -137,59 +136,12 @@ class _HomePageState extends State<HomePage> {
                                 ?.findRandomQuestionsByUserId.length ??
                             0,
                         itemBuilder: (context, index) {
-                          if (index == 0 && _questionId != '') {
-                            index -= 1;
-                            return Query$findQuestionById$Widget(
-                                options: Options$Query$findQuestionById(
-                                    variables: Variables$Query$findQuestionById(
-                                        questionId: _questionId)),
-                                builder: (result, {fetchMore, refetch}) {
-                                  if (result.isLoading) {
-                                    return const Center(
-                                        child: Text("Loading..."));
-                                  }
-                                  Query$findQuestionById$findQuestionById
-                                      questionFromNotification =
-                                      result.parsedData!.findQuestionById;
-
-                                  return Card(
-                                      child: Column(children: [
-                                    QuestionWidget(
-                                      heightPercentOfTheScreen: 1,
-                                      userId: snapshot.data!,
-                                      onAvgRankingUpdate: (p0) => setState(() {
-                                        result.parsedData!.findQuestionById =
-                                            result.parsedData!.findQuestionById
-                                                .copyWith(avgRanking: p0);
-                                      }),
-                                      questionId: _questionId,
-                                      questionString:
-                                          questionFromNotification.string,
-                                      questionAvgRanking:
-                                          questionFromNotification.avgRanking ??
-                                              0,
-                                    )
-                                  ]));
-                                });
-                          }
                           Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId
                               item = result.parsedData!
                                   .findRandomQuestionsByUserId[index];
                           return QuestionWidget(
-                              userId: snapshot.data!,
-                              onAvgRankingUpdate: (p0) => setState(() {
-                                    result.parsedData!
-                                                .findRandomQuestionsByUserId[
-                                            index] =
-                                        result.parsedData!
-                                            .findRandomQuestionsByUserId[index]
-                                            .copyWith(avgRanking: p0);
-                                  }),
-                              questionId: item.$_id,
-                              questionString: item.string,
-                              questionAvgRanking: item.avgRanking ?? 0,
-                              heightPercentOfTheScreen:
-                                  index % 2 == 0 ? 0.7 : 0.8);
+                            questionString: item.string,
+                          );
                         },
                       ),
                     );

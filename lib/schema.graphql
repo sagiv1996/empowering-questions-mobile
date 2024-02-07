@@ -47,7 +47,6 @@ type Query {
 }
 
 type Mutation {
-  rankQuestion(questionId: ID!, userId: ID!, rank: Float!): Question!
   upsertUser(
     firebaseId: String!
     fcm: String!

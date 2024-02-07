@@ -62,7 +62,6 @@ class MyApp extends StatelessWidget {
     );
 
     return UpgradeAlert(
-      
       child: GraphQLProvider(
           client: client,
           child: MaterialApp.router(
