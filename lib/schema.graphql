@@ -33,17 +33,12 @@ type Question {
   string: String!
   category: Categories!
   gender: Genders!
-  avgRanking: Float
-}
-
-type Notification {
-  isSuccess: Boolean!
 }
 
 type Query {
   findRandomQuestionsByUserId(userId: ID!, excludeIds: [ID!] = []): [Question!]!
   findQuestionById(questionId: ID!): Question!
-  getUserById(userId: ID!): User!
+  findUserById(userId: ID): User!
 }
 
 type Mutation {
@@ -54,5 +49,5 @@ type Mutation {
     gender: Genders!
     categories: [Categories!]!
   ): User!
-  triggerNotifications(usersIds: [ID!]!): Notification!
+  createSendPushNotificationsForUsers(usersIds: [ID!]): User
 }

@@ -1,14 +1,13 @@
+query findQuestionById($questionId: ID!) {
+  findQuestionById(questionId: $questionId) {
+    string
+    category
+    gender
+  }
+}
 query findRandomQuestionsByUserId($userId: ID!, $excludeIds: [ID!]) {
   findRandomQuestionsByUserId(userId: $userId, excludeIds: $excludeIds) {
     _id
     string
-    avgRanking
-  }
-}
-
-query findQuestionById($questionId: ID!) {
-  findQuestionById(questionId: $questionId) {
-    string
-    avgRanking
   }
 }
