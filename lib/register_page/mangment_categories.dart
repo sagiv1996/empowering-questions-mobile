@@ -1,4 +1,4 @@
-import 'package:change_case/change_case.dart';
+import 'package:empowering_questions_mobile/heberw_string.dart';
 import 'package:empowering_questions_mobile/schema.graphql.dart';
 import 'package:flutter/material.dart';
 import 'package:group_button/group_button.dart';
@@ -18,7 +18,7 @@ class MangmentCategories extends StatelessWidget {
             .toList(),
         isRadio: false,
         buttonTextBuilder: (selected, value, context) {
-          return value.name.toNoCase();
+          return HebrewString.registerPageGetCategoryAtHebrew(value);
         },
       ),
       TextButton(
@@ -29,7 +29,7 @@ class MangmentCategories extends StatelessWidget {
                 .toList();
             onUpdateCategories(result);
           },
-          child: const Text('Select'))
+          child: const Text(HebrewString.registerPageMessageNumber11))
     ]);
   }
 }

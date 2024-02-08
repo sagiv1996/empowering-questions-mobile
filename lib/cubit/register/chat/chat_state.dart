@@ -38,5 +38,5 @@ class Message {
   final String text;
   final bool isSender;
 
-  const Message({required this.text, this.isSender = false});
+  const Message({required this.text, this.isSender = true});
 }

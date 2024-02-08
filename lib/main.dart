@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:upgrader/upgrader.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 late final FirebaseApp app;
 late final FirebaseAuth auth;
@@ -65,6 +66,13 @@ class MyApp extends StatelessWidget {
       child: GraphQLProvider(
           client: client,
           child: MaterialApp.router(
+            localizationsDelegates: const [
+              GlobalCupertinoLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
+            supportedLocales: const [Locale('he', 'IL')],
+            locale: const Locale('he', 'IL'),
             routerConfig: router,
             title: 'Flutter Demo',
             theme: ThemeData(

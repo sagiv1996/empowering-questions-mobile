@@ -14,7 +14,7 @@ class ChatCubit extends Cubit<ChatState> {
       bool showRegisterSelection = false}) async {
     resetSelections();
     for (Message message in messages) {
-      if (!message.isSender) {
+      if (message.isSender) {
         await Future.delayed(const Duration(milliseconds: 300));
       }
       emit(state.copyWith(messages: state.messages..add(message)));

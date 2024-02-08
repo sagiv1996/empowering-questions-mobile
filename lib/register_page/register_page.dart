@@ -1,8 +1,8 @@
-import 'package:change_case/change_case.dart';
 import 'package:chat_bubbles/chat_bubbles.dart';
 import 'package:empowering_questions_mobile/controller/user_controller.dart';
 import 'package:empowering_questions_mobile/cubit/register/chat/chat_cubit.dart';
 import 'package:empowering_questions_mobile/cubit/register/frequency/frequency_cubit.dart';
+import 'package:empowering_questions_mobile/heberw_string.dart';
 import 'package:empowering_questions_mobile/register_page/mangment_categories.dart';
 import 'package:empowering_questions_mobile/schema.graphql.dart';
 import 'package:empowering_questions_mobile/user.graphql.dart';
@@ -31,20 +31,18 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       primary: true,
-      appBar: AppBar(title: const Text("This is my title ")),
+      appBar: AppBar(title: const Text(HebrewString.registerPageTitle)),
       body: MultiBlocProvider(
           providers: [
             BlocProvider<ChatCubit>(
                 create: (context) => ChatCubit()
                   ..addMessages([
-                    Message(
-                        text:
-                            'Hi ${UserController.user?.displayName ?? ''} and welcome!'),
                     const Message(
-                        text:
-                            "We have created a smart chat that will allow you to easily and quickly register for the application"),
+                        text: HebrewString.registerPageMessageNumber1),
                     const Message(
-                      text: "The first step be choose your gender",
+                        text: HebrewString.registerPageMessageNumber2),
+                    const Message(
+                      text: HebrewString.registerPageMessageNumber3,
                     )
                   ], showGenderSelection: true)),
             BlocProvider<GenderCubit>(create: (context) => GenderCubit()),
@@ -96,9 +94,11 @@ class _RegisterPageState extends State<RegisterPage> {
                                   builder: (context, state) {
                                     return GroupButton(
                                         buttons: GenderState.genderOptions,
-                                        buttonTextBuilder:
-                                            (selected, value, context) =>
-                                                value.name,
+                                        buttonTextBuilder: (selected, value,
+                                                context) =>
+                                            HebrewString
+                                                .registerPageGetGenderAtHebrew(
+                                                    value),
                                         onSelected: (value, index, isSelected) {
                                           context
                                               .read<GenderCubit>()
@@ -108,13 +108,17 @@ class _RegisterPageState extends State<RegisterPage> {
                                               .read<ChatCubit>()
                                               .addMessages([
                                             Message(
-                                                text: value.name,
-                                                isSender: true),
+                                                text: HebrewString
+                                                    .registerPageGetGenderAtHebrew(
+                                                        value),
+                                                isSender: false),
                                             const Message(
-                                                text: "Great, I wrote it down"),
+                                              text: HebrewString
+                                                  .registerPageMessageNumber4,
+                                            ),
                                             const Message(
-                                                text:
-                                                    "The next step will be to choose areas that you would like to improve in your life")
+                                                text: HebrewString
+                                                    .registerPageMessageNumber5)
                                           ], showCategoriesSelection: true);
                                         });
                                   },
@@ -136,22 +140,22 @@ class _RegisterPageState extends State<RegisterPage> {
                                   context.read<ChatCubit>().addMessages(
                                       categories
                                           .map<Message>((category) => Message(
-                                              text: category.name.toNoCase(),
-                                              isSender: true))
+                                              text: HebrewString
+                                                  .registerPageGetCategoryAtHebrew(
+                                                      category),
+                                              isSender: false))
                                           .toList()
                                         ..addAll(
                                           [
                                             const Message(
-                                                text: "you are great"),
-                                            Message(
-                                                text:
-                                                    "If you want to add more fields beyond the ${categories.length} fields you selected, you can always come back here and add more"),
+                                                text: HebrewString
+                                                    .registerPageMessageNumber6),
                                             const Message(
-                                                text:
-                                                    "Just before we go to the main screen"),
+                                                text: HebrewString
+                                                    .registerPageMessageNumber7),
                                             const Message(
-                                                text:
-                                                    "How often would you like to receive empowering questions?")
+                                                text: HebrewString
+                                                    .registerPageMessageNumber8)
                                           ],
                                         ),
                                       showFrequencySelection: true);
@@ -167,9 +171,11 @@ class _RegisterPageState extends State<RegisterPage> {
                                   bloc: FrequencyCubit(),
                                   builder: (context, state) => GroupButton(
                                       buttons: FrequencyState.frequencyOptions,
-                                      buttonTextBuilder:
-                                          (selected, value, context) =>
-                                              value.name,
+                                      buttonTextBuilder: (selected, value,
+                                              context) =>
+                                          HebrewString
+                                              .registerPageGetFrequencyAtHebrew(
+                                                  value),
                                       onSelected: (value, index, isSelected) {
                                         context
                                             .read<FrequencyCubit>()
@@ -177,12 +183,16 @@ class _RegisterPageState extends State<RegisterPage> {
 
                                         context.read<ChatCubit>().addMessages([
                                           Message(
-                                              text: value.name, isSender: true),
-                                          Message(
-                                              text: "${value.name} it's great"),
+                                              text: HebrewString
+                                                  .registerPageGetFrequencyAtHebrew(
+                                                      value),
+                                              isSender: false),
                                           const Message(
-                                              text:
-                                                  "All we have to do is confirm the notifications"),
+                                              text: HebrewString
+                                                  .registerPageMessageNumber9),
+                                          const Message(
+                                              text: HebrewString
+                                                  .registerPageMessageNumber10),
                                         ], showRegisterSelection: true);
                                       }))
                             ],
@@ -221,7 +231,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                     categories: categories,
                                   ));
                                 },
-                                child: const Text("Register to app"));
+                                child: const Text(
+                                    HebrewString.registerPageRegisterButton));
                           }, options: WidgetOptions$Mutation$upsertUser(
                             onCompleted: (p0, p1) async {
                               try {

@@ -1,4 +1,5 @@
 import 'package:empowering_questions_mobile/controller/user_controller.dart';
+import 'package:empowering_questions_mobile/heberw_string.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -19,14 +20,14 @@ class WelcomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text(
-                "Welcome",
+                HebrewString.welcomePageTitle,
                 style:
                     const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 20),
               const Text(
-                "Bla bla bla bla ",
+                HebrewString.welcomePageBody,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
@@ -38,7 +39,7 @@ class WelcomePage extends StatelessWidget {
                       if (context.mounted) context.go('/register');
                     }
                   },
-                  child: const Text("Login Anonymously"))
+                  child: const Text(HebrewString.welcomePageLoginAnonymously))
             ],
           ),
         ),
