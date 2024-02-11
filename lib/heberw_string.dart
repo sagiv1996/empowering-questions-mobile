@@ -74,4 +74,6 @@ class HebrewString {
       "עכשיו אתה מוזמן להירשם ולקבל התראות";
   static const registerPageRegisterButton = "הירשם";
   static const registerPageMessageNumber11 = "בחירה";
+
+  static const downloadPageTitle = "שאלות שהורדתי";
 }

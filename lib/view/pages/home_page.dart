@@ -1,4 +1,5 @@
-import 'package:empowering_questions_mobile/home_page/question_widget.dart';
+import 'package:empowering_questions_mobile/database/database.dart';
+import 'package:empowering_questions_mobile/view/components/question_widget.dart';
 import 'package:empowering_questions_mobile/question.graphql.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,8 @@ class _HomePageState extends State<HomePage> {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   late Future<String> _userId;
   final List<String> _excludeIds = List<String>.empty(growable: true);
+  static AppDb db = AppDb();
+
   String _questionId = '';
 
   @override
@@ -145,6 +148,11 @@ class _HomePageState extends State<HomePage> {
                                   .findRandomQuestionsByUserId[index];
                           return QuestionWidget(
                             questionString: item.string,
+                            handlerDownloadButton: () async {
+                              await db.downloadQuestion(result.parsedData!
+                                  .findRandomQuestionsByUserId[index].string);
+                            },
+                            questionInDownloads: false,
                           );
                         },
                       ),

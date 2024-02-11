@@ -5,11 +5,14 @@ import 'package:share_plus/share_plus.dart';
 
 class QuestionWidget extends StatelessWidget {
   final String questionString;
+  final void Function() handlerDownloadButton;
+  final bool questionInDownloads;
   final ScreenshotController _screenshotController = ScreenshotController();
-  QuestionWidget({
-    super.key,
-    required this.questionString,
-  });
+  QuestionWidget(
+      {super.key,
+      required this.handlerDownloadButton,
+      required this.questionString,
+      required this.questionInDownloads});
 
   _handlerShareScreen() async {
     Uint8List? image = await _screenshotController.capture();
@@ -20,16 +23,7 @@ class QuestionWidget extends StatelessWidget {
   }
 
   _handlerClickFavorite(BuildContext context) async {
-    showDialog(
-        context: context,
-        builder: (context) => Dialog(
-                child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.5,
-              child: const Card(
-                  child: Center(
-                      child: Text(
-                          "You will can to keep this data on your device."))),
-            )));
+    handlerDownloadButton();
   }
 
   @override
@@ -59,7 +53,9 @@ class QuestionWidget extends StatelessWidget {
                   ),
                   IconButton(
                       onPressed: () => _handlerClickFavorite(context),
-                      icon: const Icon(Icons.download))
+                      icon: Icon(questionInDownloads
+                          ? Icons.download_done
+                          : Icons.download))
                 ],
               )
             ],

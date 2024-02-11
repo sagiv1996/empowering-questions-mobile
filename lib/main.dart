@@ -1,7 +1,7 @@
-import 'package:empowering_questions_mobile/download_page/download_page.dart';
+import 'package:empowering_questions_mobile/view/pages/download_page.dart';
 import 'package:empowering_questions_mobile/env/env.dart';
 import 'package:empowering_questions_mobile/firebase_options.dart';
-import 'package:empowering_questions_mobile/home_page/home_page.dart';
+import 'package:empowering_questions_mobile/view/pages/home_page.dart';
 import 'package:empowering_questions_mobile/register_page/register_page.dart';
 import 'package:empowering_questions_mobile/welcome_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
