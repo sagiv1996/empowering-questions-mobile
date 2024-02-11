@@ -42,7 +42,11 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(actions: [
           IconButton(
               onPressed: () => context.go('/register'),
-              icon: const Icon(Icons.settings))
+              icon: const Icon(Icons.settings)),
+          TextButton.icon(
+              onPressed: () => context.push("/download"),
+              icon: const Icon(Icons.download_for_offline),
+              label: const Text("Downloads"))
         ]),
         body: FutureBuilder(
           future: _userId,

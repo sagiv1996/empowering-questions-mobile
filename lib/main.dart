@@ -1,3 +1,4 @@
+import 'package:empowering_questions_mobile/download_page/download_page.dart';
 import 'package:empowering_questions_mobile/env/env.dart';
 import 'package:empowering_questions_mobile/firebase_options.dart';
 import 'package:empowering_questions_mobile/home_page/home_page.dart';
@@ -45,6 +46,7 @@ final GoRouter router = GoRouter(
       path: '/register',
       builder: (context, state) => const RegisterPage(),
     ),
+    GoRoute(path: '/download', builder: (context, state) => const DownloadPage(),)
   ],
 );
 

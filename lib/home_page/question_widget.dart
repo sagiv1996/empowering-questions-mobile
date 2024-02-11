@@ -59,7 +59,7 @@ class QuestionWidget extends StatelessWidget {
                   ),
                   IconButton(
                       onPressed: () => _handlerClickFavorite(context),
-                      icon: const Icon(Icons.favorite_outline_outlined))
+                      icon: const Icon(Icons.download))
                 ],
               )
             ],
