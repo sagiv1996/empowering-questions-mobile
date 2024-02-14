@@ -22,18 +22,9 @@ class _HomePageState extends State<HomePage> {
   late Future<String> _userId;
   final List<String> _excludeIds = List<String>.empty(growable: true);
   static AppDb db = AppDb();
-
-  String _questionId = '';
-
   @override
   void initState() {
     super.initState();
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
-      setState(() {
-        _questionId = message.data['_id'];
-        _excludeIds.add(_questionId);
-      });
-    });
     _refreshController = RefreshController(initialRefresh: false);
     _userId =
         _prefs.then((SharedPreferences prefs) => prefs.getString("userId")!);
@@ -129,7 +120,6 @@ class _HomePageState extends State<HomePage> {
                         try {
                           setState(() {
                             _excludeIds.clear();
-                            _questionId = '';
                           });
                           await refetch!();
                           _refreshController.loadComplete();
