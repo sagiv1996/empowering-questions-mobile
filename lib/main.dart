@@ -3,9 +3,11 @@ import 'package:empowering_questions_mobile/env/env.dart';
 import 'package:empowering_questions_mobile/firebase_options.dart';
 import 'package:empowering_questions_mobile/view/pages/home_page.dart';
 import 'package:empowering_questions_mobile/register_page/register_page.dart';
+import 'package:empowering_questions_mobile/view/pages/question_page.dart';
 import 'package:empowering_questions_mobile/welcome_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -16,12 +18,17 @@ late final FirebaseApp app;
 late final FirebaseAuth auth;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
+    final id = message.data['_id'];
+    routerKey.currentContext?.push('/question/${id}');
+  });
   runApp(const MyApp());
 }
 
+final GlobalKey<NavigatorState> routerKey = GlobalKey<NavigatorState>();
 final GoRouter router = GoRouter(
+  navigatorKey: routerKey,
   routes: <RouteBase>[
     GoRoute(
       path: '/',
@@ -46,7 +53,25 @@ final GoRouter router = GoRouter(
       path: '/register',
       builder: (context, state) => const RegisterPage(),
     ),
-    GoRoute(path: '/download', builder: (context, state) => const DownloadPage(),)
+    GoRoute(
+      path: '/download',
+      builder: (context, state) => const DownloadPage(),
+    ),
+    GoRoute(
+      path: '/question/:id',
+      builder: (context, state) {
+        final String questionId = state.pathParameters['id']!;
+        return QuestionPage(questionId: questionId);
+      },
+      redirect: (context, state) {
+        try {
+          final String questionId = state.pathParameters['id']!;
+          return '/question/$questionId';
+        } catch (e) {
+          return "/";
+        }
+      },
+    )
   ],
 );
 
