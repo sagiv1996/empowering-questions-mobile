@@ -3,9 +3,9 @@ import 'package:empowering_questions_mobile/schema.graphql.dart';
 import 'package:flutter/material.dart';
 import 'package:group_button/group_button.dart';
 
-class MangmentCategories extends StatelessWidget {
+class ManagementCategories extends StatelessWidget {
   final onUpdateCategories;
-  const MangmentCategories({this.onUpdateCategories, super.key});
+  const ManagementCategories({this.onUpdateCategories, super.key});
 
   @override
   Widget build(BuildContext context) {

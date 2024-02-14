@@ -5,7 +5,7 @@ import 'package:empowering_questions_mobile/cubit/register/frequency/frequency_c
 import 'package:empowering_questions_mobile/heberw_string.dart';
 import 'package:empowering_questions_mobile/schema.graphql.dart';
 import 'package:empowering_questions_mobile/user.graphql.dart';
-import 'package:empowering_questions_mobile/view/pages/register_page/mangment_categories.dart';
+import 'package:empowering_questions_mobile/view/pages/register_page/management_categories.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -130,7 +130,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             children: [
                               BlocBuilder<CategoryCubit, CategoryState>(
                                 bloc: CategoryCubit(),
-                                builder: (context, state) => MangmentCategories(
+                                builder: (context, state) => ManagementCategories(
                                     onUpdateCategories:
                                         (List<Enum$Categories> categories) {
                                   context
