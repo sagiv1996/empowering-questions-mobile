@@ -1,4 +1,3 @@
-import 'package:empowering_questions_mobile/database/database.dart';
 import 'package:empowering_questions_mobile/view/components/question_widget.dart';
 import 'package:empowering_questions_mobile/question.graphql.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -21,7 +20,6 @@ class _HomePageState extends State<HomePage> {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   late Future<String> _userId;
   final List<String> _excludeIds = List<String>.empty(growable: true);
-  static AppDb db = AppDb();
   @override
   void initState() {
     super.initState();
@@ -37,10 +35,6 @@ class _HomePageState extends State<HomePage> {
           IconButton(
               onPressed: () => context.go('/register'),
               icon: const Icon(Icons.settings)),
-          TextButton.icon(
-              onPressed: () => context.push("/download"),
-              icon: const Icon(Icons.download_for_offline),
-              label: const Text("Downloads"))
         ]),
         body: FutureBuilder(
           future: _userId,
@@ -138,11 +132,6 @@ class _HomePageState extends State<HomePage> {
                                   .findRandomQuestionsByUserId[index];
                           return QuestionWidget(
                             questionString: item.string,
-                            handlerDownloadButton: () async {
-                              await db.downloadQuestion(result.parsedData!
-                                  .findRandomQuestionsByUserId[index].string);
-                            },
-                            questionInDownloads: false,
                           );
                         },
                       ),

@@ -1,4 +1,3 @@
-import 'package:empowering_questions_mobile/view/pages/download_page.dart';
 import 'package:empowering_questions_mobile/env/env.dart';
 import 'package:empowering_questions_mobile/firebase_options.dart';
 import 'package:empowering_questions_mobile/view/pages/home_page.dart';
@@ -21,7 +20,7 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
     final id = message.data['_id'];
-    routerKey.currentContext?.push('/question/${id}');
+    routerKey.currentContext?.push('/question/$id');
   });
   runApp(const MyApp());
 }
@@ -52,10 +51,6 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/register',
       builder: (context, state) => const RegisterPage(),
-    ),
-    GoRoute(
-      path: '/download',
-      builder: (context, state) => const DownloadPage(),
     ),
     GoRoute(
       path: '/question/:id',

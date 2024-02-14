@@ -51,8 +51,6 @@ dependencies:
   screenshot: ^2.1.0
   upgrader: ^9.0.0
   flutter_localization: ^0.2.0
-  drift: ^2.9.0
-  sqlite3_flutter_libs: ^0.5.0
 
 dev_dependencies:
   flutter_test:
@@ -67,7 +65,6 @@ dev_dependencies:
   graphql_codegen: ^0.13.11
   build_runner: ^2.4.8
   envied_generator: ^0.5.3
-  drift_dev: ^2.9.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

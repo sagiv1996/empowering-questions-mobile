@@ -21,8 +21,6 @@ class QuestionPage extends StatelessWidget {
             if (result.isLoading) return Text("Loading");
             return QuestionWidget(
                 questionString: result.parsedData!.findQuestionById.string,
-                handlerDownloadButton: () {},
-                questionInDownloads: false,
                 footer: const Text(
                   HebrewString.questionPageFooter,
                   textAlign: TextAlign.center,
