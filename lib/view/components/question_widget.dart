@@ -7,12 +7,14 @@ class QuestionWidget extends StatelessWidget {
   final String questionString;
   final void Function() handlerDownloadButton;
   final bool questionInDownloads;
+  final Widget? footer;
   final ScreenshotController _screenshotController = ScreenshotController();
   QuestionWidget(
       {super.key,
       required this.handlerDownloadButton,
       required this.questionString,
-      required this.questionInDownloads});
+      required this.questionInDownloads,
+      this.footer});
 
   _handlerShareScreen() async {
     Uint8List? image = await _screenshotController.capture();
@@ -55,9 +57,10 @@ class QuestionWidget extends StatelessWidget {
                       onPressed: () => _handlerClickFavorite(context),
                       icon: Icon(questionInDownloads
                           ? Icons.download_done
-                          : Icons.download))
+                          : Icons.download)),
                 ],
-              )
+              ),
+              footer ?? const SizedBox()
             ],
           ),
         ),
