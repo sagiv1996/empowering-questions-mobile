@@ -76,4 +76,6 @@ class HebrewString {
   static const registerPageMessageNumber11 = "בחירה";
 
   static const downloadPageTitle = "שאלות שהורדתי";
+
+  static const questionPageFooter = "עצום עיניים, נשום עמוק. דמיין מקום שקט ומרגיע. תן לנשימה לשטוף אותך, להרגיע את המחשבות. התמקד בתחושות בגופך, ברכות הרצפה, בחום השמש. אתה בטוח, רגוע, מוכן לשאול שאלות מעצימות.";
 }
