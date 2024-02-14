@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         appBar: AppBar(actions: [
           IconButton(
-              onPressed: () => context.go('/register'),
+              onPressed: () => context.push('/register'),
               icon: const Icon(Icons.settings)),
         ]),
         body: FutureBuilder(
