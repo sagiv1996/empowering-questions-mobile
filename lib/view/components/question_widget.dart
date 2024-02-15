@@ -41,7 +41,21 @@ class QuestionWidget extends StatelessWidget {
                   IconButton(
                     onPressed: () => _handlerShareScreen(),
                     icon: const Icon(Icons.share),
-                  )
+                    color: Colors.purple,
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.star,
+                      color: Colors.amber,
+                    ),
+                  ),
+                  IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.report,
+                        color: Colors.redAccent,
+                      ))
                 ],
               ),
               footer ?? const SizedBox()
