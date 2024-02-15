@@ -2,6 +2,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:like_button/like_button.dart';
 
 class QuestionWidget extends StatelessWidget {
   final String questionString;
@@ -43,13 +44,7 @@ class QuestionWidget extends StatelessWidget {
                     icon: const Icon(Icons.share),
                     color: Colors.purple,
                   ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.star,
-                      color: Colors.amber,
-                    ),
-                  ),
+                  LikeButton(),
                   IconButton(
                       onPressed: () {},
                       icon: const Icon(
