@@ -59,7 +59,7 @@ final GoRouter router = GoRouter(
         return QuestionPage(questionId: questionId);
       },
       redirect: (context, state) {
-       final String? questionId = state.pathParameters['id'];
+        final String? questionId = state.pathParameters['id'];
         if (questionId == null) {
           return "/";
         }

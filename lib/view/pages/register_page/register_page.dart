@@ -92,7 +92,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 BlocBuilder<GenderCubit, GenderState>(
                                   bloc: GenderCubit(),
                                   builder: (context, state) {
-                                    return GroupButton(
+                                    return GroupButton( 
                                         buttons: GenderState.genderOptions,
                                         buttonTextBuilder: (selected, value,
                                                 context) =>
