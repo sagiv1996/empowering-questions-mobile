@@ -33,21 +33,22 @@ type Question {
   string: String!
   category: Categories!
   gender: Genders!
+  countUsersLikes: Float!
+  doesUserLikeQuestion: Boolean
 }
 
 type Query {
-  findRandomQuestionsByUserId(userId: ID!, excludeIds: [ID!] = []): [Question!]!
+  findRandomQuestionsByUserId(excludeIds: [ID!] = []): [Question!]!
   findQuestionById(questionId: ID!): Question!
-  findUserById(userId: ID): User!
 }
 
 type Mutation {
+  addUserIdToUserIdsLikes(questionId: ID!): Question!
+  removeUserIdToUserIdsLikes(questionId: ID!): Question!
   upsertUser(
-    firebaseId: String!
     fcm: String!
     frequency: Frequency!
     gender: Genders!
     categories: [Categories!]!
   ): User!
-  createSendPushNotificationsForUsers(usersIds: [ID!]): User
 }

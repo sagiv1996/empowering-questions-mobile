@@ -3,11 +3,20 @@ query findQuestionById($questionId: ID!) {
     string
     category
     gender
+    countUsersLikes
+    doesUserLikeQuestion
   }
 }
-query findRandomQuestionsByUserId($userId: ID!, $excludeIds: [ID!]) {
-  findRandomQuestionsByUserId(userId: $userId, excludeIds: $excludeIds) {
+query findRandomQuestionsByUserId($excludeIds: [ID!]) {
+  findRandomQuestionsByUserId(excludeIds: $excludeIds) {
     _id
+    string
+    countUsersLikes
+    doesUserLikeQuestion
+  }
+}
+mutation addUserIdToUserIdsLikes($questionId: ID!) {
+  addUserIdToUserIdsLikes(questionId: $questionId) {
     string
   }
 }

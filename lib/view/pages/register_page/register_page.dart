@@ -224,7 +224,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                   String? fcm = await FirebaseMessaging.instance
                                       .getToken();
                                   runMutation(Variables$Mutation$upsertUser(
-                                    firebaseId: UserController.user!.uid,
                                     fcm: fcm!,
                                     frequency: frequency,
                                     gender: gender,
