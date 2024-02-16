@@ -76,9 +76,17 @@ class MyApp extends StatelessWidget {
     final HttpLink httpLink = HttpLink(
       Env.graphqlUrl,
     );
+    final AuthLink authLink = AuthLink(
+      getToken: () async {
+        final tokenFromFireBase =
+            await FirebaseAuth.instance.currentUser?.getIdToken();
+        return "Bearer $tokenFromFireBase";
+      },
+    );
+    final Link link = authLink.concat(httpLink);
     final ValueNotifier<GraphQLClient> client = ValueNotifier<GraphQLClient>(
       GraphQLClient(
-        link: httpLink,
+        link: link,
         cache: GraphQLCache(),
       ),
     );
