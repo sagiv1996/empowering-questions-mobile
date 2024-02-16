@@ -18,9 +18,10 @@ class QuestionPage extends StatelessWidget {
               variables:
                   Variables$Query$findQuestionById(questionId: questionId)),
           builder: (result, {fetchMore, refetch}) {
-            if (result.isLoading) return Text("Loading");
+            if (result.isLoading) return const Text("Loading");
             return QuestionWidget(
-                questionString: result.parsedData!.findQuestionById.string,
+                question: Query$findQuestionById$findQuestionById.fromJson(
+                    result.parsedData!.findQuestionById.toJson()),
                 footer: const Text(
                   HebrewString.questionPageFooter,
                   textAlign: TextAlign.center,

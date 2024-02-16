@@ -107,7 +107,8 @@ class _HomePageState extends State<HomePage> {
                       item =
                       result.parsedData!.findRandomQuestionsByUserId[index];
                   return QuestionWidget(
-                    questionString: item.string,
+                    question: Query$findQuestionById$findQuestionById.fromJson(
+                        item.toJson()),
                   );
                 },
               ),

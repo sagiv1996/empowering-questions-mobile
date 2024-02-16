@@ -33,8 +33,8 @@ type Question {
   string: String!
   category: Categories!
   gender: Genders!
-  countUsersLikes: Float!
-  doesUserLikeQuestion: Boolean
+  countUsersLikes: Int!
+  doesUserLikeQuestion: Boolean!
 }
 
 type Query {
@@ -43,12 +43,16 @@ type Query {
 }
 
 type Mutation {
-  addUserIdToUserIdsLikes(questionId: ID!): Question!
-  removeUserIdToUserIdsLikes(questionId: ID!): Question!
+  updateUserIdsLikes(questionId: ID!, action: UserAction!): Question!
   upsertUser(
     fcm: String!
     frequency: Frequency!
     gender: Genders!
     categories: [Categories!]!
   ): User!
+}
+
+enum UserAction {
+  ADD
+  REMOVE
 }
