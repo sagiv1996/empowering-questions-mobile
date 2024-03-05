@@ -33,19 +33,17 @@ class _HomePageState extends State<HomePage> {
         ]),
         body: Query$findRandomQuestionsByUserId$Widget(
           options: Options$Query$findRandomQuestionsByUserId(
-              onComplete: (p0, p1) {
-                FirebaseMessaging.instance.requestPermission();
-                List<String> ids =
-                    Query$findRandomQuestionsByUserId.fromJson(p0!)
-                        .findRandomQuestionsByUserId
-                        .map((question) => question.$_id)
-                        .toList();
-                setState(() {
-                  _excludeIds.addAll(ids);
-                });
-              },
-              fetchPolicy: FetchPolicy.noCache,
-              variables: Variables$Query$findRandomQuestionsByUserId()),
+            onComplete: (p0, p1) {
+              FirebaseMessaging.instance.requestPermission();
+              List<String> ids = Query$findRandomQuestionsByUserId.fromJson(p0!)
+                  .findRandomQuestionsByUserId
+                  .map((question) => question.$_id)
+                  .toList();
+              setState(() {
+                _excludeIds.addAll(ids);
+              });
+            },
+          ),
           builder: (result, {fetchMore, refetch}) {
             if (result.isLoading) const Text("Loading...");
             return SmartRefresher(

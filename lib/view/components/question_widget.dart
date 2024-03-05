@@ -54,19 +54,23 @@ class QuestionWidget extends StatelessWidget {
                           onFavorite!(p0?['updateUserIdsLikes']);
                         },
                       ),
-                      builder: (runMutation, result) => IconButton(
-                          onPressed: () => runMutation(
-                              Variables$Mutation$updateUserIdsLikes(
-                                  questionId: question.$_id,
-                                  action: question.doesUserLikeQuestion
-                                      ? Enum$UserAction.REMOVE
-                                      : Enum$UserAction.ADD)),
-                          icon: Icon(
-                            question.doesUserLikeQuestion
-                                ? Icons.favorite_outline
-                                : Icons.favorite,
-                            color: Colors.red,
-                          ))),
+                      builder: (runMutation, result) => Badge.count(
+                            isLabelVisible: question.countUsersLikes > 0,
+                            count: question.countUsersLikes,
+                            child: IconButton(
+                                onPressed: () => runMutation(
+                                    Variables$Mutation$updateUserIdsLikes(
+                                        questionId: question.$_id,
+                                        action: question.doesUserLikeQuestion
+                                            ? Enum$UserAction.REMOVE
+                                            : Enum$UserAction.ADD)),
+                                icon: Icon(
+                                  question.doesUserLikeQuestion
+                                      ? Icons.favorite
+                                      : Icons.favorite_outline,
+                                  color: Colors.red,
+                                )),
+                          )),
                   IconButton(
                       onPressed: () {},
                       icon: const Icon(
