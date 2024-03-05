@@ -5,17 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:like_button/like_button.dart';
 
 class QuestionWidget extends StatelessWidget {
   final Query$findQuestionById$findQuestionById question;
   final Widget? footer;
   final ScreenshotController _screenshotController = ScreenshotController();
-  QuestionWidget({
-    super.key,
-    required this.question,
-    this.footer,
-  });
+  final Function(Map<String, dynamic>? result)? onFavorite;
+  QuestionWidget(
+      {super.key, required this.question, this.footer, this.onFavorite});
 
   _handlerShareScreen() async {
     Uint8List? image = await _screenshotController.capture();
@@ -51,9 +48,25 @@ class QuestionWidget extends StatelessWidget {
                     icon: const Icon(Icons.share),
                     color: Colors.purple,
                   ),
-                  LikeButton(
-                    likeCount: question.countUsersLikes,
-                  ),
+                  Mutation$updateUserIdsLikes$Widget(
+                      options: WidgetOptions$Mutation$updateUserIdsLikes(
+                        onCompleted: (p0, p1) {
+                          onFavorite!(p0?['updateUserIdsLikes']);
+                        },
+                      ),
+                      builder: (runMutation, result) => IconButton(
+                          onPressed: () => runMutation(
+                              Variables$Mutation$updateUserIdsLikes(
+                                  questionId: question.$_id,
+                                  action: question.doesUserLikeQuestion
+                                      ? Enum$UserAction.REMOVE
+                                      : Enum$UserAction.ADD)),
+                          icon: Icon(
+                            question.doesUserLikeQuestion
+                                ? Icons.favorite_outline
+                                : Icons.favorite,
+                            color: Colors.red,
+                          ))),
                   IconButton(
                       onPressed: () {},
                       icon: const Icon(
@@ -68,5 +81,13 @@ class QuestionWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  _isLiked(bool originalValue,
+      QueryResult<Mutation$updateUserIdsLikes>? resultValue) {
+    if (resultValue?.data == null) {
+      return originalValue;
+    }
+    return resultValue!.data?['updateUserIdsLikes']['doesUserLikeQuestion'];
   }
 }
