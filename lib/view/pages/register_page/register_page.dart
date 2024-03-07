@@ -1,5 +1,4 @@
 import 'package:chat_bubbles/chat_bubbles.dart';
-import 'package:empowering_questions_mobile/controller/user_controller.dart';
 import 'package:empowering_questions_mobile/cubit/register/chat/chat_cubit.dart';
 import 'package:empowering_questions_mobile/cubit/register/frequency/frequency_cubit.dart';
 import 'package:empowering_questions_mobile/heberw_string.dart';
@@ -14,7 +13,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import "package:empowering_questions_mobile/cubit/register/gennder/gender_cubit.dart";
 import "package:empowering_questions_mobile/cubit/register/category/category_cubit.dart";
-import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -25,7 +23,6 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final ScrollController _scrollController = ScrollController();
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +89,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 BlocBuilder<GenderCubit, GenderState>(
                                   bloc: GenderCubit(),
                                   builder: (context, state) {
-                                    return GroupButton( 
+                                    return GroupButton(
                                         buttons: GenderState.genderOptions,
                                         buttonTextBuilder: (selected, value,
                                                 context) =>
@@ -130,8 +127,8 @@ class _RegisterPageState extends State<RegisterPage> {
                             children: [
                               BlocBuilder<CategoryCubit, CategoryState>(
                                 bloc: CategoryCubit(),
-                                builder: (context, state) => ManagementCategories(
-                                    onUpdateCategories:
+                                builder: (context, state) =>
+                                    ManagementCategories(onUpdateCategories:
                                         (List<Enum$Categories> categories) {
                                   context
                                       .read<CategoryCubit>()
@@ -235,12 +232,9 @@ class _RegisterPageState extends State<RegisterPage> {
                           }, options: WidgetOptions$Mutation$upsertUser(
                             onCompleted: (p0, p1) async {
                               try {
-                                String userId =
-                                    Mutation$upsertUser.fromJson(p0!)
-                                        .upsertUser
-                                        .$_id;
-                                final SharedPreferences prefs = await _prefs;
-                                await prefs.setString("userId", userId);
+                                Mutation$upsertUser.fromJson(p0!)
+                                    .upsertUser
+                                    .$_id;
                                 if (context.mounted) {
                                   context.go(
                                     '/',

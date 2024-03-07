@@ -105,15 +105,17 @@ class _HomePageState extends State<HomePage> {
                       item =
                       result.parsedData!.findRandomQuestionsByUserId[index];
                   return QuestionWidget(
-                    onFavorite: (updatedRecord) {
-                      setState(() {
-                        result.parsedData!.findRandomQuestionsByUserId[index] =
-                            Query$findRandomQuestionsByUserId$findRandomQuestionsByUserId
-                                .fromJson(updatedRecord!);
-                      });
-                    },
                     question: Query$findQuestionById$findQuestionById.fromJson(
                         item.toJson()),
+                    openInNewPageIsAvailable: true,
+                    onFavoriteTap:
+                        (doesUserLikeQuestion, countUsersLikes) async {
+                      setState(() {
+                        result.parsedData!.findRandomQuestionsByUserId[index] =
+                            item.copyWith(
+                                doesUserLikeQuestion: doesUserLikeQuestion);
+                      });
+                    },
                   );
                 },
               ),

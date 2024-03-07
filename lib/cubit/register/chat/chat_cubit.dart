@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:empowering_questions_mobile/schema.graphql.dart';
 import 'package:flutter/material.dart';
 
 part 'chat_state.dart';

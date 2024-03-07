@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:group_button/group_button.dart';
 
 class ManagementCategories extends StatelessWidget {
-  final onUpdateCategories;
-  const ManagementCategories({this.onUpdateCategories, super.key});
+  final Function(List<Enum$Categories> categories) onUpdateCategories;
+  const ManagementCategories({required this.onUpdateCategories, super.key});
 
   @override
   Widget build(BuildContext context) {

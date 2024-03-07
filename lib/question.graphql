@@ -17,8 +17,5 @@ query findRandomQuestionsByUserId($excludeIds: [ID!]) {
 mutation updateUserIdsLikes($questionId: ID!, $action: UserAction!) {
   updateUserIdsLikes(questionId: $questionId, action: $action) {
     _id
-    string
-    countUsersLikes
-    doesUserLikeQuestion
   }
 }

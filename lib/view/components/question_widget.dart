@@ -2,7 +2,7 @@ import 'dart:typed_data';
 import 'package:empowering_questions_mobile/question.graphql.dart';
 import 'package:empowering_questions_mobile/schema.graphql.dart';
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -10,9 +10,14 @@ class QuestionWidget extends StatelessWidget {
   final Query$findQuestionById$findQuestionById question;
   final Widget? footer;
   final ScreenshotController _screenshotController = ScreenshotController();
-  final Function(Map<String, dynamic>? result)? onFavorite;
+  final Function(bool doesUserLikeQuestion, int countUsersLikes)? onFavoriteTap;
+  final bool openInNewPageIsAvailable;
   QuestionWidget(
-      {super.key, required this.question, this.footer, this.onFavorite});
+      {super.key,
+      required this.question,
+      this.footer,
+      this.onFavoriteTap,
+      this.openInNewPageIsAvailable = false});
 
   _handlerShareScreen() async {
     Uint8List? image = await _screenshotController.capture();
@@ -49,21 +54,23 @@ class QuestionWidget extends StatelessWidget {
                     color: Colors.purple,
                   ),
                   Mutation$updateUserIdsLikes$Widget(
-                      options: WidgetOptions$Mutation$updateUserIdsLikes(
-                        onCompleted: (p0, p1) {
-                          onFavorite!(p0?['updateUserIdsLikes']);
-                        },
-                      ),
                       builder: (runMutation, result) => Badge.count(
                             isLabelVisible: question.countUsersLikes > 0,
                             count: question.countUsersLikes,
                             child: IconButton(
-                                onPressed: () => runMutation(
-                                    Variables$Mutation$updateUserIdsLikes(
-                                        questionId: question.$_id,
-                                        action: question.doesUserLikeQuestion
-                                            ? Enum$UserAction.REMOVE
-                                            : Enum$UserAction.ADD)),
+                                onPressed: () {
+                                  onFavoriteTap!(
+                                      !question.doesUserLikeQuestion,
+                                      question.doesUserLikeQuestion
+                                          ? question.countUsersLikes - 1
+                                          : question.countUsersLikes + 1);
+                                  runMutation(
+                                      Variables$Mutation$updateUserIdsLikes(
+                                          questionId: question.$_id,
+                                          action: question.doesUserLikeQuestion
+                                              ? Enum$UserAction.REMOVE
+                                              : Enum$UserAction.ADD));
+                                },
                                 icon: Icon(
                                   question.doesUserLikeQuestion
                                       ? Icons.favorite
@@ -76,7 +83,16 @@ class QuestionWidget extends StatelessWidget {
                       icon: const Icon(
                         Icons.report,
                         color: Colors.redAccent,
-                      ))
+                      )),
+                  if (openInNewPageIsAvailable)
+                    IconButton(
+                        onPressed: () {
+                          context.push('/question/${question.$_id}');
+                        },
+                        icon: const Icon(
+                          Icons.link,
+                          color: Colors.lightGreen,
+                        )),
                 ],
               ),
               footer ?? const SizedBox()
@@ -85,13 +101,5 @@ class QuestionWidget extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  _isLiked(bool originalValue,
-      QueryResult<Mutation$updateUserIdsLikes>? resultValue) {
-    if (resultValue?.data == null) {
-      return originalValue;
-    }
-    return resultValue!.data?['updateUserIdsLikes']['doesUserLikeQuestion'];
   }
 }
