@@ -12,6 +12,7 @@ import 'package:go_router/go_router.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:upgrader/upgrader.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 
 late final FirebaseApp app;
 late final FirebaseAuth auth;
@@ -104,9 +105,9 @@ class MyApp extends StatelessWidget {
             locale: const Locale('he', 'IL'),
             routerConfig: router,
             title: 'Flutter Demo',
-            theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-              useMaterial3: true,
+            theme: FlexThemeData.light(scheme: FlexScheme.indigoM3),
+            darkTheme: FlexThemeData.dark(
+              scheme: FlexScheme.indigoM3,
             ),
           )),
     );

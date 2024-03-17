@@ -12,6 +12,11 @@ class ManagementCategories extends StatelessWidget {
     late GroupButtonController _checkboxesController = GroupButtonController();
     return Column(children: [
       GroupButton(
+        options: GroupButtonOptions(
+          unselectedTextStyle: TextStyle(
+            color: Theme.of(context).primaryColor,
+          ),
+        ),
         controller: _checkboxesController,
         buttons: Enum$Categories.values
             .where((category) => category != Enum$Categories.$unknown)

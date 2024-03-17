@@ -73,12 +73,13 @@ class _RegisterPageState extends State<RegisterPage> {
                                 text: state.messages[index].text,
                                 isSender: state.messages[index].isSender,
                                 color: state.messages[index].isSender
-                                    ? const Color(0xFF1B97F3)
-                                    : const Color(0xFFE8E8EE),
+                                    ? Theme.of(context).secondaryHeaderColor
+                                    : Theme.of(context).focusColor,
                                 textStyle: TextStyle(
-                                    color: state.messages[index].isSender
-                                        ? Colors.white
-                                        : Colors.black,
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .headlineMedium!
+                                        .color,
                                     fontSize: 16)),
                           ),
                         ),
@@ -90,6 +91,12 @@ class _RegisterPageState extends State<RegisterPage> {
                                   bloc: GenderCubit(),
                                   builder: (context, state) {
                                     return GroupButton(
+                                        options: GroupButtonOptions(
+                                          unselectedTextStyle: TextStyle(
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                          ),
+                                        ),
                                         buttons: GenderState.genderOptions,
                                         buttonTextBuilder: (selected, value,
                                                 context) =>
@@ -167,6 +174,11 @@ class _RegisterPageState extends State<RegisterPage> {
                               BlocBuilder<FrequencyCubit, FrequencyState>(
                                   bloc: FrequencyCubit(),
                                   builder: (context, state) => GroupButton(
+                                    options: GroupButtonOptions(
+                                        unselectedTextStyle: TextStyle(
+                                          color: Theme.of(context).primaryColor,
+                                        ),
+                                      ),
                                       buttons: FrequencyState.frequencyOptions,
                                       buttonTextBuilder: (selected, value,
                                               context) =>

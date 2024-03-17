@@ -51,6 +51,7 @@ dependencies:
   upgrader: ^9.0.0
   flutter_localization: ^0.2.0
   badges: ^3.1.2
+  flex_color_scheme: ^7.3.1
 
 dev_dependencies:
   flutter_test:
