@@ -38,18 +38,22 @@ type Question {
 }
 
 type Query {
+  findUserById: User!
   findRandomQuestionsByUserId(excludeIds: [ID!] = []): [Question!]!
+  randomLikesQuestionsByUserId(excludeIds: [ID!] = []): [Question!]!
   findQuestionById(questionId: ID!): Question!
 }
 
 type Mutation {
-  updateUserIdsLikes(questionId: ID!, action: UserAction!): Question!
   upsertUser(
+    firebaseId: ID!
     fcm: String!
     frequency: Frequency!
     gender: Genders!
     categories: [Categories!]!
   ): User!
+  createSendPushNotificationsForUsers(usersIds: [ID!]): User
+  updateUserIdsLikes(questionId: ID!, action: UserAction!): Question!
 }
 
 enum UserAction {

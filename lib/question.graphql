@@ -14,8 +14,17 @@ query findRandomQuestionsByUserId($excludeIds: [ID!]) {
     doesUserLikeQuestion
   }
 }
+query randomLikesQuestionsByUserId($excludeIds: [ID!]) {
+  randomLikesQuestionsByUserId(excludeIds: $excludeIds) {
+    _id
+    string
+    countUsersLikes
+  }
+}
+
 mutation updateUserIdsLikes($questionId: ID!, $action: UserAction!) {
   updateUserIdsLikes(questionId: $questionId, action: $action) {
     _id
   }
 }
+

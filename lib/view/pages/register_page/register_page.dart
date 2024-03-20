@@ -174,7 +174,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               BlocBuilder<FrequencyCubit, FrequencyState>(
                                   bloc: FrequencyCubit(),
                                   builder: (context, state) => GroupButton(
-                                    options: GroupButtonOptions(
+                                      options: GroupButtonOptions(
                                         unselectedTextStyle: TextStyle(
                                           color: Theme.of(context).primaryColor,
                                         ),
