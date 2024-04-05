@@ -46,7 +46,6 @@ type Query {
 
 type Mutation {
   upsertUser(
-    firebaseId: ID!
     fcm: String!
     frequency: Frequency!
     gender: Genders!
