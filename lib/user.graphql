@@ -1,17 +1,25 @@
-mutation upsertUser(
+mutation createUser(
   $fcm: String!
   $frequency: Frequency!
   $gender: Genders!
   $categories: [Categories!]!
 ) {
-  upsertUser(
+  createUser(
     fcm: $fcm
     frequency: $frequency
     gender: $gender
     categories: $categories
   ) {
     _id
+    gender
+    frequency
+    categories
     firebaseId
+  }
+}
+mutation updateUser($frequency: Frequency, $categories: [Categories!]) {
+  updateUser(frequency: $frequency, categories: $categories) {
+    _id
     gender
     frequency
     categories

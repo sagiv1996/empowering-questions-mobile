@@ -207,60 +207,54 @@ class _RegisterPageState extends State<RegisterPage> {
                             ],
                           )
                         else if (state.showRegisterSelection)
-                          Mutation$upsertUser$Widget(
+                          Mutation$createUser$Widget(
                               builder: (runMutation, result) {
-                            if (result!.isLoading) {
-                              return const Card(child: Text("Loading..."));
-                            }
-
-                            return ElevatedButton(
-                                onPressed: () async {
-                                  Enum$Genders gender = context
-                                      .read<GenderCubit>()
-                                      .state
-                                      .selectedGender!;
-
-                                  List<Enum$Categories> categories = context
-                                      .read<CategoryCubit>()
-                                      .state
-                                      .selectedCategories!;
-
-                                  Enum$Frequency frequency = context
-                                      .read<FrequencyCubit>()
-                                      .state
-                                      .selectedFrequency!;
-
-                                  String? fcm = await FirebaseMessaging.instance
-                                      .getToken();
-                                  runMutation(Variables$Mutation$upsertUser(
-                                    fcm: fcm!,
-                                    frequency: frequency,
-                                    gender: gender,
-                                    categories: categories,
-                                  ));
-                                },
-                                child: const Text(
-                                    HebrewString.registerPageRegisterButton));
-                          }, options: WidgetOptions$Mutation$upsertUser(
-                            onCompleted: (p0, p1) async {
-                              try {
-                                Mutation$upsertUser.fromJson(p0!)
-                                    .upsertUser
-                                    .$_id;
-                                if (context.mounted) {
-                                  context.go(
-                                    '/',
-                                  );
+                                if (result!.isLoading) {
+                                  return const Card(child: Text("Loading..."));
                                 }
-                              } catch (error) {
-                                if (context.mounted) {
+
+                                return ElevatedButton(
+                                    onPressed: () async {
+                                      Enum$Genders gender = context
+                                          .read<GenderCubit>()
+                                          .state
+                                          .selectedGender!;
+
+                                      List<Enum$Categories> categories = context
+                                          .read<CategoryCubit>()
+                                          .state
+                                          .selectedCategories!;
+
+                                      Enum$Frequency frequency = context
+                                          .read<FrequencyCubit>()
+                                          .state
+                                          .selectedFrequency!;
+
+                                      String? fcm = await FirebaseMessaging
+                                          .instance
+                                          .getToken();
+                                      runMutation(Variables$Mutation$createUser(
+                                        fcm: fcm!,
+                                        frequency: frequency,
+                                        gender: gender,
+                                        categories: categories,
+                                      ));
+                                    },
+                                    child: const Text(HebrewString
+                                        .registerPageRegisterButton));
+                              },
+                              options: WidgetOptions$Mutation$createUser(
+                                onError: (error) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                           content: Text(error.toString())));
-                                }
-                              }
-                            },
-                          ))
+                                },
+                                onCompleted: (p0, p1) async {
+                                  context.go(
+                                    '/',
+                                  );
+                                },
+                              ))
                       ],
                     ),
                   ),

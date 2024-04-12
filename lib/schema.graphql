@@ -45,12 +45,13 @@ type Query {
 }
 
 type Mutation {
-  upsertUser(
+  createUser(
     fcm: String!
     frequency: Frequency!
     gender: Genders!
     categories: [Categories!]!
   ): User!
+  updateUser(frequency: Frequency, categories: [Categories!]): User!
   createSendPushNotificationsForUsers(usersIds: [ID!]): User
   updateUserIdsLikes(questionId: ID!, action: UserAction!): Question!
 }
