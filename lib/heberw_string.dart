@@ -15,6 +15,40 @@ class HebrewString {
   static const registerPageMessageNumber3 =
       "השלב הראשון יהיה לבחור את המגדר שלך";
 
+  static registerPageGetAtHebrew(dynamic value) {
+    switch (value) {
+      case Enum$Genders.male:
+        return "זכר";
+      case Enum$Genders.female:
+        return "נקבה";
+      case Enum$Frequency.little:
+        return "מעט";
+      case Enum$Frequency.normal:
+        return "נורמלי";
+      case Enum$Frequency.extra:
+        return "הרבה";
+      case Enum$Categories.career:
+        return "קרירה";
+      case Enum$Categories.communication:
+        return "תקשורת";
+      case Enum$Categories.familyLife:
+        return "חיי משפחה";
+
+      case Enum$Categories.positiveFeelings:
+        return "תחושובות חיוביות";
+      case Enum$Categories.relationship:
+        return "קשרים וזוגיות";
+      case Enum$Categories.selfConfidence:
+        return "ביטחון עצמי";
+      case Enum$Categories.spiritualQuestions:
+        return "שאלות רוחניות";
+      case Enum$Categories.universityStudies:
+        return "לימודים אקדמאיים";
+      default:
+        return "null";
+    }
+  }
+
   static registerPageGetGenderAtHebrew(Enum$Genders gender) {
     if (gender == Enum$Genders.female) {
       return "נקבה";
@@ -26,7 +60,7 @@ class HebrewString {
   static const registerPageMessageNumber5 =
       "השלב הבא יהיה לבחור את הקטגוריות שלך";
 
-  static registerPageGetCategoryAtHebrew(Enum$Categories category) {
+  static String registerPageGetCategoryAtHebrew(Enum$Categories category) {
     switch (category) {
       case Enum$Categories.career:
         return "קרירה";
@@ -46,7 +80,8 @@ class HebrewString {
       case Enum$Categories.universityStudies:
         return "לימודים אקדמאיים";
       case Enum$Categories.$unknown:
-      // TODO: Handle this case.
+      default:
+        return "";
     }
   }
 
@@ -77,5 +112,6 @@ class HebrewString {
 
   static const downloadPageTitle = "שאלות שהורדתי";
 
-  static const questionPageFooter = "עצום עיניים, נשום עמוק. דמיין מקום שקט ומרגיע. תן לנשימה לשטוף אותך, להרגיע את המחשבות. התמקד בתחושות בגופך, ברכות הרצפה, בחום השמש. אתה בטוח, רגוע, מוכן לשאול שאלות מעצימות.";
+  static const questionPageFooter =
+      "עצום עיניים, נשום עמוק. דמיין מקום שקט ומרגיע. תן לנשימה לשטוף אותך, להרגיע את המחשבות. התמקד בתחושות בגופך, ברכות הרצפה, בחום השמש. אתה בטוח, רגוע, מוכן לשאול שאלות מעצימות.";
 }

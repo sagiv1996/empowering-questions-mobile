@@ -25,3 +25,11 @@ mutation updateUser($frequency: Frequency, $categories: [Categories!]) {
     categories
   }
 }
+query findUserById {
+  findUserById {
+    _id
+    frequency
+    gender
+    categories
+  }
+}
