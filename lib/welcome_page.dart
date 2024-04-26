@@ -36,7 +36,7 @@ class WelcomePage extends StatelessWidget {
                   onPressed: () async {
                     final user = await UserController.loginByAnonymously();
                     if (user != null) {
-                      if (context.mounted) context.go('/register');
+                      if (context.mounted) context.go('/register-page');
                     }
                   },
                   child: const Text(HebrewString.welcomePageLoginAnonymously))

@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         appBar: AppBar(actions: [
           IconButton(
-              onPressed: () => context.push('/register'),
+              onPressed: () => context.push('/setting-page'),
               icon: const Icon(Icons.settings)),
         ]),
         body: Query$findRandomQuestionsByUserId$Widget(

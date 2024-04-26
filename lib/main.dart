@@ -4,6 +4,7 @@ import 'package:empowering_questions_mobile/provider/chat_register_provider.dart
 import 'package:empowering_questions_mobile/view/pages/home_page.dart';
 import 'package:empowering_questions_mobile/view/pages/question_page.dart';
 import 'package:empowering_questions_mobile/view/pages/register_page.dart';
+import 'package:empowering_questions_mobile/view/pages/setting_page.dart';
 import 'package:empowering_questions_mobile/welcome_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -52,7 +53,7 @@ final GoRouter router = GoRouter(
       },
     ),
     GoRoute(
-      path: '/register',
+      path: '/register-page',
       builder: (context, state) => const RegisterPage(),
     ),
     GoRoute(
@@ -68,6 +69,10 @@ final GoRouter router = GoRouter(
         }
         return '/question/$questionId';
       },
+    ),
+    GoRoute(
+      path: '/setting-page',
+      builder: (context, state) => SettingPage(),
     )
   ],
 );
