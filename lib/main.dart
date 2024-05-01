@@ -1,10 +1,13 @@
+import 'package:empowering_questions_mobile/api/question.dart';
 import 'package:empowering_questions_mobile/env/env.dart';
 import 'package:empowering_questions_mobile/firebase_options.dart';
 import 'package:empowering_questions_mobile/provider/chat_register_provider.dart';
+import 'package:empowering_questions_mobile/provider/questions_provider.dart';
 import 'package:empowering_questions_mobile/view/pages/home_page.dart';
 import 'package:empowering_questions_mobile/view/pages/question_page.dart';
 import 'package:empowering_questions_mobile/view/pages/register_page.dart';
 import 'package:empowering_questions_mobile/view/pages/setting_page.dart';
+import 'package:empowering_questions_mobile/view/pages/home_page.dart';
 import 'package:empowering_questions_mobile/welcome_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -16,6 +19,7 @@ import 'package:provider/provider.dart';
 import 'package:upgrader/upgrader.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
+import 'package:dio/dio.dart';
 
 late final FirebaseApp app;
 late final FirebaseAuth auth;
@@ -36,7 +40,7 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/',
       builder: (BuildContext context, GoRouterState state) {
-        return const HomePage();
+        return HomePage();
       },
       redirect: (context, state) {
         User? user = FirebaseAuth.instance.currentUser;
@@ -56,24 +60,24 @@ final GoRouter router = GoRouter(
       path: '/register-page',
       builder: (context, state) => const RegisterPage(),
     ),
-    GoRoute(
-      path: '/question/:id',
-      builder: (context, state) {
-        final String questionId = state.pathParameters['id']!;
-        return QuestionPage(questionId: questionId);
-      },
-      redirect: (context, state) {
-        final String? questionId = state.pathParameters['id'];
-        if (questionId == null) {
-          return "/";
-        }
-        return '/question/$questionId';
-      },
-    ),
-    GoRoute(
-      path: '/setting-page',
-      builder: (context, state) => SettingPage(),
-    )
+    // GoRoute(
+    //   path: '/question/:id',
+    //   builder: (context, state) {
+    //     final String questionId = state.pathParameters['id']!;
+    //     return QuestionPage(questionId: questionId);
+    //   },
+    //   redirect: (context, state) {
+    //     final String? questionId = state.pathParameters['id'];
+    //     if (questionId == null) {
+    //       return "/";
+    //     }
+    //     return '/question/$questionId';
+    //   },
+    // ),
+    // GoRoute(
+    //   path: '/setting-page',
+    //   builder: (context, state) => SettingPage(),
+    // )
   ],
 );
 
@@ -81,44 +85,25 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    final HttpLink httpLink = HttpLink(
-      Env.graphqlUrl,
-    );
-    final AuthLink authLink = AuthLink(
-      getToken: () async {
-        final tokenFromFireBase =
-            await FirebaseAuth.instance.currentUser?.getIdToken();
-        return "Bearer $tokenFromFireBase";
-      },
-    );
-    final Link link = authLink.concat(httpLink);
-    final ValueNotifier<GraphQLClient> client = ValueNotifier<GraphQLClient>(
-      GraphQLClient(
-        link: link,
-        cache: GraphQLCache(),
-      ),
-    );
-
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => ChatRegisterProvider()),
+          ChangeNotifierProvider(create: (_) => QuestionsProvider()),
         ],
-        child: GraphQLProvider(
-            client: client,
-            child: MaterialApp.router(
-              localizationsDelegates: const [
-                GlobalCupertinoLocalizations.delegate,
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-              ],
-              supportedLocales: const [Locale('he', 'IL')],
-              locale: const Locale('he', 'IL'),
-              routerConfig: router,
-              title: 'Flutter Demo',
-              theme: FlexThemeData.light(scheme: FlexScheme.indigoM3),
-              darkTheme: FlexThemeData.dark(
-                scheme: FlexScheme.indigoM3,
-              ),
-            )));
+        child: MaterialApp.router(
+          localizationsDelegates: const [
+            GlobalCupertinoLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          supportedLocales: const [Locale('he', 'IL')],
+          locale: const Locale('he', 'IL'),
+          routerConfig: router,
+          title: 'Flutter Demo',
+          theme: FlexThemeData.light(scheme: FlexScheme.indigoM3),
+          darkTheme: FlexThemeData.dark(
+            scheme: FlexScheme.indigoM3,
+          ),
+        ));
   }
 }

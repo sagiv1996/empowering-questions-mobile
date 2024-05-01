@@ -12,23 +12,7 @@ class QuestionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Query$findQuestionById$Widget(
-          options: Options$Query$findQuestionById(
-              variables:
-                  Variables$Query$findQuestionById(questionId: questionId)),
-          builder: (result, {fetchMore, refetch}) {
-            if (result.data == null) return const LoadingCard();
-            return QuestionWidget(
-                question: Query$findQuestionById$findQuestionById.fromJson(
-                    result.parsedData!.findQuestionById.toJson()),
-                onFavoriteTap: (doesUserLikeQuestion, countUsersLikes) {
-                  refetch!();
-                },
-                footer: const Text(
-                  HebrewString.questionPageFooter,
-                  textAlign: TextAlign.center,
-                ));
-          }),
+      body: Text("Question page"),
     );
   }
 }
