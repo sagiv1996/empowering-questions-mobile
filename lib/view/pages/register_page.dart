@@ -1,10 +1,11 @@
+import 'package:empowering_questions_mobile/controller/user_controller.dart';
 import 'package:empowering_questions_mobile/heberw_string.dart';
 import 'package:empowering_questions_mobile/provider/chat_register_provider.dart';
 import 'package:empowering_questions_mobile/provider/interfaces/chat_provider.interface.dart';
 import 'package:empowering_questions_mobile/provider/interfaces/chat_register_provider_interface.dart';
-import 'package:empowering_questions_mobile/schema.graphql.dart';
-import 'package:empowering_questions_mobile/user.graphql.dart';
+import 'package:empowering_questions_mobile/provider/user_provider.dart';
 import 'package:empowering_questions_mobile/view/components/custom_bubble.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -46,14 +47,11 @@ class _TestState extends State<RegisterPage> {
     });
     ChatRegisterProvider chat = context.watch<ChatRegisterProvider>();
     List<Message> messages = chat.messages;
-    Turn turn = chat.turn;
     bool? isRadio = chat.suggestions?.values.last;
     return Scaffold(
         appBar: AppBar(),
         body: Column(
           children: [
-            Text("turn $turn"),
-            Text("turn ${chat.step}"),
             Expanded(
                 child: ListView.builder(
                     controller: _scrollController,
@@ -83,6 +81,7 @@ class _TestState extends State<RegisterPage> {
                                   HebrewString.registerPageGetAtHebrew(value),
                                   false);
 
+                              print(value.toString());
                               switch (chat.step) {
                                 case SuggestionsTypes.selectGender:
                                   chat.setSelectedGender(value);
@@ -113,11 +112,11 @@ class _TestState extends State<RegisterPage> {
                         if (!isRadio)
                           TextButton(
                               onPressed: () {
-                                chat.setSelectedCategories(Enum$Categories
+                                chat.setSelectedCategories(CategoryOptions
                                     .values
                                     .where((element) => _checkboxesController
                                         .selectedIndexes
-                                        .contains(Enum$Categories.values
+                                        .contains(CategoryOptions.values
                                             .indexOf(element)))
                                     .toList());
                                 List<String> categoriesShouldAddToScreen = chat
@@ -144,36 +143,21 @@ class _TestState extends State<RegisterPage> {
                   },
                 )
               else
-                Mutation$createUser$Widget(
-                    builder: (runMutation, result) {
-                      if (result!.isLoading) {
-                        return const Card(child: Text("Loading..."));
+                ElevatedButton(
+                    onPressed: () {
+                      try {
+                        context.read<UserProvider>().createUser({
+                          "frequency": chat.selectedFrequency.name,
+                          "gender": chat.selectedGender.name,
+                          "categories": chat.selectedCategories
+                              .map((e) => e.name)
+                              .toList()
+                        }).then((value) => context.push("/"));
+                      } catch (e) {
+                        print("ERROR!! $e");
                       }
-                      return ElevatedButton(
-                          onPressed: () async {
-                            String? fcm =
-                                await FirebaseMessaging.instance.getToken();
-                            runMutation(Variables$Mutation$createUser(
-                              fcm: fcm!,
-                              frequency: chat.selectedFrequency,
-                              gender: chat.selectedGender,
-                              categories: chat.selectedCategories,
-                            ));
-                          },
-                          child: const Text(
-                              HebrewString.registerPageRegisterButton));
                     },
-                    options: WidgetOptions$Mutation$createUser(
-                      onError: (error) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(error.toString())));
-                      },
-                      onCompleted: (p0, p1) async {
-                        context.go(
-                          '/',
-                        );
-                      },
-                    )),
+                    child: const Text(HebrewString.registerPageRegisterButton))
           ],
         ));
   }
@@ -191,7 +175,6 @@ class _TestState extends State<RegisterPage> {
   }
 
   void _resetSelectedIndex() {
-    print("Clean indexes");
     _checkboxesController.unselectAll();
   }
 }

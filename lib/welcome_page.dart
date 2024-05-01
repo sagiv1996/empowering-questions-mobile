@@ -33,11 +33,8 @@ class WelcomePage extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               TextButton(
-                  onPressed: () async {
-                    final user = await UserController.loginByAnonymously();
-                    if (user != null) {
-                      if (context.mounted) context.go('/register-page');
-                    }
+                  onPressed: () {
+                    context.go('/register-page');
                   },
                   child: const Text(HebrewString.welcomePageLoginAnonymously))
             ],

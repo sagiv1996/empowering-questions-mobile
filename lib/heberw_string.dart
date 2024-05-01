@@ -1,4 +1,5 @@
-import 'package:empowering_questions_mobile/schema.graphql.dart';
+// import 'package:empowering_questions_mobile/schema.graphql.dart';
+import 'package:empowering_questions_mobile/provider/interfaces/chat_register_provider_interface.dart';
 import 'package:empowering_questions_mobile/welcome_page.dart';
 
 class HebrewString {
@@ -17,92 +18,47 @@ class HebrewString {
 
   static registerPageGetAtHebrew(dynamic value) {
     switch (value) {
-      case Enum$Genders.male:
+      case GendersOptions.male:
         return "זכר";
-      case Enum$Genders.female:
+      case GendersOptions.female:
         return "נקבה";
-      case Enum$Frequency.little:
+      case FrequencyOptions.little:
         return "מעט";
-      case Enum$Frequency.normal:
+      case FrequencyOptions.normal:
         return "נורמלי";
-      case Enum$Frequency.extra:
+      case FrequencyOptions.extra:
         return "הרבה";
-      case Enum$Categories.career:
+      case CategoryOptions.career:
         return "קרירה";
-      case Enum$Categories.communication:
+      case CategoryOptions.communication:
         return "תקשורת";
-      case Enum$Categories.familyLife:
+      case CategoryOptions.familyLife:
         return "חיי משפחה";
 
-      case Enum$Categories.positiveFeelings:
+      case CategoryOptions.positiveFeelings:
         return "תחושובות חיוביות";
-      case Enum$Categories.relationship:
+      case CategoryOptions.relationship:
         return "קשרים וזוגיות";
-      case Enum$Categories.selfConfidence:
+      case CategoryOptions.selfConfidence:
         return "ביטחון עצמי";
-      case Enum$Categories.spiritualQuestions:
+      case CategoryOptions.spiritualQuestions:
         return "שאלות רוחניות";
-      case Enum$Categories.universityStudies:
+      case CategoryOptions.universityStudies:
         return "לימודים אקדמאיים";
       default:
         return "null";
     }
   }
 
-  static registerPageGetGenderAtHebrew(Enum$Genders gender) {
-    if (gender == Enum$Genders.female) {
-      return "נקבה";
-    }
-    return "זכר";
-  }
-
   static const registerPageMessageNumber4 = "מעולה. רשמתי לפניי";
   static const registerPageMessageNumber5 =
       "השלב הבא יהיה לבחור את הקטגוריות שלך";
-
-  static String registerPageGetCategoryAtHebrew(Enum$Categories category) {
-    switch (category) {
-      case Enum$Categories.career:
-        return "קרירה";
-      case Enum$Categories.communication:
-        return "תקשורת";
-      case Enum$Categories.familyLife:
-        return "חיי משפחה";
-
-      case Enum$Categories.positiveFeelings:
-        return "תחושובות חיוביות";
-      case Enum$Categories.relationship:
-        return "קשרים וזוגיות";
-      case Enum$Categories.selfConfidence:
-        return "ביטחון עצמי";
-      case Enum$Categories.spiritualQuestions:
-        return "שאלות רוחניות";
-      case Enum$Categories.universityStudies:
-        return "לימודים אקדמאיים";
-      case Enum$Categories.$unknown:
-      default:
-        return "";
-    }
-  }
 
   static const registerPageMessageNumber6 = "נהדר!";
   static const registerPageMessageNumber7 =
       "תוכל תמיד לחזור לכאן ולעדכן את הקטגוריות שלך";
   static const registerPageMessageNumber8 =
       "באיזו תדירות תרצה לקבל את ההתראות שלך?";
-
-  static registerPageGetFrequencyAtHebrew(Enum$Frequency frequency) {
-    switch (frequency) {
-      case Enum$Frequency.little:
-        return "מעט";
-      case Enum$Frequency.normal:
-        return "נורמלי";
-      case Enum$Frequency.extra:
-        return "הרבה";
-      case Enum$Frequency.$unknown:
-      // TODO: Handle this case.
-    }
-  }
 
   static const registerPageMessageNumber9 = "מעולה.";
   static const registerPageMessageNumber10 =

@@ -6,8 +6,6 @@ import 'package:retrofit/retrofit.dart';
 
 part 'question.g.dart';
 
-final a = Env.backendUrl;
-
 @RestApi(baseUrl: "/question")
 abstract class RestQuestion {
   factory RestQuestion(Dio dio, {String baseUrl}) = _RestQuestion;

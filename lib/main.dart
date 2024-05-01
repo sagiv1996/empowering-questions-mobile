@@ -1,26 +1,21 @@
-import 'package:empowering_questions_mobile/api/question.dart';
-import 'package:empowering_questions_mobile/env/env.dart';
 import 'package:empowering_questions_mobile/firebase_options.dart';
 import 'package:empowering_questions_mobile/provider/chat_register_provider.dart';
 import 'package:empowering_questions_mobile/provider/question_provider.dart';
 import 'package:empowering_questions_mobile/provider/questions_provider.dart';
+import 'package:empowering_questions_mobile/provider/user_provider.dart';
 import 'package:empowering_questions_mobile/view/pages/home_page.dart';
 import 'package:empowering_questions_mobile/view/pages/question_page.dart';
 import 'package:empowering_questions_mobile/view/pages/register_page.dart';
 import 'package:empowering_questions_mobile/view/pages/setting_page.dart';
-import 'package:empowering_questions_mobile/view/pages/home_page.dart';
 import 'package:empowering_questions_mobile/welcome_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:upgrader/upgrader.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
-import 'package:dio/dio.dart';
 
 late final FirebaseApp app;
 late final FirebaseAuth auth;
@@ -68,10 +63,10 @@ final GoRouter router = GoRouter(
         return QuestionPage(questionId: questionId);
       },
     ),
-    // GoRoute(
-    //   path: '/setting-page',
-    //   builder: (context, state) => SettingPage(),
-    // )
+    GoRoute(
+      path: '/setting-page',
+      builder: (context, state) => SettingPage(),
+    )
   ],
 );
 
@@ -85,8 +80,8 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => QuestionsProvider()),
           ChangeNotifierProvider(
             create: (_) => QuestionProvider(),
-            lazy: true,
           ),
+          ChangeNotifierProvider(create: (_) => UserProvider()),
         ],
         child: MaterialApp.router(
           localizationsDelegates: const [

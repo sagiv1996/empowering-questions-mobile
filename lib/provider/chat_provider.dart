@@ -1,8 +1,5 @@
-import 'package:empowering_questions_mobile/heberw_string.dart';
 import 'package:empowering_questions_mobile/provider/base_provider.dart';
 import 'package:empowering_questions_mobile/provider/interfaces/chat_provider.interface.dart';
-import 'package:empowering_questions_mobile/schema.graphql.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class ChatProvider extends BaseProvider implements ChatProviderInterface {
