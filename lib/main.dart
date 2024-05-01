@@ -2,6 +2,7 @@ import 'package:empowering_questions_mobile/api/question.dart';
 import 'package:empowering_questions_mobile/env/env.dart';
 import 'package:empowering_questions_mobile/firebase_options.dart';
 import 'package:empowering_questions_mobile/provider/chat_register_provider.dart';
+import 'package:empowering_questions_mobile/provider/question_provider.dart';
 import 'package:empowering_questions_mobile/provider/questions_provider.dart';
 import 'package:empowering_questions_mobile/view/pages/home_page.dart';
 import 'package:empowering_questions_mobile/view/pages/question_page.dart';
@@ -60,20 +61,13 @@ final GoRouter router = GoRouter(
       path: '/register-page',
       builder: (context, state) => const RegisterPage(),
     ),
-    // GoRoute(
-    //   path: '/question/:id',
-    //   builder: (context, state) {
-    //     final String questionId = state.pathParameters['id']!;
-    //     return QuestionPage(questionId: questionId);
-    //   },
-    //   redirect: (context, state) {
-    //     final String? questionId = state.pathParameters['id'];
-    //     if (questionId == null) {
-    //       return "/";
-    //     }
-    //     return '/question/$questionId';
-    //   },
-    // ),
+    GoRoute(
+      path: '/question/:id',
+      builder: (context, state) {
+        final String questionId = state.pathParameters['id']!;
+        return QuestionPage(questionId: questionId);
+      },
+    ),
     // GoRoute(
     //   path: '/setting-page',
     //   builder: (context, state) => SettingPage(),
@@ -89,6 +83,10 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(create: (_) => ChatRegisterProvider()),
           ChangeNotifierProvider(create: (_) => QuestionsProvider()),
+          ChangeNotifierProvider(
+            create: (_) => QuestionProvider(),
+            lazy: true,
+          ),
         ],
         child: MaterialApp.router(
           localizationsDelegates: const [

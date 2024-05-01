@@ -55,7 +55,9 @@ class QuestionWidget extends StatelessWidget {
                   if (openInNewPageIsAvailable)
                     IconButton(
                         onPressed: () {
-                          context.push('/question/${question.id}');
+                          context.push(
+                            '/question/${question.id}',
+                          );
                         },
                         icon: const Icon(
                           Icons.link,

@@ -19,5 +19,6 @@ class BaseProvider extends ChangeNotifier implements BaseProviderInterface {
   @override
   void setIsLoading(bool isLoading) {
     _isLoading = isLoading;
+    notifyListeners();
   }
 }
