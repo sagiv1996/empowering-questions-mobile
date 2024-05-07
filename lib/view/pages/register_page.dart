@@ -1,12 +1,10 @@
-import 'package:empowering_questions_mobile/controller/user_controller.dart';
+import 'package:empowering_questions_mobile/api/user.dart';
 import 'package:empowering_questions_mobile/heberw_string.dart';
 import 'package:empowering_questions_mobile/provider/chat_register_provider.dart';
 import 'package:empowering_questions_mobile/provider/interfaces/chat_provider.interface.dart';
 import 'package:empowering_questions_mobile/provider/interfaces/chat_register_provider_interface.dart';
 import 'package:empowering_questions_mobile/provider/user_provider.dart';
 import 'package:empowering_questions_mobile/view/components/custom_bubble.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:group_button/group_button.dart';

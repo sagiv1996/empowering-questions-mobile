@@ -1,3 +1,4 @@
+import 'package:empowering_questions_mobile/api/user.dart';
 import 'package:empowering_questions_mobile/provider/chat_provider.dart';
 import 'package:empowering_questions_mobile/provider/interfaces/chat_register_provider_interface.dart';
 
@@ -5,7 +6,7 @@ class ChatRegisterProvider extends ChatProvider
     implements ChatRegisterProviderInterface {
   Map<List<dynamic>, bool>? _suggestions;
   SuggestionsTypes _step = SuggestionsTypes.initial;
-  late final GendersOptions _gender;
+  late final GenderOptions _gender;
   late final List<CategoryOptions> _categories;
   late final FrequencyOptions _frequency;
 
@@ -20,7 +21,7 @@ class ChatRegisterProvider extends ChatProvider
     switch (step) {
       case SuggestionsTypes.initial:
         _step = SuggestionsTypes.selectGender;
-        _suggestions = {GendersOptions.values.toList(): true};
+        _suggestions = {GenderOptions.values.toList(): true};
         break;
       case SuggestionsTypes.selectGender:
         _step = SuggestionsTypes.selectCategories;
@@ -49,7 +50,7 @@ class ChatRegisterProvider extends ChatProvider
 
   @override
   // TODO: implement selectedGender
-  GendersOptions get selectedGender => _gender;
+  GenderOptions get selectedGender => _gender;
 
   @override
   void setSelectedCategories(List<CategoryOptions> categories) {
@@ -62,7 +63,7 @@ class ChatRegisterProvider extends ChatProvider
   }
 
   @override
-  void setSelectedGender(GendersOptions gender) {
+  void setSelectedGender(GenderOptions gender) {
     _gender = gender;
   }
 }

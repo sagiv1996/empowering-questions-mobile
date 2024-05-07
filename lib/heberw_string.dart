@@ -1,4 +1,5 @@
 // import 'package:empowering_questions_mobile/schema.graphql.dart';
+import 'package:empowering_questions_mobile/api/user.dart';
 import 'package:empowering_questions_mobile/provider/interfaces/chat_register_provider_interface.dart';
 import 'package:empowering_questions_mobile/welcome_page.dart';
 
@@ -18,9 +19,9 @@ class HebrewString {
 
   static registerPageGetAtHebrew(dynamic value) {
     switch (value) {
-      case GendersOptions.male:
+      case GenderOptions.male:
         return "זכר";
-      case GendersOptions.female:
+      case GenderOptions.female:
         return "נקבה";
       case FrequencyOptions.little:
         return "מעט";

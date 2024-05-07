@@ -1,5 +1,4 @@
 import 'package:empowering_questions_mobile/api/question.dart';
-import 'package:empowering_questions_mobile/provider/base_provider.dart';
 import 'package:empowering_questions_mobile/provider/http_request_provider.dart';
 
 class QuestionsProvider extends HttpRequestProvider {

@@ -7,6 +7,40 @@ import 'package:retrofit/retrofit.dart';
 
 part 'user.g.dart';
 
+@JsonEnum(valueField: 'name')
+enum CategoryOptions {
+  selfConfidence("self confidence"),
+  relationship("relationship"),
+  positiveFeelings("positive feelings"),
+  communication("communication"),
+  spiritualQuestions("spiritual Questions"),
+  career("career"),
+  familyLife("family life"),
+  universityStudies("university studies");
+
+  final String name;
+  const CategoryOptions(this.name);
+}
+
+@JsonEnum(valueField: 'name')
+enum FrequencyOptions {
+  little("little"),
+  normal("normal"),
+  extra("extra");
+
+  final String name;
+  const FrequencyOptions(this.name);
+}
+
+@JsonEnum(valueField: 'name')
+enum GenderOptions {
+  male("male"),
+  female("female");
+
+  final String name;
+  const GenderOptions(this.name);
+}
+
 @RestApi(baseUrl: "/user")
 abstract class RestUser {
   factory RestUser(Dio dio, {String baseUrl}) = _RestUser;
@@ -31,9 +65,10 @@ class User {
 
   @JsonKey(name: '_id')
   final String id;
-  final String frequency;
-  final String gender;
-  final List<String> categories;
+  final FrequencyOptions frequency;
+  final GenderOptions gender;
+
+  final List<CategoryOptions> categories;
 
   Map<String, dynamic> toJson() => _$UserToJson(this);
 }

@@ -1,12 +1,8 @@
 import 'package:empowering_questions_mobile/api/user.dart';
 import 'package:empowering_questions_mobile/heberw_string.dart';
-import 'package:empowering_questions_mobile/provider/interfaces/chat_register_provider_interface.dart';
 import 'package:empowering_questions_mobile/provider/user_provider.dart';
-// import 'package:empowering_questions_mobile/schema.graphql.dart';
-// import 'package:empowering_questions_mobile/user.graphql.dart';
 import 'package:empowering_questions_mobile/view/components/loading_card.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:group_button/group_button.dart';
 import 'package:provider/provider.dart';
 
@@ -33,7 +29,7 @@ class _SettingPageState extends State<SettingPage> {
     User? user = userProvider.user;
 
     return Scaffold(
-
+        appBar: AppBar(),
         // appBar: AppBar(
         //   leading: Mutation$updateUser$Widget(
         //     options: WidgetOptions$Mutation$updateUser(
@@ -66,44 +62,45 @@ class _SettingPageState extends State<SettingPage> {
         //   ),
         // ),
         body: Builder(builder: (context) {
-      if (userProvider.isLoading) {
-        return const LoadingCard();
-      }
-      return Column(
-        children: [
-          GroupButton<CategoryOptions>(
-            isRadio: false,
-            controller: _categoriesGroupButtonController,
-            buttons: CategoryOptions.values,
-            onSelected: (value, index, isSelected) {
-              _categoriesGroupButtonController.selectIndex(index);
-            },
-            buttonBuilder: (selected, value, context) {
-              return TextButton(
-                  onPressed: () {
-                    if (selected) {
-                      _categoriesGroupButtonController
-                          .unselectIndex(value.index);
-                    } else {
-                      _categoriesGroupButtonController.selectIndex(value.index);
-                    }
-                  },
-                  child: Text("${value.name} $selected"));
-            },
-          ),
-          GroupButton<FrequencyOptions>(
-            controller: _frequencyGroupButtonController,
-            buttons: FrequencyOptions.values,
-            buttonTextBuilder: (selected, value, context) =>
-                HebrewString.registerPageGetAtHebrew(value),
-            options: GroupButtonOptions(
-              unselectedTextStyle: TextStyle(
-                color: Theme.of(context).primaryColor,
+          if (userProvider.isLoading) {
+            return const LoadingCard();
+          }
+          return Column(
+            children: [
+              GroupButton<CategoryOptions>(
+                isRadio: false,
+                controller: _categoriesGroupButtonController,
+                buttons: CategoryOptions.values,
+                onSelected: (value, index, isSelected) {
+                  _categoriesGroupButtonController.selectIndex(index);
+                },
+                buttonBuilder: (selected, value, context) {
+                  return TextButton(
+                      onPressed: () {
+                        if (selected) {
+                          _categoriesGroupButtonController
+                              .unselectIndex(value.index);
+                        } else {
+                          _categoriesGroupButtonController
+                              .selectIndex(value.index);
+                        }
+                      },
+                      child: Text("${value.name} $selected"));
+                },
               ),
-            ),
-          ),
-        ],
-      );
-    }));
+              GroupButton<FrequencyOptions>(
+                controller: _frequencyGroupButtonController,
+                buttons: FrequencyOptions.values,
+                buttonTextBuilder: (selected, value, context) =>
+                    HebrewString.registerPageGetAtHebrew(value),
+                options: GroupButtonOptions(
+                  unselectedTextStyle: TextStyle(
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ),
+              ),
+            ],
+          );
+        }));
   }
 }

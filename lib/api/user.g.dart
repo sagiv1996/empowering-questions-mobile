@@ -7,18 +7,43 @@ part of 'user.dart';
 // **************************************************************************
 
 User _$UserFromJson(Map<String, dynamic> json) => User(
-      json['gender'] as String,
-      (json['categories'] as List<dynamic>).map((e) => e as String).toList(),
+      $enumDecode(_$GenderOptionsEnumMap, json['gender']),
+      (json['categories'] as List<dynamic>)
+          .map((e) => $enumDecode(_$CategoryOptionsEnumMap, e))
+          .toList(),
       id: json['_id'] as String,
-      frequency: json['frequency'] as String,
+      frequency: $enumDecode(_$FrequencyOptionsEnumMap, json['frequency']),
     );
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       '_id': instance.id,
-      'frequency': instance.frequency,
-      'gender': instance.gender,
-      'categories': instance.categories,
+      'frequency': _$FrequencyOptionsEnumMap[instance.frequency]!,
+      'gender': _$GenderOptionsEnumMap[instance.gender]!,
+      'categories':
+          instance.categories.map((e) => _$CategoryOptionsEnumMap[e]!).toList(),
     };
+
+const _$GenderOptionsEnumMap = {
+  GenderOptions.male: 'male',
+  GenderOptions.female: 'female',
+};
+
+const _$CategoryOptionsEnumMap = {
+  CategoryOptions.selfConfidence: 'self confidence',
+  CategoryOptions.relationship: 'relationship',
+  CategoryOptions.positiveFeelings: 'positive feelings',
+  CategoryOptions.communication: 'communication',
+  CategoryOptions.spiritualQuestions: 'spiritual Questions',
+  CategoryOptions.career: 'career',
+  CategoryOptions.familyLife: 'family life',
+  CategoryOptions.universityStudies: 'university studies',
+};
+
+const _$FrequencyOptionsEnumMap = {
+  FrequencyOptions.little: 'little',
+  FrequencyOptions.normal: 'normal',
+  FrequencyOptions.extra: 'extra',
+};
 
 // **************************************************************************
 // RetrofitGenerator

@@ -1,3 +1,4 @@
+import 'package:empowering_questions_mobile/api/user.dart';
 import 'package:empowering_questions_mobile/provider/interfaces/chat_provider.interface.dart';
 
 enum SuggestionsTypes {
@@ -7,28 +8,6 @@ enum SuggestionsTypes {
   selectCategories,
   finish
 }
-
-enum CategoryOptions {
-  selfConfidence("self confidence"),
-  relationship("relationship"),
-  positiveFeelings("positive feelings"),
-  communication("communication"),
-  spiritualQuestions("spiritual Questions"),
-  career("career"),
-  familyLife("family life"),
-  universityStudies("university studies");
-
-  final String name;
-  const CategoryOptions(this.name);
-}
-
-enum FrequencyOptions {
-  little,
-  normal,
-  extra,
-}
-
-enum GendersOptions { male, female }
 
 abstract class ChatRegisterProviderInterface implements ChatProviderInterface {
   Map<List<dynamic>, bool>? get suggestions;
@@ -41,6 +20,6 @@ abstract class ChatRegisterProviderInterface implements ChatProviderInterface {
   FrequencyOptions get selectedFrequency;
   void setSelectedFrequency(FrequencyOptions frequency);
 
-  GendersOptions get selectedGender;
-  void setSelectedGender(GendersOptions gender);
+  GenderOptions get selectedGender;
+  void setSelectedGender(GenderOptions gender);
 }
