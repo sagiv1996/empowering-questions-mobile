@@ -1,8 +1,10 @@
 import 'package:empowering_questions_mobile/heberw_string.dart';
+import 'package:empowering_questions_mobile/view/pages/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class WelcomePage extends StatelessWidget {
+  static const String routeName = "/welcome";
   const WelcomePage({super.key});
 
   @override
@@ -33,7 +35,7 @@ class WelcomePage extends StatelessWidget {
               const SizedBox(height: 20),
               TextButton(
                   onPressed: () {
-                    context.go('/register-page');
+                    context.go(RegisterPage.routeName);
                   },
                   child: const Text(HebrewString.welcomePageLoginAnonymously))
             ],

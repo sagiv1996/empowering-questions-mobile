@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class QuestionPage extends StatefulWidget {
+  static const String routeName = "/question";
   final String questionId;
   const QuestionPage({super.key, required this.questionId});
 

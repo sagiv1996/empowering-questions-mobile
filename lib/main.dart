@@ -23,7 +23,7 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
     final id = message.data['_id'];
-    routerKey.currentContext?.push('/question/$id');
+    routerKey.currentContext?.push('${QuestionPage.routeName}/$id');
   });
   runApp(const MyApp());
 }
@@ -33,37 +33,37 @@ final GoRouter router = GoRouter(
   navigatorKey: routerKey,
   routes: <RouteBase>[
     GoRoute(
-      path: '/',
+      path: HomePage.routeName,
       builder: (BuildContext context, GoRouterState state) {
         return HomePage();
       },
       redirect: (context, state) {
         User? user = FirebaseAuth.instance.currentUser;
         if (user == null) {
-          return '/welcome-page';
+          return WelcomePage.routeName;
         }
-        return '/';
+        return HomePage.routeName;
       },
     ),
     GoRoute(
-      path: '/welcome-page',
+      path: WelcomePage.routeName,
       builder: (BuildContext context, GoRouterState state) {
         return const WelcomePage();
       },
     ),
     GoRoute(
-      path: '/register-page',
+      path: RegisterPage.routeName,
       builder: (context, state) => const RegisterPage(),
     ),
     GoRoute(
-      path: '/question/:id',
+      path: '${QuestionPage.routeName}/:id',
       builder: (context, state) {
         final String questionId = state.pathParameters['id']!;
         return QuestionPage(questionId: questionId);
       },
     ),
     GoRoute(
-      path: '/setting-page',
+      path: SettingPage.routeName,
       builder: (context, state) => SettingPage(),
     )
   ],

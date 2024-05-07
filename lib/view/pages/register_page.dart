@@ -2,11 +2,13 @@ import 'package:choice/choice.dart';
 import 'package:empowering_questions_mobile/api/user.dart';
 import 'package:empowering_questions_mobile/heberw_string.dart';
 import 'package:empowering_questions_mobile/provider/user_provider.dart';
+import 'package:empowering_questions_mobile/view/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class RegisterPage extends StatefulWidget {
+  static const String routeName = "/register";
   const RegisterPage({super.key});
 
   @override
@@ -96,15 +98,12 @@ class _TestState extends State<RegisterPage> {
             ElevatedButton(
                 onPressed: () async {
                   try {
-                    print("selectedFrequency $selectedFrequency");
-                    print("selectedGender $selectedGender");
-                    print("selectedCategories $selectedCategories");
                     await context.read<UserProvider>().createUser(
                         frequency: selectedFrequency!,
                         categories: selectedCategories,
                         gender: selectedGender!);
                     if (context.mounted) {
-                      context.push("/");
+                      context.push(HomePage.routeName);
                     }
                   } catch (e) {
                     print("ERROR!! $e");

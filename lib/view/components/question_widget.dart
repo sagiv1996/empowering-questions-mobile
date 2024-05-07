@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:empowering_questions_mobile/api/question.dart';
+import 'package:empowering_questions_mobile/view/pages/question_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:screenshot/screenshot.dart';
@@ -55,9 +56,8 @@ class QuestionWidget extends StatelessWidget {
                   if (openInNewPageIsAvailable)
                     IconButton(
                         onPressed: () {
-                          context.push(
-                            '/question/${question.id}',
-                          );
+                          context
+                              .push("${QuestionPage.routeName}/${question.id}");
                         },
                         icon: const Icon(
                           Icons.link,

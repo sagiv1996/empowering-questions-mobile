@@ -10,6 +10,7 @@ import 'package:choice/choice.dart';
 import 'package:after_layout/after_layout.dart';
 
 class SettingPage extends StatefulWidget {
+  static const String routeName = "/setting";
   const SettingPage({super.key});
 
   @override

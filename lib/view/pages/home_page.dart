@@ -1,12 +1,14 @@
 import 'package:empowering_questions_mobile/api/question.dart';
 import 'package:empowering_questions_mobile/provider/questions_provider.dart';
 import 'package:empowering_questions_mobile/view/components/question_widget.dart';
+import 'package:empowering_questions_mobile/view/pages/setting_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class HomePage extends StatelessWidget {
+  static const String routeName = "/";
   HomePage({super.key});
 
   final RefreshController _refreshController =
@@ -19,7 +21,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(actions: [
           IconButton(
-              onPressed: () => context.push('/setting-page'),
+              onPressed: () => context.push(SettingPage.routeName),
               icon: const Icon(Icons.settings)),
         ]),
         body: SmartRefresher(
