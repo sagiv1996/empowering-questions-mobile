@@ -20,11 +20,17 @@ class UserProvider extends HttpRequestProvider {
     setIsLoading(false);
   }
 
-  Future<bool> updateUser(Map<String, dynamic> map) async {
+  Future<bool> updateUser(
+      {required FrequencyOptions frequency,
+      required List<CategoryOptions> categories}) async {
     try {
       setIsLoading(true);
       dio.options.headers = await getToken();
       final client = RestUser(dio);
+      Map<String, dynamic> map = {
+        "frequency": frequency.name,
+        "categories": categories.map((category) => category.name).toList()
+      };
       User user = await client.updateUser(map);
       _user = user;
       setIsLoading(false);
