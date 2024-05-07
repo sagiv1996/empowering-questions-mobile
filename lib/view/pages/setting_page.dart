@@ -1,102 +1,102 @@
+import 'dart:async';
 import 'package:empowering_questions_mobile/api/user.dart';
 import 'package:empowering_questions_mobile/heberw_string.dart';
 import 'package:empowering_questions_mobile/provider/user_provider.dart';
 import 'package:empowering_questions_mobile/view/components/loading_card.dart';
 import 'package:flutter/material.dart';
-import 'package:group_button/group_button.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:choice/choice.dart';
+import 'package:after_layout/after_layout.dart';
 
 class SettingPage extends StatefulWidget {
-  SettingPage({super.key});
+  const SettingPage({super.key});
 
   @override
   State<SettingPage> createState() => _SettingPageState();
 }
 
-class _SettingPageState extends State<SettingPage> {
-  final _categoriesGroupButtonController = GroupButtonController();
-  final _frequencyGroupButtonController = GroupButtonController();
+class _SettingPageState extends State<SettingPage>
+    with AfterLayoutMixin<SettingPage> {
+  List<CategoryOptions> selectedCategories = [];
+  FrequencyOptions? selectedFrequency;
+
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    context.read<UserProvider>().getUser;
+  FutureOr<void> afterFirstLayout(BuildContext context) async {
+    UserProvider userProvider = context.read<UserProvider>();
+    await userProvider.getUser();
+    User? user = userProvider.user;
+    selectedFrequency = user?.frequency;
+    selectedCategories = user!.categories;
   }
 
   @override
   Widget build(BuildContext context) {
     UserProvider userProvider = context.watch<UserProvider>();
-    User? user = userProvider.user;
 
     return Scaffold(
-        appBar: AppBar(),
-        // appBar: AppBar(
-        //   leading: Mutation$updateUser$Widget(
-        //     options: WidgetOptions$Mutation$updateUser(
-        //       onCompleted: (p0, p1) {
-        //         context.pop();
-        //       },
-        //     ),
-        //     builder: (runMutation, result) {
-        //       return IconButton(
-        //         icon: const Icon(Icons.arrow_back),
-        //         onPressed: () {
-        //           List<Enum$Categories> selectedCategories = [];
-        //           for (int index
-        //               in _categoriesGroupButtonController.selectedIndexes) {
-        //             if (index >= 0 && index < Enum$Categories.values.length) {
-        //               selectedCategories.add(Enum$Categories.values[index]);
-        //             }
-        //           }
-        //           Enum$Frequency selectedFrequency = Enum$Frequency.values
-        //               .elementAt(
-        //                   _frequencyGroupButtonController.selectedIndex!);
-
-        //           runMutation(
-        //               variables: Variables$Mutation$updateUser(
-        //                   categories: selectedCategories,
-        //                   frequency: selectedFrequency));
-        //         },
-        //       );
-        //     },
-        //   ),
-        // ),
+        appBar: AppBar(
+            leading: IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () {
+                  if (selectedCategories.isNotEmpty &&
+                      selectedFrequency != null) {
+                    userProvider.updateUser(
+                        categories: selectedCategories,
+                        frequency: selectedFrequency!);
+                  }
+                  context.pop();
+                })),
         body: Builder(builder: (context) {
           if (userProvider.isLoading) {
             return const LoadingCard();
           }
           return Column(
             children: [
-              GroupButton<CategoryOptions>(
-                isRadio: false,
-                controller: _categoriesGroupButtonController,
-                buttons: CategoryOptions.values,
-                onSelected: (value, index, isSelected) {
-                  _categoriesGroupButtonController.selectIndex(index);
+              InlineChoice<CategoryOptions>.multiple(
+                  clearable: true,
+                  value: selectedCategories,
+                  onChanged: (value) {
+                    setState(() {
+                      selectedCategories = value;
+                    });
+                  },
+                  itemCount: CategoryOptions.values.length,
+                  itemBuilder: (state, i) {
+                    return ChoiceChip(
+                      selected: state.selected(CategoryOptions.values[i]),
+                      onSelected: state.onSelected(CategoryOptions.values[i]),
+                      label: Text(HebrewString.registerPageGetAtHebrew(
+                          CategoryOptions.values[i])),
+                    );
+                  },
+                  listBuilder: ChoiceList.createWrapped(
+                    alignment: WrapAlignment.center,
+                    spacing: 10,
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 15, horizontal: 7),
+                  )),
+              InlineChoice<FrequencyOptions>.single(
+                clearable: true,
+                value: selectedFrequency,
+                onChanged: (value) {
+                  setState(() {
+                    selectedFrequency = value;
+                  });
                 },
-                buttonBuilder: (selected, value, context) {
-                  return TextButton(
-                      onPressed: () {
-                        if (selected) {
-                          _categoriesGroupButtonController
-                              .unselectIndex(value.index);
-                        } else {
-                          _categoriesGroupButtonController
-                              .selectIndex(value.index);
-                        }
-                      },
-                      child: Text("${value.name} $selected"));
+                itemCount: FrequencyOptions.values.length,
+                itemBuilder: (state, i) {
+                  return ChoiceChip(
+                    selected: state.selected(FrequencyOptions.values[i]),
+                    onSelected: state.onSelected(FrequencyOptions.values[i]),
+                    label: Text(HebrewString.registerPageGetAtHebrew(
+                        FrequencyOptions.values[i])),
+                  );
                 },
-              ),
-              GroupButton<FrequencyOptions>(
-                controller: _frequencyGroupButtonController,
-                buttons: FrequencyOptions.values,
-                buttonTextBuilder: (selected, value, context) =>
-                    HebrewString.registerPageGetAtHebrew(value),
-                options: GroupButtonOptions(
-                  unselectedTextStyle: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                  ),
+                listBuilder: ChoiceList.createScrollable(
+                  spacing: 10,
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 15, horizontal: 7),
                 ),
               ),
             ],
