@@ -7,13 +7,21 @@ class UserProvider extends HttpRequestProvider {
   User? _user;
   User? get user => _user;
 
-  Future<void> createUser(Map<String, dynamic> map) async {
+  Future<void> createUser(
+      {required FrequencyOptions frequency,
+      required List<CategoryOptions> categories,
+      required GenderOptions gender}) async {
     await UserController.loginByAnonymously();
     final String? fcm = await FirebaseMessaging.instance.getToken();
     setIsLoading(true);
     dio.options.headers = await getToken();
     final client = RestUser(dio);
-    map['fcm'] = fcm;
+    Map<String, dynamic> map = {
+      "fcm": fcm,
+      "frequency": frequency.name,
+      "gender": gender.name,
+      "categories": categories.map((category) => category.name).toList(),
+    };
     User user = await client.createUser(map);
     _user = user;
     setIsLoading(false);
