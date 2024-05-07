@@ -1,6 +1,5 @@
 // import 'package:empowering_questions_mobile/schema.graphql.dart';
 import 'package:empowering_questions_mobile/api/user.dart';
-import 'package:empowering_questions_mobile/provider/interfaces/chat_register_provider_interface.dart';
 import 'package:empowering_questions_mobile/welcome_page.dart';
 
 class HebrewString {
@@ -11,11 +10,6 @@ class HebrewString {
 
   //////////////////////////// Register page ////////////////////////////
   static const registerPageTitle = "דף ההרשמה";
-  static const registerPageMessageNumber1 = "שלום וברוך הבא";
-  static const registerPageMessageNumber2 =
-      "יצרנו צאט בוט להרשמה קלה ונוחה לאפליקציה";
-  static const registerPageMessageNumber3 =
-      "השלב הראשון יהיה לבחור את המגדר שלך";
 
   static registerPageGetAtHebrew(dynamic value) {
     switch (value) {
@@ -51,23 +45,7 @@ class HebrewString {
     }
   }
 
-  static const registerPageMessageNumber4 = "מעולה. רשמתי לפניי";
-  static const registerPageMessageNumber5 =
-      "השלב הבא יהיה לבחור את הקטגוריות שלך";
-
-  static const registerPageMessageNumber6 = "נהדר!";
-  static const registerPageMessageNumber7 =
-      "תוכל תמיד לחזור לכאן ולעדכן את הקטגוריות שלך";
-  static const registerPageMessageNumber8 =
-      "באיזו תדירות תרצה לקבל את ההתראות שלך?";
-
-  static const registerPageMessageNumber9 = "מעולה.";
-  static const registerPageMessageNumber10 =
-      "עכשיו אתה מוזמן להירשם ולקבל התראות";
   static const registerPageRegisterButton = "הירשם";
-  static const registerPageMessageNumber11 = "בחירה";
-
-  static const downloadPageTitle = "שאלות שהורדתי";
 
   static const questionPageFooter =
       "עצום עיניים, נשום עמוק. דמיין מקום שקט ומרגיע. תן לנשימה לשטוף אותך, להרגיע את המחשבות. התמקד בתחושות בגופך, ברכות הרצפה, בחום השמש. אתה בטוח, רגוע, מוכן לשאול שאלות מעצימות.";

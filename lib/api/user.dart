@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:empowering_questions_mobile/env/env.dart';
-import 'package:empowering_questions_mobile/provider/interfaces/chat_register_provider_interface.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:retrofit/http.dart';
 import 'package:retrofit/retrofit.dart';

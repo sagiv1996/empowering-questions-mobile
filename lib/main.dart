@@ -1,5 +1,4 @@
 import 'package:empowering_questions_mobile/firebase_options.dart';
-import 'package:empowering_questions_mobile/provider/chat_register_provider.dart';
 import 'package:empowering_questions_mobile/provider/question_provider.dart';
 import 'package:empowering_questions_mobile/provider/questions_provider.dart';
 import 'package:empowering_questions_mobile/provider/user_provider.dart';
@@ -76,7 +75,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (_) => ChatRegisterProvider()),
           ChangeNotifierProvider(create: (_) => QuestionsProvider()),
           ChangeNotifierProvider(
             create: (_) => QuestionProvider(),
