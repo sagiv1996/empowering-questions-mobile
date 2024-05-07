@@ -15,7 +15,6 @@ class UserProvider extends HttpRequestProvider {
     final client = RestUser(dio);
     map['fcm'] = fcm;
     User user = await client.createUser(map);
-    print("user $user");
     _user = user;
     setIsLoading(false);
   }
