@@ -2,6 +2,7 @@ import 'package:empowering_questions_mobile/api/question.dart';
 import 'package:empowering_questions_mobile/provider/questions_provider.dart';
 import 'package:empowering_questions_mobile/view/components/question_widget.dart';
 import 'package:empowering_questions_mobile/view/pages/setting_page.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -33,6 +34,7 @@ class HomePage extends StatelessWidget {
               questionsProvider.clearQuestion();
               await questionsProvider.fetchRandom();
               _refreshController.refreshCompleted();
+              FirebaseMessaging.instance.requestPermission();
             } catch (e) {
               _refreshController.refreshFailed();
             }
