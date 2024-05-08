@@ -1,6 +1,6 @@
 // import 'package:empowering_questions_mobile/schema.graphql.dart';
 import 'package:empowering_questions_mobile/api/user.dart';
-import 'package:empowering_questions_mobile/welcome_page.dart';
+import 'package:empowering_questions_mobile/view/pages/welcome_page.dart';
 
 class HebrewString {
   //////////////////////////// Welcome page ////////////////////////////

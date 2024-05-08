@@ -6,7 +6,7 @@ import 'package:empowering_questions_mobile/view/pages/home_page.dart';
 import 'package:empowering_questions_mobile/view/pages/question_page.dart';
 import 'package:empowering_questions_mobile/view/pages/register_page.dart';
 import 'package:empowering_questions_mobile/view/pages/setting_page.dart';
-import 'package:empowering_questions_mobile/welcome_page.dart';
+import 'package:empowering_questions_mobile/view/pages/welcome_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
