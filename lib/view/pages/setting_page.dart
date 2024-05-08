@@ -3,6 +3,7 @@ import 'package:empowering_questions_mobile/api/user.dart';
 import 'package:empowering_questions_mobile/heberw_string.dart';
 import 'package:empowering_questions_mobile/provider/user_provider.dart';
 import 'package:empowering_questions_mobile/view/components/loading_card.dart';
+import 'package:empowering_questions_mobile/view/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -39,14 +40,16 @@ class _SettingPageState extends State<SettingPage>
         appBar: AppBar(
             leading: IconButton(
                 icon: const Icon(Icons.arrow_back),
-                onPressed: () {
+                onPressed: () async {
                   if (selectedCategories.isNotEmpty &&
                       selectedFrequency != null) {
-                    userProvider.updateUser(
+                    await userProvider.updateUser(
                         categories: selectedCategories,
                         frequency: selectedFrequency!);
                   }
-                  context.pop();
+                  if (context.mounted) {
+                    context.pushReplacement(HomePage.routeName);
+                  }
                 })),
         body: Builder(builder: (context) {
           if (userProvider.isLoading) {
