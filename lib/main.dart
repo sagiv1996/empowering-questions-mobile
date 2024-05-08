@@ -64,7 +64,7 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: SettingPage.routeName,
-      builder: (context, state) => SettingPage(),
+      builder: (context, state) => const SettingPage(),
     )
   ],
 );
