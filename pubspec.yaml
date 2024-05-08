@@ -40,7 +40,7 @@ dependencies:
   firebase_auth: ^4.16.0
   chat_bubbles: ^1.5.0
   envied: ^0.5.3
-  firebase_messaging: ^14.7.10
+  firebase_messaging: ^14.7.19
   pull_to_refresh: ^2.0.0
   flutter_rating_bar: ^4.0.1
   share_plus: ^7.2.2
