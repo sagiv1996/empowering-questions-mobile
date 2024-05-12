@@ -3,7 +3,7 @@ import 'package:empowering_questions_mobile/api/question.dart';
 abstract class QuestionsProviderInterface {
   List<Question> get questions;
   List<String>? get excludeIds;
-  Future<bool> fetchRandom();
+  Future<bool> fetchRandom();  
   void clearQuestion();
-  void setQuestions(List<Question> questions);
+  void addQuestions(List<Question> questions);
 }

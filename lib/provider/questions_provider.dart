@@ -20,7 +20,7 @@ class QuestionsProvider extends HttpRequestProvider
     if (questions == null) {
       return true;
     }
-    setQuestions(questions);
+    addQuestions(questions);
     notifyListeners();
     return false;
   }
@@ -31,7 +31,7 @@ class QuestionsProvider extends HttpRequestProvider
   }
 
   @override
-  void setQuestions(List<Question> questions) {
-    _questions = questions;
+  void addQuestions(List<Question> questions) {
+    _questions.addAll(questions);
   }
 }
