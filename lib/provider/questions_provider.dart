@@ -4,7 +4,7 @@ import 'package:empowering_questions_mobile/provider/interfaces/questions_provid
 
 class QuestionsProvider extends HttpRequestProvider
     implements QuestionsProviderInterface {
-  List<Question> _questions = [];
+  final List<Question> _questions = [];
 
   @override
   List<Question> get questions => _questions;
